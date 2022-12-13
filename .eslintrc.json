@@ -1,0 +1,26 @@
+{
+  "plugins": ["@typescript-eslint","prettier", "import"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+		"project": "tsconfig.json",
+		"parser": "@typescript-eslint/parser",
+    "extraFileExtensions": [".html"]
+  },
+  "env": {
+      "es6": true,
+      "browser": true,
+      "node": true
+  },
+  "rules": {
+    "no-debugger": "off",
+    "no-console": "warn",
+    "class-methods-use-this": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-non-null-assertion": "off"
+  }
+}

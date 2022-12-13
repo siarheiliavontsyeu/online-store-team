@@ -1,0 +1,1 @@
+class for access to shop api
