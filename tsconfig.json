@@ -3,6 +3,7 @@
     "alwaysStrict": true,
     "noImplicitAny": true,
     "strict": true,
+    "target": "ES6",
     "lib": [
       "dom",
       "esnext",
