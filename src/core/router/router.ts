@@ -4,12 +4,12 @@ import { Page } from './page';
 
 export class Router {
   private $placeholder: DomNode;
-  page: Page; //TODO type
+  page: Page | null; //TODO type
 
-  constructor(private selector: string, private routes: { [key: string]: Page } /** TODO type */) {
+  constructor(protected selector: string, private routes: { [key: string]: unknown } /** TODO type */) {
     this.$placeholder = wrapperNode(selector);
     this.routes = routes;
-    this.page = this.routes.main;
+    this.page = null;
     this.changePageHandler = this.changePageHandler.bind(this);
 
     this.init();
@@ -21,6 +21,7 @@ export class Router {
   }
 
   changePageHandler() {
+    console.log(CurrentRoute.path);
     if (this.page) {
       this.page.destroy();
     }
@@ -28,15 +29,17 @@ export class Router {
     this.$placeholder.clear();
 
     let AppPage: Page;
-    if (CurrentRoute.path.includes('')) {
-      AppPage = this.routes.main;
-    } else if (CurrentRoute.path.includes('product')) {
-      AppPage = this.routes.cart;
-    } else if (CurrentRoute.path.includes('cart')) {
-      AppPage = this.routes.cart;
+    if (CurrentRoute.path === '') {
+      AppPage = this.routes.main as Page;
+    } else if (CurrentRoute.path === 'product') {
+      AppPage = this.routes.product as Page;
+    } else if (CurrentRoute.path === 'cart') {
+      AppPage = this.routes.cart as Page;
     } else {
-      AppPage = this.routes.notFound;
+      AppPage = this.routes.notFound as Page;
     }
+
+    console.log(AppPage);
 
     this.page = new (AppPage as unknown as new (...params: unknown[]) => typeof AppPage)(CurrentRoute.param);
 

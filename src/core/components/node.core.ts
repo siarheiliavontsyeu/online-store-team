@@ -1,7 +1,6 @@
-export class DomNode extends HTMLElement {
+export class DomNode {
   public $el: HTMLElement;
   constructor(public selector: string | HTMLElement) {
-    super();
     if (typeof selector === 'string') {
       this.$el = document.querySelector(selector)!;
     } else {
