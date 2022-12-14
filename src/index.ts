@@ -4,18 +4,11 @@ import { MainPage } from './pages/MainPage';
 import { NotFound } from './pages/NotFound';
 import { Product } from './pages/Product';
 
-enum Pages {
-  'main' = 'main',
-  'product' = 'product',
-  'cart' = 'cart',
-  'notFound' = 'notFound',
-}
-
 new Router('body', {
-  [Pages.main]: MainPage,
-  [Pages.product]: Product,
-  [Pages.cart]: Cart,
-  [Pages.notFound]: NotFound,
+  main: MainPage,
+  product: Product,
+  cart: Cart,
+  notFound: NotFound,
 });
 
 console.log('App started!');

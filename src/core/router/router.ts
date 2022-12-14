@@ -2,11 +2,18 @@ import { DomNode, wrapperNode } from '../components/node.core';
 import { CurrentRoute } from './currentRoute';
 import { Page } from './page';
 
+interface Pages {
+  main: unknown;
+  product: unknown;
+  cart: unknown;
+  notFound: unknown;
+}
+
 export class Router {
   private $placeholder: DomNode;
   page: Page | null; //TODO type
 
-  constructor(protected selector: string, private routes: { [key: string]: unknown } /** TODO type */) {
+  constructor(protected selector: string, private routes: Pages /** TODO type */) {
     this.$placeholder = wrapperNode(selector);
     this.routes = routes;
     this.page = null;
