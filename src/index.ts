@@ -1,5 +1,1 @@
-console.log(1);
-
-const a = document.querySelector('.a')!;
-
-a.textContent = '';
+console.log('App started!');

@@ -3,6 +3,11 @@
     "alwaysStrict": true,
     "noImplicitAny": true,
     "strict": true,
+    "target": "ES6",
+    "lib": [
+      "dom",
+      "esnext",
+    ]
   },
     "exclude": ["node_modules", "dist"],
     "include": ["./src"]
