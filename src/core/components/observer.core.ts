@@ -3,7 +3,8 @@ interface ListenerI {
 }
 
 export default class Observer {
-  constructor(private listeners: ListenerI) {
+  private listeners: ListenerI
+  constructor() {
     this.listeners = {};
   }
 

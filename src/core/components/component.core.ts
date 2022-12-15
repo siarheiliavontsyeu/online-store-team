@@ -2,13 +2,14 @@ import Listener from './listeners.core';
 import { DomNode } from './node.core';
 import Observer from './observer.core';
 
-interface ComponentOptions {
+export interface ComponentOptions {
   name: string;
   listeners: Array<keyof GlobalEventHandlersEventMap>;
   observer: Observer;
   store?: unknown; // TODO retype
 }
-export default abstract class Component extends Listener {
+
+export default class Component extends Listener {
   private unSubscribers: Array<() => void>;
   public name: string;
   protected observer: Observer;
@@ -46,6 +47,6 @@ export default abstract class Component extends Listener {
   }
 
   render(): DomNode | string {
-    return ''
+    return '';
   }
 }

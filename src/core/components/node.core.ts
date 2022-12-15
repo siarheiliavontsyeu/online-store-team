@@ -1,6 +1,6 @@
 export class DomNode {
   public $el: HTMLElement;
-  constructor(public selector: string | HTMLElement) {
+  constructor(protected selector: string | HTMLElement) {
     if (typeof selector === 'string') {
       this.$el = document.querySelector(selector)!;
     } else {
