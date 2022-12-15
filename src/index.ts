@@ -1,3 +1,4 @@
+import './plugins/bootstrap';
 import { Router } from './core/router/router';
 import { Cart } from './pages/Cart';
 import { MainPage } from './pages/MainPage';
