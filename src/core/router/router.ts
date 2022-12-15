@@ -10,15 +10,14 @@ interface Pages {
 }
 
 export class Router {
-  private $placeholder: DomNode;
+  private $container: DomNode;
   page: Page | null; //TODO type
 
-  constructor(protected selector: string, private routes: Pages /** TODO type */) {
-    this.$placeholder = wrapperNode(selector);
+  constructor(protected selector: string, private routes: Pages) {
+    this.$container = wrapperNode(selector);
     this.routes = routes;
     this.page = null;
     this.changePageHandler = this.changePageHandler.bind(this);
-
     this.init();
   }
 
@@ -33,10 +32,10 @@ export class Router {
       this.page.destroy();
     }
 
-    this.$placeholder.clear();
+    this.$container.clear();
 
     let AppPage: Page;
-    if (CurrentRoute.path === '') {
+    if (['', 'main'].includes(CurrentRoute.path)) {
       AppPage = this.routes.main as Page;
     } else if (CurrentRoute.path === 'product') {
       AppPage = this.routes.product as Page;
@@ -49,9 +48,7 @@ export class Router {
     console.log(AppPage);
 
     this.page = new (AppPage as unknown as new (...params: unknown[]) => typeof AppPage)(CurrentRoute.param);
-
-    this.$placeholder.append(this.page?.getRoot() as DomNode);
-
+    this.$container.append(this.page?.getRoot() as DomNode);
     this.page?.afterRender();
   }
 
