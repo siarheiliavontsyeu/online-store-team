@@ -24,6 +24,7 @@ const PATHS = {
 
 const entry = {
   index: [`${PATHS.src}/index.ts`],
+  test: [`${PATHS.src}/templates/test.ts`],
 };
 
 const pages = [
@@ -31,6 +32,11 @@ const pages = [
     chunks: ['index'],
     page: 'index.html',
     template: `${PATHS.src}/index.html`,
+  },
+  {
+    chunks: ['test'],
+    page: 'test.html',
+    template: `${PATHS.src}/templates/test.html`,
   },
 ];
 
@@ -84,10 +90,6 @@ module.exports = {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
       },
       { test: /\.(?:ico|gif|png|jpg|jpeg|mp3|svg)$/i, type: 'asset' },
       { test: /\.(woff(2)?|eot|ttf|otf|)$/, type: 'asset/inline' },

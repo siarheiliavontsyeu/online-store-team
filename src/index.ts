@@ -1,5 +1,2 @@
-console.log(1);
-
-const a = document.querySelector('.a')!;
-
-a.textContent = '';
+import './plugins/bootstrap';
+console.log('App started!');
