@@ -1,6 +1,10 @@
 import './plugins/bootstrap';
 import { Router } from './pages/router';
+import Store from './core/store/store.core';
 
-new Router('body');
+const store = new Store({
+  test: 'test',
+});
+new Router('body', store);
 
 console.log('App started!');

@@ -19,7 +19,8 @@ export default class Header extends Component {
 
   onClick(e: Event) {
     e.preventDefault();
-    console.log(e);
+    this.emit('header:test');
+    console.log(this.store);
   }
 
   render() {

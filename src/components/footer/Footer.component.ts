@@ -15,6 +15,9 @@ export default class Footer extends Component {
 
   init() {
     super.init();
+    this.subscribe('header:test', () => {
+      console.log(111);
+    });
   }
 
   render() {

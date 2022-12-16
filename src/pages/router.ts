@@ -5,6 +5,7 @@ import { Product } from './Product';
 import { DomNode, wrapperNode } from '../core/components/node.core';
 import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
+import Store from '../core/store/store.core';
 
 interface Pages {
   main: typeof Main;
@@ -20,7 +21,7 @@ export class Router {
   private page: Page | null;
   private routes: Pages;
 
-  constructor(protected selector: string) {
+  constructor(protected selector: string, protected store: Store) {
     this.$container = wrapperNode(selector);
     this.routes = {
       main: Main,
@@ -36,6 +37,7 @@ export class Router {
   init() {
     window.addEventListener('hashchange', this.changePageHandler);
     this.changePageHandler();
+    console.log(this.store.state);
   }
 
   changePageHandler() {
@@ -59,7 +61,7 @@ export class Router {
 
     console.log(AppPage);
 
-    this.page = new AppPage(CurrentRoute.param);
+    this.page = new AppPage(this.store, CurrentRoute.param);
     this.$container.append(this.page?.render() as DomNode);
     this.page?.afterRender();
   }

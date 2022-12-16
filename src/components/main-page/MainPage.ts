@@ -1,5 +1,6 @@
 import { createNode } from '../../core/components/node.core';
 import Observer from '../../core/components/observer.core';
+import Store from '../../core/store/store.core';
 import Footer from '../footer/Footer.component';
 import Header from '../header/Header.component';
 
@@ -11,10 +12,11 @@ export class MainPage {
   componentsInstance: ComponentsInstances[];
   observer: Observer;
 
-  constructor() {
+  constructor(public store: Store) {
     this.componentsClass = [Header, Footer];
     this.componentsInstance = [];
     this.observer = new Observer();
+    this.store = store;
   }
 
   render() {
@@ -22,6 +24,7 @@ export class MainPage {
 
     const componentOptions = {
       observer: this.observer,
+      store: this.store,
     };
 
     this.componentsClass.forEach((Comp: ComponentsClasses) => {

@@ -1,3 +1,4 @@
+import Store from '../store/store.core';
 import Listener from './listeners.core';
 import { DomNode } from './node.core';
 import Observer from './observer.core';
@@ -6,7 +7,7 @@ export interface ComponentOptions {
   name: string;
   listeners: Array<keyof GlobalEventHandlersEventMap>;
   observer: Observer;
-  store?: unknown; // TODO retype
+  store: Store;
 }
 
 export default class Component extends Listener {
