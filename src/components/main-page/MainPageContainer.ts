@@ -7,7 +7,7 @@ import Header from '../header/Header.component';
 type ComponentsClasses = typeof Header | typeof Footer;
 type ComponentsInstances = Header | Footer;
 
-export class MainPage {
+export class MainPageContainer {
   componentsClass: ComponentsClasses[];
   componentsInstance: ComponentsInstances[];
   observer: Observer;
