@@ -20,7 +20,7 @@ export class MainPageContainer {
   }
 
   render() {
-    const $root = createNode({ tag: 'div', classes: ['container', 'main-page'] });
+    const $root = createNode({ tag: 'div', classes: ['main-page'] });
 
     const componentOptions = {
       observer: this.observer,

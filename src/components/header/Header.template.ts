@@ -1,18 +1,23 @@
 export const renderTemplate = (totalSum: number, totaAmount: number) => {
-    return `      <header class="header">
-    <a href="#" class="logo">
-      <img src="" class="logo-image">
-      <h1 class="name">Online store</h1>
+    return `      <header class="header bg-dark navbar">
+    <div class="container">
+    <a href="#" class="logo navbar-brand d-flex">
+      <img src="../../assets/icons/icons8-shopping-mall-50.png" class="logo-image">
+      <h2 class="name">Online store</h2>
     </a>
-    <form action="" class="search-form">
-      <input type="search" placeholder="Search here..." id="search-box">
-      <label for="" class=""></label>
-      <div class="search-btn"></div>
-    </form>
-    <div class="shopping-card">
+    <div class="header-right d-flex">
+    <form class="search-form d-flex">
+      <input class="form-control me-sm-2" type="search" placeholder="Search...">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+  </form>
+    <div class="shopping-cart">
       <div class="total-sum">$ ${totalSum}</div>
-      <div class="total-amount">${totaAmount}</div>
-      <div class="shopping-card-icon"></div>
+      <div class="shopping-cart-icon">
+        <img src="../../assets/icons/icons8-shopping-cart-48.png" class="logo-image">
+        <div class="total-amount bg-primary">${totaAmount}</div>
+      </div>
+    </div>
+    </div>
     </div>
   </header>
     `
