@@ -1,7 +1,8 @@
 import { createNode } from '../../core/components/node.core';
 import Observer from '../../core/components/observer.core';
 import Store from '../../core/store/store.core';
-import Footer from '../footer/Footer.component';
+import Footer from '../footer/index';
+
 import Header from '../header/Header.component';
 
 type ComponentsClasses = typeof Header | typeof Footer;
@@ -20,7 +21,7 @@ export class MainPageContainer {
   }
 
   render() {
-    const $root = createNode({ tag: 'div', classes: ['container', 'main-page'] });
+    const $root = createNode({ tag: 'div', classes: ['main-page', 'd-flex', 'flex-column', 'min-vh-100'] });
 
     const componentOptions = {
       observer: this.observer,
@@ -30,7 +31,11 @@ export class MainPageContainer {
     this.componentsClass.forEach((Comp: ComponentsClasses) => {
       const className = Comp.className;
       const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
-      const $el = createNode({ tag: tagName, classes: [className] });
+      const classes = [className];
+      if (className === 'footer') {
+        classes.push('mt-auto');
+      }
+      const $el = createNode({ tag: tagName, classes });
       const component = new Comp($el, { ...componentOptions, name: '', listeners: [] });
       $el.html(component.render());
       $root.append($el);
