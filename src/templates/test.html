@@ -1,19 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Online Store test</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Online Store test</title>
+</head>
+<body>
+  <header class="header bg-dark navbar">
     <div class="container">
-      <div class="alert alert-dismissible alert-info">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not
-        super important.
+      <a href="#" class="logo navbar-brand">
+        <img src="../assets/icons/icons8-shopping-mall-50.png" class="logo-image">
+        <h1 class="name">Online store</h1>
+      </a>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Search...">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="shopping-card">
+        <div class="total-sum">$ ${totalSum}</div>
+        <div class="total-amount">${totaAmount}</div>
+        <div class="shopping-card-icon">
+          <img src="../assets/icons/icons8-shopping-cart-48.png" class="logo-image">
+        </div>
       </div>
     </div>
-  </body>
+  </header>
+  <main></main>
+  <footer></footer>
+  <div class="alert alert-dismissible alert-info">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not
+    super important.
+  </div>
+  </div>
+</body>
 </html>
