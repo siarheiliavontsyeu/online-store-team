@@ -1,5 +1,6 @@
 import Component, { ComponentOptions } from '../../core/components/component.core';
 import { DomNode } from '../../core/components/node.core';
+import { getTemplate } from './footer.template';
 
 export default class Footer extends Component {
   static tagName = 'footer';
@@ -15,13 +16,10 @@ export default class Footer extends Component {
 
   init() {
     super.init();
-    this.subscribe('header:test', () => {
-      console.log(111);
-    });
   }
 
   render() {
-    return 'Footer';
+    return getTemplate();
   }
 
   destroy() {
