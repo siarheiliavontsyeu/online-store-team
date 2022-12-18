@@ -7,6 +7,25 @@
     <title>Online Store test</title>
   </head>
   <body>
+    <header class="header bg-dark navbar">
+      <div class="container">
+        <a href="#" class="logo navbar-brand">
+          <img src="../assets/icons/icons8-shopping-mall-50.png" class="logo-image" />
+          <h1 class="name">Online store</h1>
+        </a>
+        <form class="d-flex">
+          <input class="form-control me-sm-2" type="search" placeholder="Search..." />
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <div class="shopping-card">
+          <div class="total-sum">$ ${totalSum}</div>
+          <div class="total-amount">${totaAmount}</div>
+          <div class="shopping-card-icon">
+            <img src="../assets/icons/icons8-shopping-cart-48.png" class="logo-image" />
+          </div>
+        </div>
+      </div>
+    </header>
     <footer class="footer">
       <div class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <ul class="nav col-md-4 justify-content-start list-unstyled d-flex">

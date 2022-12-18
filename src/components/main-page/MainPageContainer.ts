@@ -22,7 +22,6 @@ export class MainPageContainer {
 
   render() {
     const $root = createNode({ tag: 'div', classes: ['main-page', 'd-flex', 'flex-column', 'min-vh-100'] });
-
     const componentOptions = {
       observer: this.observer,
       store: this.store,
