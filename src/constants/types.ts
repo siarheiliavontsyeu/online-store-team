@@ -10,6 +10,7 @@ export interface ProductI {
   category: string;
   thumbnail: string;
   images: string[];
+  isInCart?: boolean;
 }
 
 export interface ProductsResponseI {
@@ -28,6 +29,19 @@ export interface StateI {
   brands: { [key: string]: number };
   prices: number[];
   stocks: number[];
+  cart: CartI[];
 }
 
+export interface CartI {
+  id: number;
+  count: number;
+}
+
+export interface FilterProductsI {
+  category?: string;
+  brand?: string;
+  price?: [number, number];
+  stock?: [number, number];
+  text?: string;
+}
 export type CategoriesT = string[];
