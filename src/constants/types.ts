@@ -19,4 +19,15 @@ export interface ProductsResponseI {
   limit: number;
 }
 
+export interface StateI {
+  initialProducts: ProductI[];
+  initialCategories: { [key: string]: number };
+  initialBrands: { [key: string]: number };
+  products: ProductI[];
+  categories: { [key: string]: number };
+  brands: { [key: string]: number };
+  prices: number[];
+  stocks: number[];
+}
+
 export type CategoriesT = string[];

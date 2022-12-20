@@ -4,29 +4,20 @@ import { Router } from './pages/router';
 import Store from './core/store/store.core';
 import Api from './api/Api';
 
-import { filterProducts, getCategories, getData } from './api/dataManipulation';
-
-const store = new Store({
-  test: 'test',
-});
-new Router('body', store);
-
-console.log('App started!');
-
-const api = new Api();
+import { filterProducts } from './api/dataManipulation';
 
 async function app() {
+  const store = new Store();
+  new Router('body', store);
+  const api = new Api();
+
   const products = await api.getProducts();
-  console.log(products);
-  const categories = getCategories(products.products); //await api.getCategories();
-  console.log(categories);
-  getData(products.products);
-  let filteredProducts = filterProducts({ products: products.products, text: 'mic' });
-  console.log(filteredProducts);
-  getData(filteredProducts);
-  filteredProducts = filterProducts({ products: products.products, brand: 'Apple' });
-  console.log(filteredProducts);
-  getData(filteredProducts);
+  store.initProductsState(products.products);
+  console.log(store.state);
+  const filteredProducts = filterProducts({ products: products.products, text: 'mic' });
+  store.updateProductsState(filteredProducts);
+  console.log(store.state);
+  console.log('App started!');
 }
 
-app();
+void app();
