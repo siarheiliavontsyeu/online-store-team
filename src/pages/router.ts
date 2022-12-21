@@ -37,7 +37,6 @@ export class Router {
   init() {
     window.addEventListener('hashchange', this.changePageHandler);
     this.changePageHandler();
-    console.log(this.store.state);
   }
 
   changePageHandler() {
