@@ -42,8 +42,6 @@ export class MainPageContainer {
       this.componentsInstance.push(component);
     });
 
-    console.log($root);
-
     return $root;
   }
 

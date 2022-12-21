@@ -1,18 +1,2 @@
 .filters {
-  .pre-scrollable {
-    max-height: 340px;
-    overflow-y: scroll;
-  }
-  .card-header {
-    text-transform: capitalize;
-  }
-  .form-check {
-    &-input {
-      cursor: pointer;
-    }
-    &-label {
-      text-transform: capitalize;
-      cursor: pointer;
-    }
-  }
 }

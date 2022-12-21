@@ -1,7 +1,8 @@
-import Component, { ComponentOptions } from '../../core/components/component.core';
+import Component from '../../core/components/component.core';
 import { DomNode } from '../../core/components/node.core';
 import { renderTemplate } from './Header.template';
 import './Header.css';
+import { ComponentOptions } from '../../constants/types';
 
 export default class Header extends Component {
   static tagName = 'header';
@@ -26,7 +27,7 @@ export default class Header extends Component {
   }
 
   render() {
-    return renderTemplate(0,0);
+    return renderTemplate(0, 0);
   }
 
   destroy() {

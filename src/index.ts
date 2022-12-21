@@ -15,7 +15,7 @@ async function app() {
     // console.log(getCategoriesList(store, true));
     // console.log(getBrandsList(store, true));
     // console.log(store.state);
-    store.filterProducts({ text: 'm' });
+    // store.filterProducts({ text: 'm' });
 
     // console.log(getCategoriesList(store));
     // console.log(getBrandsList(store));

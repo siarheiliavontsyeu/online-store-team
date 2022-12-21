@@ -1,3 +1,17 @@
+import Observer from '../core/components/observer.core';
+import Store from '../core/store/store.core';
+
+export interface ComponentOptions {
+  name: string;
+  listeners: Array<keyof GlobalEventHandlersEventMap>;
+  observer: Observer;
+  store: Store;
+}
+
+export interface ComponentOptionsFilter extends ComponentOptions {
+  data: CheckBoxFilterI;
+}
+
 export interface ProductI {
   id: number;
   title: string;
@@ -44,10 +58,24 @@ export interface FilterProductsI {
   stock?: [number, number];
   text?: string;
 }
+
+export interface CheckBoxFilterI {
+  group: string;
+  initData: { [key: string]: number };
+  currentData: { [key: string]: number };
+}
+
 export type CategoriesT = string[];
 
 export const enum SortingOptions {
   Price = 'price',
   Rating = 'rating',
   Discount = 'discountPercentage',
+}
+
+export const enum Groups {
+  Category = 'Category',
+  Brand = 'Brand',
+  Price = 'Price',
+  Stock = 'Stock',
 }

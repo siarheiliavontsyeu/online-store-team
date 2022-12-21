@@ -1,19 +1,14 @@
+import { ComponentOptions } from '../../constants/types';
 import Store from '../store/store.core';
 import Listener from './listeners.core';
 import { DomNode } from './node.core';
 import Observer from './observer.core';
 
-export interface ComponentOptions {
-  name: string;
-  listeners: Array<keyof GlobalEventHandlersEventMap>;
-  observer: Observer;
-  store: Store;
-}
-
 export default class Component extends Listener {
   private unSubscribers: Array<() => void>;
   public name: string;
   protected observer: Observer;
+  protected store: Store;
 
   constructor(public $root: DomNode, options: ComponentOptions) {
     super($root, options.listeners);

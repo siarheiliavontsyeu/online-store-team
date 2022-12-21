@@ -1,6 +1,7 @@
-import Component, { ComponentOptions } from '../../core/components/component.core';
+import Component from '../../core/components/component.core';
 import { DomNode } from '../../core/components/node.core';
 import { getTemplate } from './footer.template';
+import { ComponentOptions } from '../../constants/types';
 
 export default class Footer extends Component {
   static tagName = 'footer';
