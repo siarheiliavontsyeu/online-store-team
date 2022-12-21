@@ -45,3 +45,9 @@ export interface FilterProductsI {
   text?: string;
 }
 export type CategoriesT = string[];
+
+export const enum SortingOptions {
+  Price = 'price',
+  Rating = 'rating',
+  Discount = 'discountPercentage',
+}

@@ -1,4 +1,4 @@
-import { FilterProductsI, ProductI, StateI } from '../../constants/types';
+import { FilterProductsI, ProductI, SortingOptions, StateI } from '../../constants/types';
 
 export default class Store {
   public state: StateI;
@@ -55,13 +55,11 @@ export default class Store {
   }
 
   getCategories(products: ProductI[]) {
-    const categories: string[] = [];
-    products.map((product) => {
-      if (!categories.includes(product.category)) {
-        categories.push(product.category);
-      }
-    });
-    return categories;
+    const categories = products.reduce((acc, { category }) => {
+      acc[category] = category;
+      return acc;
+    }, {} as { [key: string]: string });
+    return Object.values(categories);
   }
 
   getCategoriesWithCount(products: ProductI[]) {
@@ -87,49 +85,45 @@ export default class Store {
 
   getBrandsWithCount(products: ProductI[]) {
     const brands: { [key: string]: number } = {};
-    products.forEach((product) => {
-      let brand = product.brand;
-      if (brand === 'APPle') {
-        brand = 'Apple';
-      }
-      brands[brand] = brands[brand] ? brands[brand] + 1 : 1;
+    products.forEach(({ brand }) => {
+      const brand_ = brand.toLowerCase();
+      brands[brand_] = brands[brand_] ? brands[brand_] + 1 : 1;
     });
     return brands;
   }
 
   getMinMaxPrices(products: ProductI[]) {
-    const prices = products.map((product) => {
-      return product.price;
+    const prices = products.map(({ price }) => {
+      return price;
     });
 
     return [Math.min(...prices), Math.max(...prices)];
   }
 
   getMinMaxStock(products: ProductI[]) {
-    const stock = products.map((product) => {
-      return product.stock;
+    const stock_ = products.map(({ stock }) => {
+      return stock;
     });
 
-    return [Math.min(...stock), Math.max(...stock)];
+    return [Math.min(...stock_), Math.max(...stock_)];
   }
 
-  sortingProducts(sorting: { sortBy: keyof ProductI; asc: boolean }) {
-    const { sortBy, asc = true } = sorting;
+  sortingProducts({ sortBy, asc = true }: { sortBy: keyof ProductI; asc: boolean }) {
     const products = this.state.products;
     const sortedProducts: ProductI[] = products.sort((a, b) => {
-      if (sortBy === 'price') {
+      if (sortBy === SortingOptions.Price) {
         if (asc) {
           return a.price - b.price;
         }
         return b.price - a.price;
       }
-      if (sortBy === 'rating') {
+      if (sortBy === SortingOptions.Rating) {
         if (asc) {
           return a.rating - b.rating;
         }
         return b.rating - a.rating;
       }
-      if (sortBy === 'discountPercentage') {
+      if (sortBy === SortingOptions.Discount) {
         if (asc) {
           return a.discountPercentage - b.discountPercentage;
         }
@@ -140,8 +134,7 @@ export default class Store {
     this.updateProductsState(sortedProducts);
   }
 
-  filterProducts(filter: FilterProductsI) {
-    const { category, brand, price, stock, text } = filter;
+  filterProducts({ category, brand, price, stock, text }: FilterProductsI) {
     const products = this.state.initialProducts;
 
     const filteredProducts: ProductI[] = products
@@ -171,7 +164,7 @@ export default class Store {
       })
       .filter((product) => {
         if (text) {
-          const searchText = text.toLowerCase();
+          const searchText = text.toLowerCase().trim();
           return (
             product.brand.toLowerCase().includes(searchText) ||
             product.category.toLowerCase().includes(searchText) ||

@@ -17,13 +17,13 @@ export default class Api {
 
     return response;
   }
-  async getProducts(limit = '100') {
+  async getProducts(limit = '100'): Promise<ProductsResponseI> {
     const response: Response = await this.getResponse(`${BASE_URL}/products?limit=${limit}`);
-    const content = (await response.json()) as ProductsResponseI;
+    const content = ((await response.json()) || {}) as ProductsResponseI;
     return content;
   }
 
-  async getCategories() {
+  async getCategories(): Promise<CategoriesT> {
     const response: Response = await this.getResponse(`${BASE_URL}/products/categories`);
     const content = (await response.json()) as CategoriesT;
     return content;
