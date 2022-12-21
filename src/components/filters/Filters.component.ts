@@ -1,5 +1,7 @@
+import { StateI } from '../../constants/types';
 import Component, { ComponentOptions } from '../../core/components/component.core';
 import { DomNode } from '../../core/components/node.core';
+import Store from '../../core/store/store.core';
 import { getTemplate } from './filters.template';
 
 export default class Filters extends Component {
@@ -19,7 +21,7 @@ export default class Filters extends Component {
   }
 
   render() {
-    return getTemplate();
+    return getTemplate((this.store as Store).state);
   }
 
   destroy() {
