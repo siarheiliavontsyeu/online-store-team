@@ -39,6 +39,5 @@ import { FilterDataI } from '../../../constants/types';
 
 export const getTemplate = ({ group, currentData }: FilterDataI): string => {
   return `
-    
  `;
 };
