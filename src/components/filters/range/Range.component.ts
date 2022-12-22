@@ -1,18 +1,18 @@
 import { FilterDataI, ComponentOptionsFilter } from '../../../constants/types';
 import Component from '../../../core/components/component.core';
 import { DomNode } from '../../../core/components/node.core';
-import { getTemplate } from './checkBox.template';
+import { getTemplate } from './range.template';
 
-export default class CheckBox extends Component {
+export default class Range extends Component {
   static tagName = 'div';
-  static className = 'checkbox-filter';
+  static className = 'range-filter';
 
   private data: FilterDataI;
 
   constructor($root: DomNode, options: ComponentOptionsFilter) {
     super($root, {
       ...options,
-      name: 'CheckBox',
+      name: 'Range',
       listeners: [],
     });
     this.data = options.data;

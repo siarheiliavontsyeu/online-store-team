@@ -1,11 +1,12 @@
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
 import { getTemplate } from './filters.template';
-import { CheckBoxFilterI, ComponentOptions, Groups } from '../../constants/types';
+import { FilterDataI, ComponentOptions, Groups } from '../../constants/types';
 import CheckBox from './checkBox/index';
+import Range from './range/index';
 
-type ComponentsClasses = typeof CheckBox;
-type ComponentsInstances = CheckBox;
+type ComponentsClasses = typeof CheckBox | typeof Range;
+type ComponentsInstances = CheckBox | Range;
 
 const enum ComponentsOrder {
   CheckBox0,
@@ -30,7 +31,7 @@ export default class Filters extends Component {
     });
     this.checkBoxAppendPoint = false;
     this.rangeAppendPoint = false;
-    this.componentsClass = [CheckBox, CheckBox];
+    this.componentsClass = [CheckBox, CheckBox, Range, Range];
     this.componentsInstance = [];
   }
 
@@ -52,7 +53,7 @@ export default class Filters extends Component {
       const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
       const classes = [className];
       const $el = createNode({ tag: tagName, classes });
-      let data = {} as CheckBoxFilterI;
+      let data = {} as FilterDataI;
       if (idx === ComponentsOrder.CheckBox0) {
         data = {
           group: Groups.Category,
@@ -65,6 +66,18 @@ export default class Filters extends Component {
           group: Groups.Brand,
           initData: this.store.state.initialBrands,
           currentData: this.store.state.brands,
+        };
+      }
+      if (idx === ComponentsOrder.Range0) {
+        data = {
+          group: Groups.Price,
+          currentData: this.store.state.prices,
+        };
+      }
+      if (idx === ComponentsOrder.Range1) {
+        data = {
+          group: Groups.Stock,
+          currentData: this.store.state.stocks,
         };
       }
       const component = new Comp($el, { ...componentOptions, name: '', listeners: [], data });
@@ -81,10 +94,6 @@ export default class Filters extends Component {
       }
       this.componentsInstance.push(component);
     });
-    if (this.checkBoxAppendPoint && this.rangeAppendPoint) {
-      this.$root.append(this.checkBoxAppendPoint);
-      this.$root.append(this.rangeAppendPoint);
-    }
     this.componentsInstance.forEach((component) => component.init());
   }
 

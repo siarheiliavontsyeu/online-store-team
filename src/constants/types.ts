@@ -9,7 +9,7 @@ export interface ComponentOptions {
 }
 
 export interface ComponentOptionsFilter extends ComponentOptions {
-  data: CheckBoxFilterI;
+  data: FilterDataI;
 }
 
 export interface ProductI {
@@ -59,10 +59,10 @@ export interface FilterProductsI {
   text?: string;
 }
 
-export interface CheckBoxFilterI {
+export interface FilterDataI {
   group: string;
-  initData: { [key: string]: number };
-  currentData: { [key: string]: number };
+  initData?: { [key: string]: number };
+  currentData: { [key: string]: number } | number[];
 }
 
 export type CategoriesT = string[];

@@ -1,6 +1,6 @@
 import { FilterDataI } from '../../../constants/types';
 
-const getCheckboxFilter = ({ group, initData = {}, currentData }: FilterDataI): string => {
+const getCheckboxFilter = ({ group, currentData }: FilterDataI): string => {
   const li = (key: string, currentValue: number, value: number) => {
     const isActive = currentValue !== 0;
     const badgeStatusClass = isActive ? 'bg-primary' : 'text-muted bg-dark';
@@ -18,27 +18,27 @@ const getCheckboxFilter = ({ group, initData = {}, currentData }: FilterDataI): 
     `;
   };
 
-  const content = Object.keys(initData)
-    .map((key) => {
-      const maxValue = initData[key];
-      const currentValue = (currentData as { [key: string]: number })[key] ?? 0;
-      return li(key, currentValue, maxValue);
-    })
-    .join('');
+  // const content = Object.keys(initData)
+  //   .map((key) => {
+  //     const maxValue = initData[key];
+  //     const currentValue = currentData[key] ?? 0;
+  //     return li(key, currentValue, maxValue);
+  //   })
+  //   .join('');
 
   return `
   <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
     <div class="card-header text-warning">${group}</div>
     <div class="card-body pre-scrollable">
       <ul class="list-group">
-      ${content}
+       
       </ul>
     </div>
   </div>`;
 };
 
-export const getTemplate = ({ group, initData = {}, currentData }: FilterDataI): string => {
+export const getTemplate = ({ group, currentData }: FilterDataI): string => {
   return `
-    ${getCheckboxFilter({ group, initData, currentData })}
+    ${getCheckboxFilter({ group, currentData })}
  `;
 };
