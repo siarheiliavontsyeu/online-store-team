@@ -18,8 +18,8 @@ const enum ComponentsOrder {
 export default class Filters extends Component {
   static tagName = 'div';
   static className = 'filters';
-  private checkBoxAppendPoint: DomNode | false;
-  private rangeAppendPoint: DomNode | false;
+  private $checkBoxAppendPoint: DomNode | false;
+  private $rangeAppendPoint: DomNode | false;
   componentsClass: ComponentsClasses[];
   componentsInstance: ComponentsInstances[];
 
@@ -29,17 +29,21 @@ export default class Filters extends Component {
       name: 'Filters',
       listeners: [],
     });
-    this.checkBoxAppendPoint = false;
-    this.rangeAppendPoint = false;
+    this.$checkBoxAppendPoint = false;
+    this.$rangeAppendPoint = false;
     this.componentsClass = [CheckBox, CheckBox, Range, Range];
     this.componentsInstance = [];
   }
 
   init() {
     super.init();
-    this.checkBoxAppendPoint = this.$root.find('.filters__checkbox');
-    this.rangeAppendPoint = this.$root.find('.filters__range');
+    this.$checkBoxAppendPoint = this.$root.find('.filters__checkbox');
+    this.$rangeAppendPoint = this.$root.find('.filters__range');
     this.renderComponents();
+    this.subscribe('CheckBox:filter', () => {
+      this.update();
+      console.log(this.store.state);
+    });
   }
 
   renderComponents() {
@@ -83,13 +87,13 @@ export default class Filters extends Component {
       const component = new Comp($el, { ...componentOptions, name: '', listeners: [], data });
       $el.html(component.render());
       if ([ComponentsOrder.CheckBox0, ComponentsOrder.CheckBox1].includes(idx)) {
-        if (this.checkBoxAppendPoint) {
-          this.checkBoxAppendPoint.append($el);
+        if (this.$checkBoxAppendPoint) {
+          this.$checkBoxAppendPoint.append($el);
         }
       }
       if ([ComponentsOrder.Range0, ComponentsOrder.Range1].includes(idx)) {
-        if (this.rangeAppendPoint) {
-          this.rangeAppendPoint.append($el);
+        if (this.$rangeAppendPoint) {
+          this.$rangeAppendPoint.append($el);
         }
       }
       this.componentsInstance.push(component);
@@ -103,7 +107,10 @@ export default class Filters extends Component {
 
   destroy() {
     super.destroy();
-    this.$root.clear();
+    if (this.$checkBoxAppendPoint && this.$rangeAppendPoint) {
+      this.$checkBoxAppendPoint.clear();
+      this.$checkBoxAppendPoint.clear();
+    }
     this.componentsInstance.forEach((component) => {
       component.destroy();
     });

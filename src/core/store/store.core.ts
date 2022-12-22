@@ -14,6 +14,8 @@ export default class Store {
       prices: [],
       stocks: [],
       cart: [],
+      checkedCategories: [],
+      checkedBrands: [],
     };
   }
 
@@ -52,6 +54,20 @@ export default class Store {
 
   getProductsFoundCount() {
     return this.state.products.length;
+  }
+
+  setCheckedCategories(value: string[]) {
+    this.state.checkedCategories = value;
+  }
+  getCheckedCategories() {
+    return this.state.checkedCategories;
+  }
+
+  setCheckedBrands(value: string[]) {
+    this.state.checkedBrands = value;
+  }
+  getCheckedBrands() {
+    return this.state.checkedBrands;
   }
 
   getCategories(products: ProductI[]) {
@@ -139,14 +155,14 @@ export default class Store {
 
     const filteredProducts: ProductI[] = products
       .filter((product) => {
-        if (category) {
-          return product.category.toLowerCase() === category.toLowerCase();
+        if (category && category.length > 0) {
+          return category.includes(product.category.toLowerCase());
         }
         return product;
       })
       .filter((product) => {
-        if (brand) {
-          return product.brand.toLowerCase() === brand.toLowerCase();
+        if (brand && brand.length > 0) {
+          return brand.includes(product.brand.toLowerCase());
         }
         return product;
       })

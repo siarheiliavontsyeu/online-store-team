@@ -22,7 +22,7 @@ export default class Component extends Listener {
     super.initListeners();
   }
 
-  emit(eventName: string, ...args: Array<string | number>) {
+  emit(eventName: string, ...args: Array<unknown>) {
     this.observer.emit(eventName, ...args);
   }
 

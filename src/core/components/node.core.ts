@@ -38,7 +38,7 @@ export class DomNode {
   }
 
   attr(name: string, value?: string) {
-    if (value === undefined) {
+    if (value === null) {
       this.$el.removeAttribute(name);
       return this;
     }
@@ -87,6 +87,15 @@ export class DomNode {
     }
     return false;
   }
+
+  findAll(selector: string) {
+    const elements = this.$el.querySelectorAll(selector);
+    if (elements) {
+      return Array.from(elements).map(elem => wrapperNode(elem as HTMLElement));
+    }
+    return false;
+  }
+
   addClass(className: string) {
     this.$el?.classList.add(className);
     return this;

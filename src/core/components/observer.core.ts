@@ -1,14 +1,14 @@
 interface ListenerI {
-  [index: string]: Array<(...args: Array<string | number>) => void>;
+  [index: string]: Array<(...args: Array<unknown>) => void>;
 }
 
 export default class Observer {
-  private listeners: ListenerI
+  private listeners: ListenerI;
   constructor() {
     this.listeners = {};
   }
 
-  emit(event: string, ...args: Array<string | number>): boolean {
+  emit(event: string, ...args: Array<unknown>): boolean {
     if (!Array.isArray(this.listeners[event])) {
       return false;
     }

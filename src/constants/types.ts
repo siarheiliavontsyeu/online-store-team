@@ -44,6 +44,8 @@ export interface StateI {
   prices: number[];
   stocks: number[];
   cart: CartI[];
+  checkedCategories: string[];
+  checkedBrands: string[];
 }
 
 export interface CartI {
@@ -52,8 +54,8 @@ export interface CartI {
 }
 
 export interface FilterProductsI {
-  category?: string;
-  brand?: string;
+  category?: string[];
+  brand?: string[];
   price?: [number, number];
   stock?: [number, number];
   text?: string;
@@ -63,6 +65,7 @@ export interface FilterDataI {
   group: string;
   initData?: { [key: string]: number };
   currentData: { [key: string]: number } | number[];
+  checked?: string[];
 }
 
 export type CategoriesT = string[];

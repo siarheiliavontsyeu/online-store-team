@@ -1,15 +1,16 @@
 import { FilterDataI } from '../../../constants/types';
 
-const getCheckboxFilter = ({ group, initData = {}, currentData }: FilterDataI): string => {
+const getCheckboxFilter = ({ group, initData = {}, currentData, checked = [] }: FilterDataI): string => {
   const li = (key: string, currentValue: number, value: number) => {
     const isActive = currentValue !== 0;
     const badgeStatusClass = isActive ? 'bg-primary' : 'text-muted bg-dark';
     const formCheckStatusClass = isActive ? '' : 'text-muted';
+    const isChecked = checked.includes(key);
     return `
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <div class="form-check ${formCheckStatusClass}">
-        <input class="form-check-input" type="checkbox" value="" id=" ${key}">
-        <label class="form-check-label" for=" ${key}">
+        <input class="form-check-input" type="checkbox" value="" id="${key}" ${isChecked ? 'checked' : ''}>
+        <label class="form-check-label" for="${key}">
           ${key}
         </label>
       </div>     
@@ -37,8 +38,8 @@ const getCheckboxFilter = ({ group, initData = {}, currentData }: FilterDataI): 
   </div>`;
 };
 
-export const getTemplate = ({ group, initData = {}, currentData }: FilterDataI): string => {
+export const getTemplate = ({ group, checked, initData = {}, currentData }: FilterDataI): string => {
   return `
-    ${getCheckboxFilter({ group, initData, currentData })}
+    ${getCheckboxFilter({ group, initData, currentData, checked })}
  `;
 };
