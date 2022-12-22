@@ -1,3 +1,17 @@
+import Observer from '../core/components/observer.core';
+import Store from '../core/store/store.core';
+
+export interface ComponentOptions {
+  name: string;
+  listeners: Array<keyof GlobalEventHandlersEventMap>;
+  observer: Observer;
+  store: Store;
+}
+
+export interface ComponentOptionsFilter extends ComponentOptions {
+  data: FilterDataI;
+}
+
 export interface ProductI {
   id: number;
   title: string;
@@ -30,6 +44,8 @@ export interface StateI {
   prices: number[];
   stocks: number[];
   cart: CartI[];
+  checkedCategories: string[];
+  checkedBrands: string[];
 }
 
 export interface CartI {
@@ -38,16 +54,31 @@ export interface CartI {
 }
 
 export interface FilterProductsI {
-  category?: string;
-  brand?: string;
+  category?: string[];
+  brand?: string[];
   price?: [number, number];
   stock?: [number, number];
   text?: string;
 }
+
+export interface FilterDataI {
+  group: string;
+  initData?: { [key: string]: number };
+  currentData: { [key: string]: number } | number[];
+  checked?: string[];
+}
+
 export type CategoriesT = string[];
 
 export const enum SortingOptions {
   Price = 'price',
   Rating = 'rating',
   Discount = 'discountPercentage',
+}
+
+export const enum Groups {
+  Category = 'Category',
+  Brand = 'Brand',
+  Price = 'Price',
+  Stock = 'Stock',
 }
