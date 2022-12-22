@@ -2,12 +2,14 @@ import { createNode } from '../../core/components/node.core';
 import Observer from '../../core/components/observer.core';
 import Store from '../../core/store/store.core';
 import Filters from '../filters/index';
+import ProductsContainer from '../products-container/index';
+
 import Footer from '../footer/index';
 
 import Header from '../header/Header.component';
 
-type ComponentsClasses = typeof Header | typeof Footer | typeof Filters;
-type ComponentsInstances = Header | Footer | Filters;
+type ComponentsClasses = typeof Header | typeof Footer | typeof Filters | typeof ProductsContainer;
+type ComponentsInstances = Header | Footer | Filters| ProductsContainer;
 
 export class MainPageContainer {
   componentsClass: ComponentsClasses[];
@@ -15,7 +17,7 @@ export class MainPageContainer {
   observer: Observer;
 
   constructor(public store: Store) {
-    this.componentsClass = [Header, Filters, Footer];
+    this.componentsClass = [Header, Filters, ProductsContainer, Footer];
     this.componentsInstance = [];
     this.observer = new Observer();
     this.store = store;
