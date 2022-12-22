@@ -8,6 +8,7 @@ export default class CheckBox extends Component {
   static className = 'checkbox-filter';
 
   private data: FilterDataI;
+  private $scrollableBody: DomNode | false;
 
   constructor($root: DomNode, options: ComponentOptionsFilter) {
     super($root, {
@@ -16,10 +17,20 @@ export default class CheckBox extends Component {
       listeners: ['click'],
     });
     this.data = options.data;
+    this.$scrollableBody = false;
   }
 
   init() {
     super.init();
+    this.$scrollableBody = this.$root.find('.pre-scrollable');
+    if (this.$scrollableBody) {
+      if (this.data.group === Groups.Category) {
+        this.$scrollableBody.$el.scrollTop = this.store.getCategoriesScroll();
+      }
+      if (this.data.group === Groups.Brand) {
+        this.$scrollableBody.$el.scrollTop = this.store.getBrandsScroll();
+      }
+    }
   }
 
   onClick(e: Event) {
@@ -37,9 +48,11 @@ export default class CheckBox extends Component {
 
       if (this.data.group === Groups.Category) {
         this.store.setCheckedCategories(allCheckedIds);
+        this.$scrollableBody && this.store.setCategoriesScroll(this.$scrollableBody.$el.scrollTop);
       }
       if (this.data.group === Groups.Brand) {
         this.store.setCheckedBrands(allCheckedIds);
+        this.$scrollableBody && this.store.setBrandsScroll(this.$scrollableBody.$el.scrollTop);
       }
       this.store.filterProducts({ category: this.store.getCheckedCategories(), brand: this.store.getCheckedBrands() });
       this.emit(this.name + ':filter');
