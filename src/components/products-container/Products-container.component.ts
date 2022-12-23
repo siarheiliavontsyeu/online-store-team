@@ -4,12 +4,13 @@ import { renderContainer } from './Products-container.template';
 import { ComponentOptions} from '../../constants/types';
 import productCard from './productCard/index';
 
+type ComponentsClasses = typeof productCard;
 export default class ProductsContainer extends Component {
     static tagName = 'div';
     static className = 'products-container';
 
-    componentsClass: (typeof productCard)[];
-    componentsInstance: productCard[];
+    componentsClass: ComponentsClasses[];
+    componentsInstance: ComponentsClasses[];
   
     constructor($root: DomNode, options: ComponentOptions) {
       super($root, {
@@ -19,6 +20,7 @@ export default class ProductsContainer extends Component {
       });
       this.componentsClass = [productCard];
       this.componentsInstance = [];
+      this.productCardAppendPoint = false;
     }
   
     init() {
@@ -28,8 +30,18 @@ export default class ProductsContainer extends Component {
     }
 
     renderComponents() {
-      
-    }
+      const componentOptions = {
+        observer: this.observer,
+        store: this.store,
+      };
+  
+      this.componentsClass.forEach((Comp: ComponentsClasses) => {
+        const className = Comp.className;
+        const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
+        const classes = [className];
+        const $el = createNode({ tag: tagName, classes });
+    })
+  }
   
     onClick(e: Event) {
       e.preventDefault();
