@@ -28,7 +28,7 @@ async function app() {
     // store.dropFromCart(1);
     // console.log(store.getProductsFoundCount());
     // console.log(store.getSummary());
-    console.log(store.state);
+    console.log('🚀 ~ file: index.ts:32 ~ app ~ store.state', store.state);
     // console.log(store.getProductsForView());
     // console.log('//----------------------//');
     // store.sortingProducts({ sortBy: 'price', asc: true });

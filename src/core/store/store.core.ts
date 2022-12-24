@@ -16,8 +16,8 @@ export default class Store {
       cart: [],
       checkedCategories: [],
       checkedBrands: [],
-      categoriesScroll: 0,
-      brandsScroll: 0,
+      categoriesScrollPosition: 0,
+      brandsScrollPosition: 0,
     };
   }
 
@@ -40,22 +40,21 @@ export default class Store {
     this.state.stocks = this.getMinMaxStock(products);
   }
 
-  getCategoriesScroll() {
-    return this.state.categoriesScroll;
+  getCategoriesScrollPosition() {
+    return this.state.categoriesScrollPosition;
   }
 
-  setCategoriesScroll(value: number) {
-    this.state.categoriesScroll = value;
+  setCategoriesScrollPosition(value: number) {
+    this.state.categoriesScrollPosition = value;
   }
 
-  getBrandsScroll() {
-    return this.state.brandsScroll;
+  getBrandsScrollPosition() {
+    return this.state.brandsScrollPosition;
   }
 
-  setBrandsScroll(value: number) {
-    this.state.brandsScroll = value;
+  setBrandsScrollPosition(value: number) {
+    this.state.brandsScrollPosition = value;
   }
-
 
   getProductsForView() {
     const products = this.state.products.map((prod) => {

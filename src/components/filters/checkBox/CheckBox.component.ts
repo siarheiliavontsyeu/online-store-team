@@ -1,3 +1,4 @@
+import { Actions } from '../../../constants/actions';
 import { FilterDataI, ComponentOptionsFilter, Groups } from '../../../constants/types';
 import Component from '../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../core/components/node.core';
@@ -18,6 +19,7 @@ export default class CheckBox extends Component {
     });
     this.data = options.data;
     this.$scrollableBody = false;
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   init() {
@@ -25,11 +27,21 @@ export default class CheckBox extends Component {
     this.$scrollableBody = this.$root.find('.pre-scrollable');
     if (this.$scrollableBody) {
       if (this.data.group === Groups.Category) {
-        this.$scrollableBody.$el.scrollTop = this.store.getCategoriesScroll();
+        this.$scrollableBody.$el.scrollTop = this.store.getCategoriesScrollPosition();
       }
       if (this.data.group === Groups.Brand) {
-        this.$scrollableBody.$el.scrollTop = this.store.getBrandsScroll();
+        this.$scrollableBody.$el.scrollTop = this.store.getBrandsScrollPosition();
       }
+    }
+    this.$scrollableBody && this.$scrollableBody.on('scroll', this.handleScroll);
+  }
+
+  private handleScroll() {
+    if (this.data.group === Groups.Category) {
+      this.$scrollableBody && this.store.setCategoriesScrollPosition(this.$scrollableBody.$el.scrollTop);
+    }
+    if (this.data.group === Groups.Brand) {
+      this.$scrollableBody && this.store.setBrandsScrollPosition(this.$scrollableBody.$el.scrollTop);
     }
   }
 
@@ -48,14 +60,12 @@ export default class CheckBox extends Component {
 
       if (this.data.group === Groups.Category) {
         this.store.setCheckedCategories(allCheckedIds);
-        this.$scrollableBody && this.store.setCategoriesScroll(this.$scrollableBody.$el.scrollTop);
       }
       if (this.data.group === Groups.Brand) {
         this.store.setCheckedBrands(allCheckedIds);
-        this.$scrollableBody && this.store.setBrandsScroll(this.$scrollableBody.$el.scrollTop);
       }
       this.store.filterProducts({ category: this.store.getCheckedCategories(), brand: this.store.getCheckedBrands() });
-      this.emit(this.name + ':filter');
+      this.emit(Actions.PRODUCTS_FILTER);
     }
   }
 
@@ -72,6 +82,7 @@ export default class CheckBox extends Component {
 
   destroy() {
     super.destroy();
+    this.$scrollableBody && this.$scrollableBody.off('scroll', this.handleScroll);
     this.$root.clear();
   }
 }

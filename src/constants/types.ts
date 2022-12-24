@@ -46,8 +46,8 @@ export interface StateI {
   cart: CartI[];
   checkedCategories: string[];
   checkedBrands: string[];
-  categoriesScroll: number;
-  brandsScroll: number;
+  categoriesScrollPosition: number;
+  brandsScrollPosition: number;
 }
 
 export interface CartI {

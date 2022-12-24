@@ -4,6 +4,7 @@ import { getTemplate } from './filters.template';
 import { FilterDataI, ComponentOptions, Groups } from '../../constants/types';
 import CheckBox from './checkBox/index';
 import Range from './range/index';
+import { Actions } from '../../constants/actions';
 
 type ComponentsClasses = typeof CheckBox | typeof Range;
 type ComponentsInstances = CheckBox | Range;
@@ -40,9 +41,8 @@ export default class Filters extends Component {
     this.$checkBoxAppendPoint = this.$root.find('.filters__checkbox');
     this.$rangeAppendPoint = this.$root.find('.filters__range');
     this.renderComponents();
-    this.subscribe('CheckBox:filter', () => {
+    this.subscribe(Actions.PRODUCTS_FILTER, () => {
       this.update();
-      console.log(this.store.state);
     });
   }
 
@@ -53,9 +53,8 @@ export default class Filters extends Component {
     };
 
     this.componentsClass.forEach((Comp: ComponentsClasses, idx) => {
-      const className = Comp.className;
+      const classes = Comp.className.split(' ');
       const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
-      const classes = [className];
       const $el = createNode({ tag: tagName, classes });
       let data = {} as FilterDataI;
       if (idx === ComponentsOrder.CheckBox0) {

@@ -40,7 +40,6 @@ export class Router {
   }
 
   changePageHandler() {
-    console.log(CurrentRoute.path);
     if (this.page) {
       this.page.destroy();
     }
