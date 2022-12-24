@@ -56,25 +56,11 @@ export default class Range extends Component {
         this.$priceMaxi.text(String(maxiVal));
         if (this.data.group === Groups.Price) {
           this.store.setMinMaxPrices([miniVal, maxiVal]);
-          this.store.filterProducts({
-            price: this.store.getMinMaxPrices() as [number, number],
-            stock: this.store.getMinMaxStock() as [number, number],
-            category: this.store.getCheckedCategories(),
-            brand: this.store.getCheckedBrands(),
-          });
         }
         if (this.data.group === Groups.Stock) {
           this.store.setMinMaxStock([miniVal, maxiVal]);
-          this.store.filterProducts({
-            price: this.store.getMinMaxPrices() as [number, number],
-            stock: this.store.getMinMaxStock() as [number, number],
-            category: this.store.getCheckedCategories(),
-            brand: this.store.getCheckedBrands(),
-          });
         }
-        console.log([miniVal, maxiVal]);
-        console.log(this.store.state.prices, this.store.state.stocks);
-        console.log(this.store.state.products);
+
         this.emit(Actions.PRODUCTS_FILTER);
       }
     }
