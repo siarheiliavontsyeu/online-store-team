@@ -74,12 +74,14 @@ export default class Filters extends Component {
       if (idx === ComponentsOrder.Range0) {
         data = {
           group: Groups.Price,
+          initData: this.store.state.initialPrices,
           currentData: this.store.state.prices,
         };
       }
       if (idx === ComponentsOrder.Range1) {
         data = {
           group: Groups.Stock,
+          initData: this.store.state.initialStocks,
           currentData: this.store.state.stocks,
         };
       }
@@ -108,7 +110,7 @@ export default class Filters extends Component {
     super.destroy();
     if (this.$checkBoxAppendPoint && this.$rangeAppendPoint) {
       this.$checkBoxAppendPoint.clear();
-      this.$checkBoxAppendPoint.clear();
+      this.$rangeAppendPoint.clear();
     }
     this.componentsInstance.forEach((component) => {
       component.destroy();

@@ -38,6 +38,8 @@ export interface StateI {
   initialProducts: ProductI[];
   initialCategories: { [key: string]: number };
   initialBrands: { [key: string]: number };
+  initialPrices: number[];
+  initialStocks: number[];
   products: ProductI[];
   categories: { [key: string]: number };
   brands: { [key: string]: number };
@@ -65,7 +67,7 @@ export interface FilterProductsI {
 
 export interface FilterDataI {
   group: string;
-  initData?: { [key: string]: number };
+  initData: { [key: string]: number } | number[];
   currentData: { [key: string]: number } | number[];
   checked?: string[];
 }

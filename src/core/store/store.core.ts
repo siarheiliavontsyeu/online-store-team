@@ -8,6 +8,8 @@ export default class Store {
       initialProducts: [],
       initialCategories: {},
       initialBrands: {},
+      initialPrices: [],
+      initialStocks: [],
       products: [],
       categories: {},
       brands: {},
@@ -25,6 +27,8 @@ export default class Store {
     this.state.initialProducts = products;
     this.state.initialCategories = this.getCategoriesWithCount(products);
     this.state.initialBrands = this.getBrandsWithCount(products);
+    this.state.initialPrices = this.getMinMaxPrices(products);
+    this.state.initialStocks = this.getMinMaxStock(products);
     this.state.products = products;
     this.state.categories = this.getCategoriesWithCount(products);
     this.state.brands = this.getBrandsWithCount(products);
@@ -126,20 +130,36 @@ export default class Store {
     return brands;
   }
 
-  getMinMaxPrices(products: ProductI[]) {
-    const prices = products.map(({ price }) => {
-      return price;
-    });
+  getMinMaxPrices(products?: ProductI[]) {
+    if (products) {
+      const prices = products.map(({ price }) => {
+        return price;
+      });
 
-    return [Math.min(...prices), Math.max(...prices)];
+      return [Math.min(...prices), Math.max(...prices)];
+    } else {
+      return this.state.prices;
+    }
   }
 
-  getMinMaxStock(products: ProductI[]) {
-    const stock_ = products.map(({ stock }) => {
-      return stock;
-    });
+  setMinMaxPrices(minMax: number[]) {
+    this.state.prices = [...minMax];
+  }
 
-    return [Math.min(...stock_), Math.max(...stock_)];
+  getMinMaxStock(products?: ProductI[]) {
+    if (products) {
+      const stock_ = products.map(({ stock }) => {
+        return stock;
+      });
+
+      return [Math.min(...stock_), Math.max(...stock_)];
+    } else {
+      return this.state.stocks;
+    }
+  }
+
+  setMinMaxStock(minMax: number[]) {
+    this.state.stocks = [...minMax];
   }
 
   sortingProducts({ sortBy, asc = true }: { sortBy: keyof ProductI; asc: boolean }) {

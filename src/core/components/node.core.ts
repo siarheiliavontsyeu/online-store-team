@@ -91,7 +91,7 @@ export class DomNode {
   findAll(selector: string) {
     const elements = this.$el.querySelectorAll(selector);
     if (elements) {
-      return Array.from(elements).map(elem => wrapperNode(elem as HTMLElement));
+      return Array.from(elements).map((elem) => wrapperNode(elem as HTMLElement));
     }
     return false;
   }

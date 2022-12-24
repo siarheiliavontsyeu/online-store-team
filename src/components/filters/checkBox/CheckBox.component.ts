@@ -64,7 +64,12 @@ export default class CheckBox extends Component {
       if (this.data.group === Groups.Brand) {
         this.store.setCheckedBrands(allCheckedIds);
       }
-      this.store.filterProducts({ category: this.store.getCheckedCategories(), brand: this.store.getCheckedBrands() });
+      this.store.filterProducts({
+        price: this.store.getMinMaxPrices() as [number, number],
+        stock: this.store.getMinMaxStock() as [number, number],
+        category: this.store.getCheckedCategories(),
+        brand: this.store.getCheckedBrands(),
+      });
       this.emit(Actions.PRODUCTS_FILTER);
     }
   }

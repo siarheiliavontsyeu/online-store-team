@@ -21,7 +21,11 @@ const getCheckboxFilter = ({ group, initData = {}, currentData, checked = [] }: 
 
   const content = Object.keys(initData)
     .map((key) => {
-      const maxValue = initData[key];
+      const maxValue = (
+        initData as {
+          [key: string]: number;
+        }
+      )[key];
       const currentValue = (currentData as { [key: string]: number })[key] ?? 0;
       return li(key, currentValue, maxValue);
     })
