@@ -8,7 +8,7 @@ type ComponentsClasses = typeof productCard;
 type ComponentsInstances = productCard;
 export default class ProductsContainer extends Component {
   static tagName = 'div';
-  static className = 'products-container';
+  static className = 'products';
   private productCardAppendPoint: DomNode | false;
 
   componentsClass: ComponentsClasses[];
