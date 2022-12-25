@@ -6,7 +6,6 @@ export const getTemplate = ({ group, currentData, initData }: FilterDataI): stri
   const icon = group === Groups.Price ? 'fa-euro-sign' : 'fa-box';
 
   const multiRange = `
- 
   <div class="prices">
     <div class="prices__item" id="price-mini">
       <i class="fas ${icon}"></i> ${min}

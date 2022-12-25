@@ -56,7 +56,13 @@ export default class Range extends Component {
           this.store.setMinMaxPrices(this.store.state.initialPrices);
         }
 
-        this.emit(Actions.PRODUCTS_FILTER);
+        this.store.filterProducts({
+          price: this.store.getMinMaxPrices() as [number, number],
+          stock: this.store.getMinMaxStock() as [number, number],
+          category: this.store.getCheckedCategories(),
+          brand: this.store.getCheckedBrands(),
+        });
+        this.emit(Actions.APPLY_PRODUCT_FILTER);
       }
     }
   }

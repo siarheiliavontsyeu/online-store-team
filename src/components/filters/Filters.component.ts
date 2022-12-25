@@ -41,13 +41,7 @@ export default class Filters extends Component {
     this.$checkBoxAppendPoint = this.$root.find('.filters__checkbox');
     this.$rangeAppendPoint = this.$root.find('.filters__range');
     this.renderComponents();
-    this.subscribe(Actions.PRODUCTS_FILTER, () => {
-      this.store.filterProducts({
-        price: this.store.getMinMaxPrices() as [number, number],
-        stock: this.store.getMinMaxStock() as [number, number],
-        category: this.store.getCheckedCategories(),
-        brand: this.store.getCheckedBrands(),
-      });
+    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
       console.log(this.store.state.products);
     });
