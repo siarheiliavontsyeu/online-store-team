@@ -43,7 +43,7 @@ export default class Filters extends Component {
     this.renderComponents();
     this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
-      console.log(this.store.state.products);
+      // console.log(this.store.state.products);
     });
   }
 

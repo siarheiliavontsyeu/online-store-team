@@ -57,8 +57,6 @@ export class Router {
       AppPage = this.routes.notFound;
     }
 
-    console.log(AppPage);
-
     this.page = new AppPage(this.store, CurrentRoute.param);
     this.$container.append(this.page?.render() as DomNode);
     this.page?.afterRender();
