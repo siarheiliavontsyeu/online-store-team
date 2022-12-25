@@ -11,8 +11,6 @@ export default class Range extends Component {
   private data: FilterDataI;
   private $miniSlide: false | DomNode;
   private $maxiSlide: false | DomNode;
-  private $priceMini: false | DomNode;
-  private $priceMaxi: false | DomNode;
 
   constructor($root: DomNode, options: ComponentOptionsFilter) {
     super($root, {
@@ -23,22 +21,18 @@ export default class Range extends Component {
     this.data = options.data;
     this.$miniSlide = false;
     this.$maxiSlide = false;
-    this.$priceMini = false;
-    this.$priceMaxi = false;
   }
 
   init() {
     super.init();
     this.$miniSlide = this.$root.find('#miniSlide');
     this.$maxiSlide = this.$root.find('#maxiSlide');
-    this.$priceMini = this.$root.find('#price-mini');
-    this.$priceMaxi = this.$root.find('#price-maxi');
   }
 
   onChange(e: Event) {
     const $target = wrapperNode(e.target as HTMLElement);
     if ($target.hasClass('multi-range__slide')) {
-      if (this.$miniSlide && this.$maxiSlide && this.$priceMini && this.$priceMaxi) {
+      if (this.$miniSlide && this.$maxiSlide) {
         let miniVal = parseInt(this.$miniSlide.text() as string);
         let maxiVal = parseInt(this.$maxiSlide.text() as string);
 
@@ -52,13 +46,14 @@ export default class Range extends Component {
             [miniVal, maxiVal] = [maxiVal, miniVal];
           }
         }
-        this.$priceMini.text(String(miniVal));
-        this.$priceMaxi.text(String(maxiVal));
+
         if (this.data.group === Groups.Price) {
           this.store.setMinMaxPrices([miniVal, maxiVal]);
+          this.store.setMinMaxStock(this.store.state.initialStocks);
         }
         if (this.data.group === Groups.Stock) {
           this.store.setMinMaxStock([miniVal, maxiVal]);
+          this.store.setMinMaxPrices(this.store.state.initialPrices);
         }
 
         this.emit(Actions.PRODUCTS_FILTER);

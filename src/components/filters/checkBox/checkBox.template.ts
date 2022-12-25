@@ -33,7 +33,7 @@ const getCheckboxFilter = ({ group, initData = {}, currentData, checked = [] }: 
 
   return `
   <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
-    <div class="card-header text-warning">${group}</div>
+    <div class="card-header text-warning"><i class="fas fa-list"></i> ${group}</div>
     <div class="card-body pre-scrollable">
       <ul class="list-group">
       ${content}

@@ -40,8 +40,8 @@ export default class Store {
     this.state.products = products;
     this.state.categories = this.getCategoriesWithCount(products);
     this.state.brands = this.getBrandsWithCount(products);
-    // this.state.prices = this.getMinMaxPrices(products);
-    // this.state.stocks = this.getMinMaxStock(products);
+    this.state.prices = this.getMinMaxPrices(products);
+    this.state.stocks = this.getMinMaxStock(products);
   }
 
   getCategoriesScrollPosition() {
