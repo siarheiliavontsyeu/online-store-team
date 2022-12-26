@@ -1,7 +1,7 @@
 import Component from '../../../core/components/component.core';
 import { ComponentOptions, ProductI} from '../../../constants/types';
 import { DomNode } from '../../../core/components/node.core';
-import { renderProductCard } from './ProductCard.template';
+import { renderProductCard } from './productCard.template';
 
 
 export default class productCard extends Component {
@@ -14,7 +14,7 @@ export default class productCard extends Component {
         super($root, {
           ...options,
           name: 'productCard',
-          listeners: ['click'],
+          listeners: [],
         });
         this.cardData = cardData;
       }
@@ -24,7 +24,6 @@ export default class productCard extends Component {
       }
 
       render() {
-        console.log(this.cardData)
         return renderProductCard(this.cardData);
       }
     

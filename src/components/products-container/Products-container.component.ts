@@ -3,6 +3,7 @@ import { createNode, DomNode } from '../../core/components/node.core';
 import { renderContainer } from './Products-container.template';
 import { ComponentOptions, ProductI } from '../../constants/types';
 import productCard from './productCard/index';
+import { Actions } from '../../constants/actions';
 
 type ComponentsClasses = typeof productCard;
 type ComponentsInstances = productCard;
@@ -29,14 +30,12 @@ export default class ProductsContainer extends Component {
     super.init();
     this.productCardAppendPoint = this.$root.find('.products-container');
     this.renderComponents();
-    this.subscribe('Product', () => {
+    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
-      console.log(this.store.state);
-    });
+      });
   }
 
   renderComponents() {
-    console.log('Hello')
     const componentOptions = {
       observer: this.observer,
       store: this.store,
@@ -69,6 +68,11 @@ export default class ProductsContainer extends Component {
 
   destroy() {
     super.destroy();
-    this.$root.clear();
+    if (this.productCardAppendPoint) {
+      this.productCardAppendPoint.clear();
+    }
+    this.componentsInstance.forEach((component) => {
+      component.destroy();
+    });
   }
 }
