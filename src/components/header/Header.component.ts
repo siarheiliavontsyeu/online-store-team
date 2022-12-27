@@ -23,7 +23,6 @@ export default class Header extends Component {
   onClick(e: Event) {
     e.preventDefault();
     this.emit('header:test');
-    console.log(this.store);
   }
 
   render() {

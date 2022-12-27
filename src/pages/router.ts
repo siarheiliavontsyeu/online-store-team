@@ -40,7 +40,6 @@ export class Router {
   }
 
   changePageHandler() {
-    console.log(CurrentRoute.path);
     if (this.page) {
       this.page.destroy();
     }
@@ -57,8 +56,6 @@ export class Router {
     } else {
       AppPage = this.routes.notFound;
     }
-
-    console.log(AppPage);
 
     this.page = new AppPage(this.store, CurrentRoute.param);
     this.$container.append(this.page?.render() as DomNode);
