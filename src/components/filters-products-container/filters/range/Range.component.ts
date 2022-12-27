@@ -1,7 +1,7 @@
-import { Actions } from '../../../constants/actions';
-import { FilterDataI, ComponentOptionsFilter, Groups } from '../../../constants/types';
-import Component from '../../../core/components/component.core';
-import { DomNode, wrapperNode } from '../../../core/components/node.core';
+import { Actions } from '../../../../constants/actions';
+import { FilterDataI, ComponentOptionsFilter, Groups } from '../../../../constants/types';
+import Component from '../../../../core/components/component.core';
+import { DomNode, wrapperNode } from '../../../../core/components/node.core';
 import { getTemplate } from './range.template';
 
 export default class Range extends Component {

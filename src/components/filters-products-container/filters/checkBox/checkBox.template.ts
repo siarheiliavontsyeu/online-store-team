@@ -1,4 +1,4 @@
-import { FilterDataI } from '../../../constants/types';
+import { FilterDataI } from '../../../../constants/types';
 
 const getCheckboxFilter = ({ group, initData = {}, currentData, checked = [] }: FilterDataI): string => {
   const li = (key: string, currentValue: number, value: number) => {

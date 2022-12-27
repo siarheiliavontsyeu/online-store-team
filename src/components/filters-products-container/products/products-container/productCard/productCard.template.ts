@@ -1,7 +1,7 @@
-import { ProductI} from '../../../constants/types';
+import { ProductI } from '../../../../../constants/types';
 
 export const renderProductCard = (card: ProductI) => {
-    return `<div class="product-card card bg-primary">
+  return `<div class="product-card card bg-primary">
     <div class="product-wrapper">
       <h4 class="product-title card-header">${card.title}</h4>
       <img class="product-image" src="${card.images[0]}" alt="${card.title}"></img>
@@ -14,5 +14,5 @@ export const renderProductCard = (card: ProductI) => {
         <div class="product-info__stock">Stock: ${card.stock}</div>
       </div>
     </div>
-  </div>`
-}
+  </div>`;
+};

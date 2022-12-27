@@ -5,7 +5,7 @@ import { ComponentOptions } from '../../constants/types';
 
 export default class Footer extends Component {
   static tagName = 'footer';
-  static className = 'footer';
+  static className = 'footer mt-auto';
 
   constructor($root: DomNode, options: ComponentOptions) {
     super($root, {
