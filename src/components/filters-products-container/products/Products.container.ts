@@ -3,9 +3,11 @@ import { createNode, DomNode } from '../../../core/components/node.core';
 import { getTemplate } from './products.template';
 import ProductsContainer from './products-container/index';
 import { ComponentOptions } from '../../../constants/types';
+import ProductsControl from './products-control/index';
+import { Actions } from '../../../constants/actions';
 
-type ComponentsClasses = typeof ProductsContainer;
-type ComponentsInstances = ProductsContainer;
+type ComponentsClasses = typeof ProductsContainer | typeof ProductsControl;
+type ComponentsInstances = ProductsContainer | ProductsControl;
 
 export default class Products extends Component {
   static tagName = 'div';
@@ -21,13 +23,17 @@ export default class Products extends Component {
       listeners: [],
     });
 
-    this.componentsClass = [ProductsContainer];
+    this.componentsClass = [ProductsControl, ProductsContainer];
     this.componentsInstance = [];
   }
 
   init() {
     super.init();
     this.renderComponents();
+    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
+      this.update();
+      // console.log(this.store.state);
+    });
   }
 
   renderComponents() {

@@ -3,7 +3,6 @@ import { createNode, DomNode } from '../../../../core/components/node.core';
 import { renderContainer } from './Products-container.template';
 import { ComponentOptions } from '../../../../constants/types';
 import ProductCard from './productCard/index';
-import { Actions } from '../../../../constants/actions';
 
 type ComponentsClasses = typeof ProductCard;
 type ComponentsInstances = ProductCard;
@@ -29,9 +28,6 @@ export default class ProductsContainer extends Component {
   init() {
     super.init();
     this.renderComponents();
-    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
-      this.update();
-    });
   }
 
   renderComponents() {
