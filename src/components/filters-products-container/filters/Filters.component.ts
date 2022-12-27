@@ -1,10 +1,10 @@
-import Component from '../../core/components/component.core';
-import { createNode, DomNode } from '../../core/components/node.core';
+import Component from '../../../core/components/component.core';
+import { createNode, DomNode } from '../../../core/components/node.core';
 import { getTemplate } from './filters.template';
-import { FilterDataI, ComponentOptions, Groups } from '../../constants/types';
+import { FilterDataI, ComponentOptions, Groups } from '../../../constants/types';
 import CheckBox from './checkBox/index';
 import Range from './range/index';
-import { Actions } from '../../constants/actions';
+import { Actions } from '../../../constants/actions';
 import FilterControl from './filter-control/index';
 
 type ComponentsClasses = typeof FilterControl | typeof CheckBox | typeof Range;

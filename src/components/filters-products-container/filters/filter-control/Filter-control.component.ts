@@ -1,7 +1,7 @@
-import { Actions } from '../../../constants/actions';
-import { ComponentOptions } from '../../../constants/types';
-import Component from '../../../core/components/component.core';
-import { DomNode, wrapperNode } from '../../../core/components/node.core';
+import { Actions } from '../../../../constants/actions';
+import { ComponentOptions } from '../../../../constants/types';
+import Component from '../../../../core/components/component.core';
+import { DomNode, wrapperNode } from '../../../../core/components/node.core';
 import { getTemplate } from './filter-control.template';
 
 export default class FilterControl extends Component {

@@ -1,4 +1,4 @@
-import { FilterDataI, Groups } from '../../../constants/types';
+import { FilterDataI, Groups } from '../../../../constants/types';
 
 export const getTemplate = ({ group, currentData, initData }: FilterDataI): string => {
   const [min, max] = currentData as number[];

@@ -1,16 +1,16 @@
-import Component from '../../core/components/component.core';
-import { createNode, DomNode } from '../../core/components/node.core';
+import Component from '../../../../core/components/component.core';
+import { createNode, DomNode } from '../../../../core/components/node.core';
 import { renderContainer } from './Products-container.template';
-import { ComponentOptions, ProductI } from '../../constants/types';
-import productCard from './productCard/index';
-import { Actions } from '../../constants/actions';
+import { ComponentOptions } from '../../../../constants/types';
+import ProductCard from './productCard/index';
+import { Actions } from '../../../../constants/actions';
 
-type ComponentsClasses = typeof productCard;
-type ComponentsInstances = productCard;
+type ComponentsClasses = typeof ProductCard;
+type ComponentsInstances = ProductCard;
+
 export default class ProductsContainer extends Component {
   static tagName = 'div';
-  static className = 'products';
-  private productCardAppendPoint: DomNode | false;
+  static className = 'products-container';
 
   componentsClass: ComponentsClasses[];
   componentsInstance: ComponentsInstances[];
@@ -21,18 +21,17 @@ export default class ProductsContainer extends Component {
       name: 'Container',
       listeners: ['click'],
     });
-    this.componentsClass = [productCard];
+    this.componentsClass = [];
     this.componentsInstance = [];
     this.productCardAppendPoint = false;
   }
 
   init() {
     super.init();
-    this.productCardAppendPoint = this.$root.find('.products-container');
     this.renderComponents();
     this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
-      });
+    });
   }
 
   renderComponents() {
@@ -40,26 +39,22 @@ export default class ProductsContainer extends Component {
       observer: this.observer,
       store: this.store,
     };
-
-    const className = productCard.className;
-    const tagName = (productCard.tagName as keyof HTMLElementTagNameMap) ?? 'div';
-    const classes = [className];
-    this.store.state.products.forEach((comp) => {
+    this.store.state.products.forEach((product) => {
+      const tagName = (ProductCard.tagName as keyof HTMLElementTagNameMap) ?? 'div';
+      const classes = ProductCard.className.split(' ');
       const $el = createNode({ tag: tagName, classes });
-      const component = new productCard($el, { ...componentOptions, name: '', listeners: [] }, comp);
+      const component = new ProductCard($el, { ...componentOptions, name: '', listeners: [] }, product);
       $el.html(component.render());
-      if (this.productCardAppendPoint) {
-        this.productCardAppendPoint.append($el);
-      }
+      this.$root.append($el);
       this.componentsInstance.push(component);
-    })
+    });
     this.componentsInstance.forEach((component) => component.init());
   }
 
   onClick(e: Event) {
     e.preventDefault();
     this.emit('Product-container:test');
-    console.log(this.store);
+    // console.log(this.store);
   }
 
   render() {
@@ -68,9 +63,7 @@ export default class ProductsContainer extends Component {
 
   destroy() {
     super.destroy();
-    if (this.productCardAppendPoint) {
-      this.productCardAppendPoint.clear();
-    }
+    this.$root.clear();
     this.componentsInstance.forEach((component) => {
       component.destroy();
     });

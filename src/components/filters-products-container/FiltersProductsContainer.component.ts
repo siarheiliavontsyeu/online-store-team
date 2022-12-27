@@ -1,20 +1,13 @@
 import { ComponentOptions } from '../../constants/types';
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
-import Filters from '../filters/index';
-import ProductsContainer from '../products-container/index';
+import Filters from './filters/index';
+
+import Products from './products/index';
 import { getTemplate } from './filtersProductsContainer.template';
 
-type ComponentsClasses = typeof Filters | typeof ProductsContainer;
-type ComponentsInstances = Filters | ProductsContainer;
-
-const enum ComponentsOrder {
-  FilterControl,
-  CheckBox0,
-  CheckBox1,
-  Range0,
-  Range1,
-}
+type ComponentsClasses = typeof Filters | typeof Products;
+type ComponentsInstances = Filters | Products;
 
 export default class FiltersProductsContainer extends Component {
   static tagName = 'div';
@@ -28,7 +21,7 @@ export default class FiltersProductsContainer extends Component {
       name: 'FiltersProductsContainer',
       listeners: [],
     });
-    this.componentsClass = [Filters, ProductsContainer];
+    this.componentsClass = [Filters, Products];
     this.componentsInstance = [];
   }
 
