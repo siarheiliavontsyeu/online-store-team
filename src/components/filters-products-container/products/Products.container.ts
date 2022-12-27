@@ -34,6 +34,10 @@ export default class Products extends Component {
       this.update();
       // console.log(this.store.state);
     });
+    this.subscribe(Actions.APPLY_PRODUCTS_SORT, () => {
+      this.update();
+      // console.log(this.store.state);
+    });
   }
 
   renderComponents() {
