@@ -51,10 +51,10 @@ export interface StateI {
   categoriesScrollPosition: number;
   brandsScrollPosition: number;
   productsSortBy: ProductsSortBy;
+  searchText: string;
 }
 
 export type ProductsSortBy =
-  | ''
   | 'price-ASC'
   | 'price-DESC'
   | 'rating-ASC'

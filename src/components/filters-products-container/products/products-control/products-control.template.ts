@@ -3,14 +3,18 @@ import { ProductsSortBy } from '../../../../constants/types';
 
 const getSortDropDownMenuItems = () => {
   const items = SORT_BY_VALUES.map((item) => {
-    const value = !item ? 'no sorting' : item;
-    return `<a class="dropdown-item sort" data-dropdown-value="${item}" href="#">${value}</a>`;
+    return `<a class="dropdown-item sort" data-dropdown-value="${item}" href="#">${item}</a>`;
   });
   return items.join('');
 };
 
+//TODO
+const getViewDropDownMenuItems = () => {
+  return ``;
+};
+
 export const getTemplate = ({ productsFoundCount, sortBy }: { productsFoundCount: number; sortBy: ProductsSortBy }) => {
-  const title = !sortBy ? 'Sort options' : `Sort by ${sortBy}`;
+  const title = `Sort by ${sortBy}`;
   return `
   <div class="card bg-dark">
     <div class="card-body">
@@ -40,9 +44,7 @@ export const getTemplate = ({ productsFoundCount, sortBy }: { productsFoundCount
            aria-expanded="false">View options</a>
         <div class="dropdown-menu" data-for-id="products-view"
         style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 30px);" >
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+        ${getViewDropDownMenuItems()}
         </div>
       </div>
     </div>

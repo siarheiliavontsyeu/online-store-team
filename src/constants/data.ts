@@ -11,7 +11,6 @@ export const RSSCHOOL = {
 };
 
 export const SORT_BY_VALUES: ProductsSortBy[] = [
-  '',
   'price-ASC',
   'price-DESC',
   'rating-ASC',

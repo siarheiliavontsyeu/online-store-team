@@ -48,7 +48,7 @@ export default class ProductsControl extends Component {
       if (isSortDropdownItem) {
         const sortByValue = $target.data('dropdownValue');
         this.store.setProductsSortBy(sortByValue as ProductsSortBy);
-        this.store.sortingProducts(sortByValue as ProductsSortBy);
+        this.store.sortingProducts(this.store.state.products);
         this.emit(Actions.APPLY_PRODUCTS_SORT);
       }
       if (isProductsSort) {

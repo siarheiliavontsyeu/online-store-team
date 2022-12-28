@@ -20,7 +20,8 @@ export default class Store {
       checkedBrands: [],
       categoriesScrollPosition: 0,
       brandsScrollPosition: 0,
-      productsSortBy: '',
+      productsSortBy: 'price-ASC',
+      searchText: '',
     };
   }
 
@@ -171,38 +172,41 @@ export default class Store {
     this.state.stocks = [...minMax];
   }
 
-  sortingProducts(sortByValue: ProductsSortBy) {
-    if (sortByValue) {
-      const products = this.state.products;
-      const [sortBy, order] = sortByValue.split('-');
+  sortingProducts(products: ProductI[]) {
+    const sortByValue = this.state.productsSortBy;
+    const [sortBy, order] = sortByValue.split('-');
 
-      const sortedProducts: ProductI[] = products.sort((a, b) => {
-        if (sortBy === SortingOptions.Price) {
-          if (order === Order.ASC) {
-            return a.price - b.price;
-          }
-          return b.price - a.price;
+    const sortedProducts: ProductI[] = products.sort((a, b) => {
+      if (sortBy === SortingOptions.Price) {
+        if (order === Order.ASC) {
+          return a.price - b.price;
         }
-        if (sortBy === SortingOptions.Rating) {
-          if (order === Order.ASC) {
-            return a.rating - b.rating;
-          }
-          return b.rating - a.rating;
+        return b.price - a.price;
+      }
+      if (sortBy === SortingOptions.Rating) {
+        if (order === Order.ASC) {
+          return a.rating - b.rating;
         }
-        if (sortBy === SortingOptions.Discount) {
-          if (order === Order.ASC) {
-            return a.discountPercentage - b.discountPercentage;
-          }
-          return b.discountPercentage - a.discountPercentage;
+        return b.rating - a.rating;
+      }
+      if (sortBy === SortingOptions.Discount) {
+        if (order === Order.ASC) {
+          return a.discountPercentage - b.discountPercentage;
         }
-        return 0;
-      });
-      this.updateProductsState(sortedProducts);
-    }
+        return b.discountPercentage - a.discountPercentage;
+      }
+      return 0;
+    });
+    this.updateProductsState(sortedProducts);
   }
 
-  filterProducts({ category, brand, price, stock, text }: FilterProductsI) {
+  filterProducts() {
     const products = this.state.initialProducts;
+    const price = this.getMinMaxPrices() as [number, number];
+    const stock = this.getMinMaxStock() as [number, number];
+    const category = this.getCheckedCategories();
+    const brand = this.getCheckedBrands();
+    const text = this.state.searchText;
 
     const filteredProducts: ProductI[] = products
       .filter((product) => {
@@ -244,7 +248,7 @@ export default class Store {
         return product;
       });
 
-    this.updateProductsState(filteredProducts);
+    this.sortingProducts(filteredProducts);
   }
 
   addToCart(id: number) {
