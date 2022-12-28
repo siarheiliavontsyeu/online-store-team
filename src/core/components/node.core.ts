@@ -122,6 +122,11 @@ export class DomNode {
   show() {
     this.removeClass('d-none');
   }
+
+  toggle(className: string) {
+    this.$el?.classList.toggle(className);
+    return this;
+  }
 }
 
 export const wrapperNode = (selector: HTMLElement | string) => new DomNode(selector);

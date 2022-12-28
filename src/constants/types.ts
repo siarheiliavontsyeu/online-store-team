@@ -50,7 +50,17 @@ export interface StateI {
   checkedBrands: string[];
   categoriesScrollPosition: number;
   brandsScrollPosition: number;
+  productsSortBy: ProductsSortBy;
+  searchText: string;
 }
+
+export type ProductsSortBy =
+  | 'price-ASC'
+  | 'price-DESC'
+  | 'rating-ASC'
+  | 'rating-DESC'
+  | 'discount-ASC'
+  | 'discount-DESC';
 
 export interface CartI {
   id: number;
@@ -77,7 +87,7 @@ export type CategoriesT = string[];
 export const enum SortingOptions {
   Price = 'price',
   Rating = 'rating',
-  Discount = 'discountPercentage',
+  Discount = 'discount',
 }
 
 export const enum Groups {
@@ -85,4 +95,9 @@ export const enum Groups {
   Brand = 'Brand',
   Price = 'Price',
   Stock = 'Stock',
+}
+
+export const enum Order {
+  ASC = 'ASC',
+  DESC = 'DESC',
 }
