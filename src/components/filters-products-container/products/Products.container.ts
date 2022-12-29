@@ -32,7 +32,7 @@ export default class Products extends Component {
     this.renderComponents();
     this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
-      console.log(this.store.state);
+      // console.log(this.store.state);
     });
     this.subscribe(Actions.APPLY_PRODUCTS_SORT, () => {
       this.update();

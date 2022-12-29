@@ -38,12 +38,14 @@ export default class Header extends Component {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');
       if (isProductsSearchBtn) {
         e.preventDefault();
-        const searchText = this.$productsSearch.text();
-        this.store.setSearchText(searchText as string);
-        this.store.setMinMaxStock(this.store.state.initialStocks);
-        this.store.setMinMaxPrices(this.store.state.initialPrices);
-        this.store.filterProducts();
-        this.emit(Actions.APPLY_PRODUCT_FILTER);
+        const searchText = (this.$productsSearch.text() as string).trim();
+        if (searchText) {
+          this.store.setSearchText(searchText);
+          this.store.setMinMaxStock(this.store.state.initialStocks);
+          this.store.setMinMaxPrices(this.store.state.initialPrices);
+          this.store.filterProducts();
+          this.emit(Actions.APPLY_PRODUCT_FILTER);
+        }
       }
     }
   }
