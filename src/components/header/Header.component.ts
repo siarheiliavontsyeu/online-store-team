@@ -15,7 +15,7 @@ export default class Header extends Component {
     super($root, {
       ...options,
       name: 'Header',
-      listeners: ['click'],
+      listeners: ['click', 'submit'],
     });
     this.$productsSearch = false;
     this.$productsSearchBtn = false;
@@ -32,20 +32,34 @@ export default class Header extends Component {
     });
   }
 
+  handleSearch(e: Event) {
+    e.preventDefault();
+    if (this.$productsSearch && this.$productsSearchBtn) {
+      const searchText = (this.$productsSearch.text() as string).trim();
+      this.store.setSearchText(searchText);
+      this.store.setMinMaxStock(this.store.state.initialStocks);
+      this.store.setMinMaxPrices(this.store.state.initialPrices);
+      this.store.filterProducts();
+      this.emit(Actions.APPLY_PRODUCT_FILTER);
+    }
+  }
+
   onClick(e: Event) {
     const $target = wrapperNode(e.target as HTMLElement);
     if (this.$productsSearch && this.$productsSearchBtn) {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');
       if (isProductsSearchBtn) {
-        e.preventDefault();
-        const searchText = (this.$productsSearch.text() as string).trim();
-        if (searchText) {
-          this.store.setSearchText(searchText);
-          this.store.setMinMaxStock(this.store.state.initialStocks);
-          this.store.setMinMaxPrices(this.store.state.initialPrices);
-          this.store.filterProducts();
-          this.emit(Actions.APPLY_PRODUCT_FILTER);
-        }
+        this.handleSearch(e);
+      }
+    }
+  }
+
+  onSubmit(e: Event) {
+    const $target = wrapperNode(e.target as HTMLElement);
+    if (this.$productsSearch) {
+      const isProductsSearch = $target.attr('id') === this.$productsSearch.attr('id');
+      if (isProductsSearch) {
+        this.handleSearch(e);
       }
     }
   }

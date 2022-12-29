@@ -222,6 +222,20 @@ export default class Store {
 
     const filteredProducts: ProductI[] = products
       .filter((product) => {
+        if (text) {
+          const searchText = text.toLowerCase().trim();
+          return (
+            product.brand.toLowerCase().includes(searchText) ||
+            product.category.toLowerCase().includes(searchText) ||
+            product.description.toLowerCase().includes(searchText) ||
+            product.title.toLowerCase().includes(searchText) ||
+            String(product.price).toLowerCase().includes(searchText) ||
+            String(product.stock).toLowerCase().includes(searchText)
+          );
+        }
+        return product;
+      })
+      .filter((product) => {
         if (category && category.length > 0) {
           return category.includes(product.category.toLowerCase());
         }
@@ -242,20 +256,6 @@ export default class Store {
       .filter((product) => {
         if (stock) {
           return product.stock >= stock[0] && product.stock <= stock[1];
-        }
-        return product;
-      })
-      .filter((product) => {
-        if (text) {
-          const searchText = text.toLowerCase().trim();
-          return (
-            product.brand.toLowerCase().includes(searchText) ||
-            product.category.toLowerCase().includes(searchText) ||
-            product.description.toLowerCase().includes(searchText) ||
-            product.title.toLowerCase().includes(searchText) ||
-            String(product.price).toLowerCase().includes(searchText) ||
-            String(product.stock).toLowerCase().includes(searchText)
-          );
         }
         return product;
       });
