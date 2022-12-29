@@ -20,7 +20,7 @@ export default class Store {
       checkedBrands: [],
       categoriesScrollPosition: 0,
       brandsScrollPosition: 0,
-      productsSortBy: 'price-ASC',
+      productsSortBy: 'price-DESC',
       searchText: '',
     };
   }
@@ -214,8 +214,14 @@ export default class Store {
 
   filterProducts() {
     const products = this.state.initialProducts;
-    const price = this.getMinMaxPrices() as [number, number];
-    const stock = this.getMinMaxStock() as [number, number];
+    let price = this.getMinMaxPrices() as [number, number];
+    if (!isFinite(price[0]) || !isFinite(price[1])) {
+      price = this.getMinMaxPrices(products) as [number, number];
+    }
+    let stock = this.getMinMaxStock() as [number, number];
+    if (!isFinite(stock[0]) || !isFinite(stock[1])) {
+      stock = this.getMinMaxStock(products) as [number, number];
+    }
     const category = this.getCheckedCategories();
     const brand = this.getCheckedBrands();
     const text = this.getSearchText();

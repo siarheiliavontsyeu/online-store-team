@@ -37,8 +37,7 @@ export default class Header extends Component {
     if (this.$productsSearch && this.$productsSearchBtn) {
       const searchText = (this.$productsSearch.text() as string).trim();
       this.store.setSearchText(searchText);
-      this.store.setMinMaxStock(this.store.state.initialStocks);
-      this.store.setMinMaxPrices(this.store.state.initialPrices);
+      // this.store.setMinMaxPrices(this.store.state.initialPrices);
       this.store.filterProducts();
       this.emit(Actions.APPLY_PRODUCT_FILTER);
     }
@@ -70,6 +69,5 @@ export default class Header extends Component {
 
   destroy() {
     super.destroy();
-    // this.$root.clear();
   }
 }

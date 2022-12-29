@@ -49,11 +49,9 @@ export default class Range extends Component {
 
         if (this.data.group === Groups.Price) {
           this.store.setMinMaxPrices([miniVal, maxiVal]);
-          this.store.setMinMaxStock(this.store.state.initialStocks);
         }
         if (this.data.group === Groups.Stock) {
           this.store.setMinMaxStock([miniVal, maxiVal]);
-          this.store.setMinMaxPrices(this.store.state.initialPrices);
         }
 
         this.store.filterProducts();
