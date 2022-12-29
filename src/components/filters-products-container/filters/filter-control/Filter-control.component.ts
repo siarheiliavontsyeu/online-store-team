@@ -36,7 +36,7 @@ export default class FilterControl extends Component {
         this.store.setCheckedBrands([]);
         this.store.setMinMaxStock(this.store.state.initialStocks);
         this.store.setMinMaxPrices(this.store.state.initialPrices);
-
+        this.store.setSearchText('');
         this.store.filterProducts();
         this.emit(Actions.APPLY_PRODUCT_FILTER);
       }

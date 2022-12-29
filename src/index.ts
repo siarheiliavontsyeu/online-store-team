@@ -11,7 +11,7 @@ async function app() {
   try {
     const productsResponse = await api.getProducts();
     const products = productsResponse?.products || [];
-    store.initProductsState(products);
+    store.sortingProducts(products, true);
     // console.log(getCategoriesList(store, true));
     // console.log(getBrandsList(store, true));
     // console.log(store.state);

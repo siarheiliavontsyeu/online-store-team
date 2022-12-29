@@ -1,4 +1,4 @@
-import { FilterProductsI, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import { Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
 
 export default class Store {
   public state: StateI;
@@ -60,6 +60,14 @@ export default class Store {
 
   setBrandsScrollPosition(value: number) {
     this.state.brandsScrollPosition = value;
+  }
+
+  getSearchText() {
+    return this.state.searchText;
+  }
+
+  setSearchText(value: string) {
+    this.state.searchText = value;
   }
 
   getProductsForView() {
@@ -172,7 +180,7 @@ export default class Store {
     this.state.stocks = [...minMax];
   }
 
-  sortingProducts(products: ProductI[]) {
+  sortingProducts(products: ProductI[], initial?: boolean) {
     const sortByValue = this.state.productsSortBy;
     const [sortBy, order] = sortByValue.split('-');
 
@@ -197,7 +205,11 @@ export default class Store {
       }
       return 0;
     });
-    this.updateProductsState(sortedProducts);
+    if (initial) {
+      this.initProductsState(sortedProducts);
+    } else {
+      this.updateProductsState(sortedProducts);
+    }
   }
 
   filterProducts() {
@@ -206,7 +218,7 @@ export default class Store {
     const stock = this.getMinMaxStock() as [number, number];
     const category = this.getCheckedCategories();
     const brand = this.getCheckedBrands();
-    const text = this.state.searchText;
+    const text = this.getSearchText();
 
     const filteredProducts: ProductI[] = products
       .filter((product) => {
