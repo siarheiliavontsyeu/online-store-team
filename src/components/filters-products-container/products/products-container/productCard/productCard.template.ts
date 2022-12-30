@@ -1,10 +1,10 @@
 import { ProductI } from '../../../../../constants/types';
 
 export const renderProductCard = (card: ProductI) => {
-  return `<div class="product-card card bg-primary">
-    <div class="product-wrapper">
-      <h4 class="product-title card-header">${card.title}</h4>
-      <img class="product-image" src="${card.images[0]}" alt="${card.title}"></img>
+  return `<div class="product-card card " >
+  
+    <div class="product-wrapper" style="background: url(${card.images[0]}) 0% 0% / cover">
+    <h4 class="product-title card-header bg-primary">${card.title}</h4>
       <div class="product-info">
         <div class="product-info__category">Category: ${card.category}</div>
         <div class="product-info__brand">Brand: ${card.brand}</div>
@@ -14,5 +14,11 @@ export const renderProductCard = (card: ProductI) => {
         <div class="product-info__stock">Stock: ${card.stock}</div>
       </div>
     </div>
-  </div>`;
+    <div class="buttons-wrapper">
+    <button type="button" class="btn btn-success">Add to cart</button>
+    <a href='#' type="button" class="btn btn-info">Details</a>
+    </div>
+  </div>
+`
 };
+
