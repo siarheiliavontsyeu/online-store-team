@@ -1,4 +1,4 @@
-import { FilterProductsI, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import { Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
 
 export default class Store {
   public state: StateI;
@@ -20,7 +20,7 @@ export default class Store {
       checkedBrands: [],
       categoriesScrollPosition: 0,
       brandsScrollPosition: 0,
-      productsSortBy: 'price-ASC',
+      productsSortBy: 'price-DESC',
       searchText: '',
     };
   }
@@ -60,6 +60,14 @@ export default class Store {
 
   setBrandsScrollPosition(value: number) {
     this.state.brandsScrollPosition = value;
+  }
+
+  getSearchText() {
+    return this.state.searchText;
+  }
+
+  setSearchText(value: string) {
+    this.state.searchText = value;
   }
 
   getProductsForView() {
@@ -172,7 +180,7 @@ export default class Store {
     this.state.stocks = [...minMax];
   }
 
-  sortingProducts(products: ProductI[]) {
+  sortingProducts(products: ProductI[], initial?: boolean) {
     const sortByValue = this.state.productsSortBy;
     const [sortBy, order] = sortByValue.split('-');
 
@@ -197,18 +205,42 @@ export default class Store {
       }
       return 0;
     });
-    this.updateProductsState(sortedProducts);
+    if (initial) {
+      this.initProductsState(sortedProducts);
+    } else {
+      this.updateProductsState(sortedProducts);
+    }
   }
 
   filterProducts() {
     const products = this.state.initialProducts;
-    const price = this.getMinMaxPrices() as [number, number];
-    const stock = this.getMinMaxStock() as [number, number];
+    let price = this.getMinMaxPrices() as [number, number];
+    if (!isFinite(price[0]) || !isFinite(price[1])) {
+      price = this.getMinMaxPrices(products) as [number, number];
+    }
+    let stock = this.getMinMaxStock() as [number, number];
+    if (!isFinite(stock[0]) || !isFinite(stock[1])) {
+      stock = this.getMinMaxStock(products) as [number, number];
+    }
     const category = this.getCheckedCategories();
     const brand = this.getCheckedBrands();
-    const text = this.state.searchText;
+    const text = this.getSearchText();
 
     const filteredProducts: ProductI[] = products
+      .filter((product) => {
+        if (text) {
+          const searchText = text.toLowerCase().trim();
+          return (
+            product.brand.toLowerCase().includes(searchText) ||
+            product.category.toLowerCase().includes(searchText) ||
+            product.description.toLowerCase().includes(searchText) ||
+            product.title.toLowerCase().includes(searchText) ||
+            String(product.price).toLowerCase().includes(searchText) ||
+            String(product.stock).toLowerCase().includes(searchText)
+          );
+        }
+        return product;
+      })
       .filter((product) => {
         if (category && category.length > 0) {
           return category.includes(product.category.toLowerCase());
@@ -230,20 +262,6 @@ export default class Store {
       .filter((product) => {
         if (stock) {
           return product.stock >= stock[0] && product.stock <= stock[1];
-        }
-        return product;
-      })
-      .filter((product) => {
-        if (text) {
-          const searchText = text.toLowerCase().trim();
-          return (
-            product.brand.toLowerCase().includes(searchText) ||
-            product.category.toLowerCase().includes(searchText) ||
-            product.description.toLowerCase().includes(searchText) ||
-            product.title.toLowerCase().includes(searchText) ||
-            String(product.price).toLowerCase().includes(searchText) ||
-            String(product.stock).toLowerCase().includes(searchText)
-          );
         }
         return product;
       });
