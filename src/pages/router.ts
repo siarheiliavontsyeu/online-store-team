@@ -7,6 +7,13 @@ import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
 
+enum PageNames {
+  product = 'product',
+  main = 'main',
+  cart = 'cart',
+  notFound = '404',
+}
+
 interface Pages {
   main: typeof Main;
   product: typeof Product;
@@ -47,12 +54,14 @@ export class Router {
     this.$container.clear();
 
     let AppPage: PagesClasses;
-    if (['', 'main'].includes(CurrentRoute.path)) {
+    if (['', PageNames.main].includes(CurrentRoute.pageName)) {
       AppPage = this.routes.main;
-    } else if (CurrentRoute.path === 'product') {
+    } else if (CurrentRoute.pageName === PageNames.product) {
       AppPage = this.routes.product;
-    } else if (CurrentRoute.path === 'cart') {
+    } else if (CurrentRoute.pageName === PageNames.cart) {
       AppPage = this.routes.cart;
+    } else if (CurrentRoute.pageName === PageNames.notFound) {
+      AppPage = this.routes.notFound;
     } else {
       AppPage = this.routes.notFound;
     }
