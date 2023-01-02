@@ -32,6 +32,7 @@ export class Router {
   }
 
   changePageHandler() {
+    console.log(CurrentRoute.path, 'hello')
     if (this.page) {
       this.page.destroy();
     }

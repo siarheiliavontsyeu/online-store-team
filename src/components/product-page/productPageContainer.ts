@@ -3,9 +3,10 @@ import Footer from '../footer/index';
 import Store from '../../core/store/store.core';
 import Observer from '../../core/components/observer.core';
 import { createNode } from '../../core/components/node.core';
+import ProductDetails from '../details/index';
 
-type ComponentsClasses = typeof Header | typeof Footer;
-type ComponentsInstances = Header | Footer;
+type ComponentsClasses = typeof Header | typeof ProductDetails | typeof Footer;
+type ComponentsInstances = Header | ProductDetails | Footer;
 
 export class ProductPageContainer {
     componentsClass: ComponentsClasses[];
@@ -13,7 +14,7 @@ export class ProductPageContainer {
     observer: Observer;
 
     constructor(public store: Store) {
-        this.componentsClass = [Header, Footer];
+        this.componentsClass = [Header, ProductDetails, Footer];
         this.componentsInstance = [];
         this.observer = new Observer();
         this.store = store;
@@ -30,10 +31,11 @@ export class ProductPageContainer {
             const classes = Comp.className.split(' ');
             const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
             const $el = createNode({ tag: tagName, classes });
-            const component = new Comp($el, { ...componentOptions, name: '', listeners: [] });
-            $el.html(component.render());
-            $root.append($el);
-            this.componentsInstance.push(component);
+            console.log($el, { ...componentOptions, name: '', listeners: [] })
+            // const component = new Comp($el, { ...componentOptions, name: '', listeners: [] });
+            // $el.html(component.render());
+            // $root.append($el);
+            // this.componentsInstance.push(component);
         });
 
         return $root;

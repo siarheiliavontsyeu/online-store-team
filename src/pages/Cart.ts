@@ -10,7 +10,7 @@ export class Cart extends Page {
   render(): DomNode {
     return createNode({ tag: 'div', classes: ['container', 'cart-page'] }).html(
       `<h1>Cart Page</h1>
-    <button type="button" class="btn btn-link"><a href="#product">Product</a></button>`
+    <button type="button" class="btn btn-link"><a href="#cart">Cart</a></button>`
     ) as DomNode;
   }
 }
