@@ -52,6 +52,14 @@ export interface StateI {
   brandsScrollPosition: number;
   productsSortBy: ProductsSortBy;
   searchText: string;
+  filterBy: FilterBy;
+}
+
+export enum FilterBy {
+  checkbox = 'checkbox',
+  range = 'range',
+  text = 'text',
+  null = '',
 }
 
 export type ProductsSortBy =
@@ -80,6 +88,7 @@ export interface FilterDataI {
   initData: { [key: string]: number } | number[];
   currentData: { [key: string]: number } | number[];
   checked?: string[];
+  products?: ProductI[];
 }
 
 export type CategoriesT = string[];

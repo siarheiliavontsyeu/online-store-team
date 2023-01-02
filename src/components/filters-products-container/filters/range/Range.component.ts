@@ -1,5 +1,5 @@
 import { Actions } from '../../../../constants/actions';
-import { FilterDataI, ComponentOptionsFilter, Groups } from '../../../../constants/types';
+import { FilterDataI, ComponentOptionsFilter, Groups, FilterBy } from '../../../../constants/types';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
 import { getTemplate } from './range.template';
@@ -53,7 +53,7 @@ export default class Range extends Component {
         if (this.data.group === Groups.Stock) {
           this.store.setMinMaxStock([miniVal, maxiVal]);
         }
-
+        this.store.setFilterBy(FilterBy.range);
         this.store.filterProducts();
         this.emit(Actions.APPLY_PRODUCT_FILTER);
       }
@@ -61,7 +61,8 @@ export default class Range extends Component {
   }
 
   render() {
-    return getTemplate(this.data);
+    const products = this.store.getProductsForView();
+    return getTemplate({ ...this.data, products });
   }
 
   destroy() {
