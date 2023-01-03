@@ -1,4 +1,5 @@
 import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import { SEPARATOR } from '../../constants/data';
 
 export default class Store {
   public state: StateI;
@@ -23,6 +24,8 @@ export default class Store {
       productsSortBy: 'price-DESC',
       searchText: '',
       filterBy: FilterBy.null,
+      urlQuery: '',
+      urlParams: '',
     };
   }
 
@@ -53,6 +56,38 @@ export default class Store {
 
   setFilterBy(value: FilterBy) {
     this.state.filterBy = value;
+  }
+
+  updateProductsStateFromUrl() {
+    const urlQuery = this.getUrlQuery()?.split('&');
+    const queries: { [key: string]: string[] } = {};
+    urlQuery.forEach((el) => {
+      const [type = '', query = ''] = el.split('=');
+      queries[type] = query.split(SEPARATOR);
+    });
+    this.state.checkedBrands = queries.brand ? queries.brand : [];
+    this.state.checkedCategories = queries.category ? queries.category : [];
+    this.state.prices = queries.price && queries.price.length ? queries.price.map((el) => parseInt(el)) : [];
+    this.state.stocks = queries.stock && queries.stock.length ? queries.stock.map((el) => parseInt(el)) : [];
+    this.state.searchText = queries.search ? queries.search[0] : '';
+    this.state.productsSortBy = queries.sort ? (queries.sort[0] as ProductsSortBy) : 'price-DESC';
+    this.filterProducts();
+  }
+
+  getUrlParams() {
+    return this.state.urlParams;
+  }
+
+  setUrlParams(value: string) {
+    this.state.urlParams = value;
+  }
+
+  getUrlQuery() {
+    return this.state.urlQuery;
+  }
+
+  setUrlQuery(value: string) {
+    this.state.urlQuery = value;
   }
 
   getCategoriesScrollPosition() {

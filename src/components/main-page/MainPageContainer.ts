@@ -15,13 +15,11 @@ export class MainPageContainer {
   componentsInstance: ComponentsInstances[];
   observer: Observer;
 
-  constructor(public store: Store, public params: string, public query: string[]) {
+  constructor(public store: Store) {
     this.componentsClass = [Header, FiltersProductsContainer, Footer];
     this.componentsInstance = [];
     this.observer = new Observer();
     this.store = store;
-    this.params = params;
-    this.query = query;
   }
 
   render() {

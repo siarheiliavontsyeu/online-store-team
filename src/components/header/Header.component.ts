@@ -4,6 +4,7 @@ import './Header.css';
 import { ComponentOptions, FilterBy } from '../../constants/types';
 import { Actions } from '../../constants/actions';
 import { getTemplate } from './header.template';
+import { CurrentRoute } from '../../core/router/currentRoute';
 
 export default class Header extends Component {
   static tagName = 'header';
@@ -43,6 +44,7 @@ export default class Header extends Component {
   }
 
   onClick(e: Event) {
+    CurrentRoute.navigate('111');
     const $target = wrapperNode(e.target as HTMLElement);
     if (this.$productsSearch && this.$productsSearchBtn) {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');

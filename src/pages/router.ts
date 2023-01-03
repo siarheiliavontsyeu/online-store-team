@@ -50,8 +50,12 @@ export class Router {
     } else {
       AppPage = this.routes.notFound;
     }
+    this.store.setUrlParams(CurrentRoute.param ? CurrentRoute.param : '');
+    this.store.setUrlQuery(CurrentRoute.query ? CurrentRoute.query : '');
 
-    this.page = new AppPage(this.store, CurrentRoute.param, CurrentRoute.query);
+    this.store.updateProductsStateFromUrl();
+
+    this.page = new AppPage(this.store);
     this.$container.append(this.page?.render() as DomNode);
     this.page?.afterRender();
   }

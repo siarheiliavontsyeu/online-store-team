@@ -2,7 +2,6 @@ import { ComponentOptions } from '../../constants/types';
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
 import Filters from './filters/index';
-
 import Products from './products/index';
 import { getTemplate } from './filtersProductsContainer.template';
 

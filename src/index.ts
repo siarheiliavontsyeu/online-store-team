@@ -15,6 +15,7 @@ async function app() {
     new Router('body', store);
   } catch (e) {
     console.error((e as Error).message);
+    console.error((e as Error).stack);
   }
 
   console.log('App started!');

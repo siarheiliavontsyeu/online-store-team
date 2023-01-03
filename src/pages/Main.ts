@@ -8,14 +8,17 @@ import Store from '../core/store/store.core';
 export class Main extends Page {
   private mainPageContainer: MainPageContainer | null;
 
-  constructor(public store: Store, public params: string, public query: string) {
-    super(store, params, query);
+  constructor(public store: Store) {
+    super(store);
     this.mainPageContainer = null;
   }
 
   render(): DomNode {
-    const queryArr: string[] = this.query.split('&');
-    this.mainPageContainer = new MainPageContainer(this.store, this.params, queryArr);
+    if (CurrentRoute.path === '') {
+      CurrentRoute.navigate(PageNames.main);
+    }
+    console.log(this.store.state);
+    this.mainPageContainer = new MainPageContainer(this.store);
     return this.mainPageContainer.render();
   }
 

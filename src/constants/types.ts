@@ -57,6 +57,8 @@ export interface StateI {
   productsSortBy: ProductsSortBy;
   searchText: string;
   filterBy: FilterBy;
+  urlQuery: string;
+  urlParams: string;
 }
 
 export enum FilterBy {
