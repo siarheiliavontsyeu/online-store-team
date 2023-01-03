@@ -1,5 +1,6 @@
 import { ProductPageContainer } from '../components/product-page/ProductPageContainer';
 import { createNode, DomNode } from '../core/components/node.core';
+import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
 
@@ -10,14 +11,6 @@ export class Product extends Page {
     super(store);
     this.productPageContainer = null;
   }
-
-
-  // render(): DomNode {
-  //   return createNode({ tag: 'div', classes: ['container', 'cart-page'] }).html(
-  //     `<h1>Product Page</h1>
-  //   <button type="button" class="btn btn-link"><a href="#cart">Product</a></button>`
-  //   ) as DomNode;
-  // }
 
   render(): DomNode {
     this.productPageContainer = new ProductPageContainer(this.store);

@@ -4,24 +4,28 @@ import Store from '../../core/store/store.core';
 import Observer from '../../core/components/observer.core';
 import { createNode } from '../../core/components/node.core';
 import ProductDetails from '../details/index';
+import { ProductI } from '../../constants/types';
 
-type ComponentsClasses = typeof Header | typeof ProductDetails | typeof Footer;
-type ComponentsInstances = Header | ProductDetails | Footer;
+type ComponentsClasses = typeof ProductDetails ;
+type ComponentsInstances = ProductDetails;
 
 export class ProductPageContainer {
     componentsClass: ComponentsClasses[];
     componentsInstance: ComponentsInstances[];
     observer: Observer;
 
-    constructor(public store: Store) {
-        this.componentsClass = [Header, ProductDetails, Footer];
+    private cardData: ProductI;
+
+    constructor(public store: Store, cardData: ProductI) {
+        this.componentsClass = [ProductDetails];
         this.componentsInstance = [];
         this.observer = new Observer();
         this.store = store;
+        this.cardData = cardData;
     }
 
     render() {
-        const $root = createNode({ tag: 'div', classes: ['product-page', 'd-flex', 'flex-column', 'min-vh-100'] });
+        const $root = createNode({ tag: 'div', classes: ['product-page', 'min-vh-100'] });
         const componentOptions = {
             observer: this.observer,
             store: this.store,
@@ -29,13 +33,14 @@ export class ProductPageContainer {
 
         this.componentsClass.forEach((Comp: ComponentsClasses) => {
             const classes = Comp.className.split(' ');
+            console.log(Comp.className ==='header')
             const tagName = (Comp.tagName as keyof HTMLElementTagNameMap) ?? 'div';
             const $el = createNode({ tag: tagName, classes });
-            console.log($el, { ...componentOptions, name: '', listeners: [] })
-            // const component = new Comp($el, { ...componentOptions, name: '', listeners: [] });
-            // $el.html(component.render());
-            // $root.append($el);
-            // this.componentsInstance.push(component);
+
+            const component = new Comp($el, { ...componentOptions, name: '', listeners: [] }, this.cardData);
+            $el.html(component.render());
+            $root.append($el);
+            this.componentsInstance.push(component);
         });
 
         return $root;
