@@ -3,8 +3,8 @@ import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
 
 export class Product extends Page {
-  constructor(public store: Store, public params?: unknown) {
-    super(store, params);
+  constructor(public store: Store, public params: string, public query: string) {
+    super(store, params, query);
   }
   render(): DomNode {
     return createNode({ tag: 'div', classes: ['container', 'product-page'] }).html(

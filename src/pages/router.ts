@@ -6,22 +6,7 @@ import { DomNode, wrapperNode } from '../core/components/node.core';
 import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
-
-enum PageNames {
-  product = 'product',
-  main = 'main',
-  cart = 'cart',
-  notFound = '404',
-}
-
-interface Pages {
-  main: typeof Main;
-  product: typeof Product;
-  cart: typeof Cart;
-  notFound: typeof NotFound;
-}
-
-type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof NotFound;
+import { PageNames, Pages, PagesClasses } from '../constants/types';
 
 export class Router {
   private $container: DomNode;
@@ -66,7 +51,7 @@ export class Router {
       AppPage = this.routes.notFound;
     }
 
-    this.page = new AppPage(this.store, CurrentRoute.param);
+    this.page = new AppPage(this.store, CurrentRoute.param, CurrentRoute.query);
     this.$container.append(this.page?.render() as DomNode);
     this.page?.afterRender();
   }

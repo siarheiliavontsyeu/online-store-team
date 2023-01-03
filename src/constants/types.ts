@@ -1,5 +1,9 @@
 import Observer from '../core/components/observer.core';
 import Store from '../core/store/store.core';
+import { Cart } from '../pages/Cart';
+import { Main } from '../pages/Main';
+import { NotFound } from '../pages/NotFound';
+import { Product } from '../pages/Product';
 
 export interface ComponentOptions {
   name: string;
@@ -110,3 +114,19 @@ export const enum Order {
   ASC = 'ASC',
   DESC = 'DESC',
 }
+
+export enum PageNames {
+  product = 'product',
+  main = 'main',
+  cart = 'cart',
+  notFound = '404',
+}
+
+export interface Pages {
+  main: typeof Main;
+  product: typeof Product;
+  cart: typeof Cart;
+  notFound: typeof NotFound;
+}
+
+export type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof NotFound;

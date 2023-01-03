@@ -8,7 +8,7 @@ export class CurrentRoute {
   }
 
   static get param() {
-    return CurrentRoute.path.split('/')[1];
+    return CurrentRoute.path.split('/')[1].split('?')[0];
   }
 
   static get query() {
