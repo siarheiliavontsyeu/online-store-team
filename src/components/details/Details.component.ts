@@ -7,15 +7,12 @@ export default class ProductDetails extends Component {
     static tagName = 'div';
     static className = 'product-details d-flex';
 
-    private cardData: ProductI;
-
-    constructor($root: DomNode, options: ComponentOptions, cardData: ProductI) {
+    constructor($root: DomNode, options: ComponentOptions, cardData?: ProductI) {
       super($root, {
         ...options,
         name: 'productDetails',
         listeners: [],
       });
-      this.cardData = cardData;
     }
   
     init() {
@@ -23,9 +20,9 @@ export default class ProductDetails extends Component {
     }
   
     render() {
-      const currentItem = CurrentRoute.path.split('/').pop();
-      console.log(CurrentRoute.path.split('/').pop(), 'CurrentRoute')
-      return renderProductDetails(currentItem, this.cardData);
+      const productId = Number(CurrentRoute.path.split('/').pop());
+      const cardProduct = this.store.state.initialProducts.find((product)=> product.id === productId)
+      return renderProductDetails(cardProduct!);
     }
   
     destroy() {

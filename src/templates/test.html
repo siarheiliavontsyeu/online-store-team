@@ -29,18 +29,29 @@
     </div>
   </header>
   <main>
-    <div class="products-container">
-      <div class="product-card">
-        <div class="product-wrapper">
-          <h4 class="product-title">${card.title}</h4>
-          <img class="product-image" src="" alt="${card.title}"></img>
+    <div class="product-details card " >
+      <div class="product-wrapper">
+        <h4 class="product-title card-header bg-primary">${card.title}</h4>
+        <div class="product-data">
+          <div class="product-photos">
+            <div class="slides">
+            </div>
+            <div class="main-photo">
+              <img src="card.images[0]" alt="main-photo">
+            </div>
+          </div>
           <div class="product-info">
+            <div class="product-info__description">Category: ${card.description}</div>
             <div class="product-info__category">Category: ${card.category}</div>
             <div class="product-info__brand">Brand: ${card.brand}</div>
-            <div class="product-info__price">Price: ${card.price}</div>
             <div class="product-info__discount">Discount: ${card.discountPercentage}</div>
             <div class="product-info__rating">Rating: ${card.rating}</div>
             <div class="product-info__stock">Stock: ${card.stock}</div>
+          </div>
+          <div class="add-to-card">
+            <div class="product-price">${card.price}</div>
+            <button class="btn btn-success">Add to cart</button>
+            <button class="btn btn-success">Buy now</button>
           </div>
         </div>
       </div>

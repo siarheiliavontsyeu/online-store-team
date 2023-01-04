@@ -1,4 +1,5 @@
 import { ProductPageContainer } from '../components/product-page/ProductPageContainer';
+import { ProductI } from '../constants/types';
 import { createNode, DomNode } from '../core/components/node.core';
 import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
