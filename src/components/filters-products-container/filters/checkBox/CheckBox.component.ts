@@ -60,6 +60,10 @@ export default class CheckBox extends Component {
         }) as string[];
       }
 
+      this.store.setMinMaxPrices([-Infinity, Infinity]);
+      this.store.setMinMaxStock([-Infinity, Infinity]);
+      this.store.setFilterBy(FilterBy.checkbox);
+
       let path = `${PageNames.main}/?`;
       let category = 'category=';
       let brand = 'brand=';
@@ -106,10 +110,6 @@ export default class CheckBox extends Component {
         brand = `${brand}${this.store.getCheckedBrands().join(SEPARATOR)}`;
         path = `${path}&${brand !== 'brand=' ? brand : ''}`;
       }
-
-      this.store.setMinMaxPrices([-Infinity, Infinity]);
-      this.store.setMinMaxStock([-Infinity, Infinity]);
-      this.store.setFilterBy(FilterBy.checkbox);
 
       CurrentRoute.navigate(path);
     }
