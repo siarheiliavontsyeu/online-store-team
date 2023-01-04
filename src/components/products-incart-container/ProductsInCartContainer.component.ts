@@ -10,7 +10,7 @@ type ComponentsInstances = ProductsInCart | Summary;
 
 export default class ProductsInCartContainer extends Component {
   static tagName = 'div';
-  static className = 'products-summary container d-flex';
+  static className = 'products-summary container d-flex justify-content-between';
   componentsClass: ComponentsClasses[];
   componentsInstance: ComponentsInstances[];
 
