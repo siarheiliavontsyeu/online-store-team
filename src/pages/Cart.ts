@@ -1,6 +1,5 @@
 import { CartPageContainer } from '../components/cart-page/CartPageContainer';
 import { DomNode } from '../core/components/node.core';
-import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
 
