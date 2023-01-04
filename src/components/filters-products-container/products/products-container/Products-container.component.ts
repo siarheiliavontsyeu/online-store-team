@@ -48,7 +48,7 @@ export default class ProductsContainer extends Component {
   }
 
   onClick(e: Event) {
-    e.preventDefault();
+    // e.preventDefault();
     this.emit('Product-container:test');
     // console.log(this.store);
   }
