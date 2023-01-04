@@ -1,7 +1,7 @@
 import Component from '../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../core/components/node.core';
 import './Header.css';
-import { ComponentOptions } from '../../constants/types';
+import { ComponentOptions, FilterBy } from '../../constants/types';
 import { Actions } from '../../constants/actions';
 import { getTemplate } from './header.template';
 
@@ -28,7 +28,6 @@ export default class Header extends Component {
     this.$productsSearchBtn = this.$root.find('#products-search-btn');
     this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
       this.update();
-      // console.log(this.store.state);
     });
   }
 
@@ -37,7 +36,7 @@ export default class Header extends Component {
     if (this.$productsSearch && this.$productsSearchBtn) {
       const searchText = (this.$productsSearch.text() as string).trim();
       this.store.setSearchText(searchText);
-      // this.store.setMinMaxPrices(this.store.state.initialPrices);
+      this.store.setFilterBy(FilterBy.text);
       this.store.filterProducts();
       this.emit(Actions.APPLY_PRODUCT_FILTER);
     }

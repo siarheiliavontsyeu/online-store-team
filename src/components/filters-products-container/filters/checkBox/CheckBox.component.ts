@@ -1,5 +1,5 @@
 import { Actions } from '../../../../constants/actions';
-import { FilterDataI, ComponentOptionsFilter, Groups } from '../../../../constants/types';
+import { FilterDataI, ComponentOptionsFilter, Groups, FilterBy } from '../../../../constants/types';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
 import { getTemplate } from './checkBox.template';
@@ -51,6 +51,7 @@ export default class CheckBox extends Component {
 
     if (isCheckbox) {
       const allCheckedCheckboxes = this.$root.findAll('.form-check-input:checked');
+
       let allCheckedIds: string[] = [];
       if (allCheckedCheckboxes) {
         allCheckedIds = allCheckedCheckboxes.map((elem) => {
@@ -64,7 +65,9 @@ export default class CheckBox extends Component {
       if (this.data.group === Groups.Brand) {
         this.store.setCheckedBrands(allCheckedIds);
       }
-
+      this.store.setMinMaxPrices([-Infinity, Infinity]);
+      this.store.setMinMaxStock([-Infinity, Infinity]);
+      this.store.setFilterBy(FilterBy.checkbox);
       this.store.filterProducts();
       this.emit(Actions.APPLY_PRODUCT_FILTER);
     }

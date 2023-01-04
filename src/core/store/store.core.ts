@@ -1,4 +1,4 @@
-import { Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
 
 export default class Store {
   public state: StateI;
@@ -22,6 +22,7 @@ export default class Store {
       brandsScrollPosition: 0,
       productsSortBy: 'price-DESC',
       searchText: '',
+      filterBy: FilterBy.null,
     };
   }
 
@@ -42,8 +43,16 @@ export default class Store {
     this.state.products = products;
     this.state.categories = this.getCategoriesWithCount(products);
     this.state.brands = this.getBrandsWithCount(products);
-    this.state.prices = this.getMinMaxPrices(products);
-    this.state.stocks = this.getMinMaxStock(products);
+    this.state.prices = this.getFilterBy() === FilterBy.range ? this.getMinMaxPrices() : this.getMinMaxPrices(products);
+    this.state.stocks = this.getFilterBy() === FilterBy.range ? this.getMinMaxStock() : this.getMinMaxStock(products);
+  }
+
+  getFilterBy() {
+    return this.state.filterBy;
+  }
+
+  setFilterBy(value: FilterBy) {
+    this.state.filterBy = value;
   }
 
   getCategoriesScrollPosition() {
