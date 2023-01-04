@@ -1,4 +1,3 @@
-
 import { ComponentOptions, PageNames, FilterBy } from '../../../../constants/types';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
@@ -40,6 +39,7 @@ export default class FilterControl extends Component {
         this.store.setMinMaxPrices(this.store.state.initialPrices);
         this.store.setSearchText('');
         this.store.setFilterBy(FilterBy.null);
+        this.store.setProductsSortBy('price-DESC');
         CurrentRoute.navigate(path);
       }
       if (isBtnCopy) {

@@ -54,6 +54,7 @@ export default class Range extends Component {
         let stock = 'stock=';
         let price = 'price=';
         let search = 'search=';
+        let sort = 'sort=';
 
         if (this.store.getCheckedCategories().length) {
           category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
@@ -68,6 +69,11 @@ export default class Range extends Component {
         if (this.store.getSearchText()) {
           search = `${search}${this.store.getSearchText()}`;
           path = `${path}&${search}`;
+        }
+
+        if (this.store.getProductsSortBy()) {
+          sort = `${sort}${this.store.getProductsSortBy()}`;
+          path = `${path}&${sort}`;
         }
 
         if (this.data.group === Groups.Price) {

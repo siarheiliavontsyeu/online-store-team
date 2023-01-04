@@ -66,6 +66,7 @@ export default class CheckBox extends Component {
       let stock = 'stock=';
       let price = 'price=';
       let search = 'search=';
+      let sort = 'sort=';
 
       if (isFinite(this.store.getMinMaxPrices()[0])) {
         price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
@@ -80,6 +81,11 @@ export default class CheckBox extends Component {
       if (this.store.getSearchText()) {
         search = `${search}${this.store.getSearchText()}`;
         path = `${path}&${search}`;
+      }
+
+      if (this.store.getProductsSortBy()) {
+        sort = `${sort}${this.store.getProductsSortBy()}`;
+        path = `${path}&${sort}`;
       }
 
       if (this.data.group === Groups.Category) {

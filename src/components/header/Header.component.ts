@@ -40,6 +40,7 @@ export default class Header extends Component {
       let stock = 'stock=';
       let price = 'price=';
       let search = 'search=';
+      let sort = 'sort=';
 
       if (this.store.getCheckedCategories().length) {
         category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
@@ -53,12 +54,17 @@ export default class Header extends Component {
 
       if (isFinite(this.store.getMinMaxPrices()[0])) {
         price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
-        path = `${path}${price}`;
+        path = `${path}&${price}`;
       }
 
       if (isFinite(this.store.getMinMaxStock()[0])) {
         stock = `${stock}${this.store.getMinMaxStock().join(SEPARATOR)}`;
         path = `${path}&${stock}`;
+      }
+
+      if (this.store.getProductsSortBy()) {
+        sort = `${sort}${this.store.getProductsSortBy()}`;
+        path = `${path}&${sort}`;
       }
 
       this.store.setSearchText(searchText);
