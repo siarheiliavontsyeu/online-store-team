@@ -6,15 +6,7 @@ import { DomNode, wrapperNode } from '../core/components/node.core';
 import { CurrentRoute } from '../core/router/currentRoute';
 import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
-
-interface Pages {
-  main: typeof Main;
-  product: typeof Product;
-  cart: typeof Cart;
-  notFound: typeof NotFound;
-}
-
-type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof NotFound;
+import { PageNames, Pages, PagesClasses } from '../constants/types';
 
 export class Router {
   private $container: DomNode;
@@ -47,17 +39,23 @@ export class Router {
     this.$container.clear();
 
     let AppPage: PagesClasses;
-    if (['', 'main'].includes(CurrentRoute.path)) {
+    if (['', PageNames.main].includes(CurrentRoute.pageName)) {
       AppPage = this.routes.main;
-    } else if (CurrentRoute.path === 'product') {
+    } else if (CurrentRoute.pageName === PageNames.product) {
       AppPage = this.routes.product;
-    } else if (CurrentRoute.path === 'cart') {
+    } else if (CurrentRoute.pageName === PageNames.cart) {
       AppPage = this.routes.cart;
+    } else if (CurrentRoute.pageName === PageNames.notFound) {
+      AppPage = this.routes.notFound;
     } else {
       AppPage = this.routes.notFound;
     }
+    this.store.setUrlParams(CurrentRoute.param || '');
+    this.store.setUrlQuery(CurrentRoute.query || '');
 
-    this.page = new AppPage(this.store, CurrentRoute.param);
+    this.store.updateProductsStateFromUrl();
+
+    this.page = new AppPage(this.store);
     this.$container.append(this.page?.render() as DomNode);
     this.page?.afterRender();
   }

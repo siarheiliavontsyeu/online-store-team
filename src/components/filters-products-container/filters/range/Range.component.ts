@@ -1,7 +1,8 @@
-import { Actions } from '../../../../constants/actions';
-import { FilterDataI, ComponentOptionsFilter, Groups, FilterBy } from '../../../../constants/types';
+import { FilterDataI, ComponentOptionsFilter, Groups, FilterBy, PageNames } from '../../../../constants/types';
+import { SEPARATOR } from '../../../../constants/data';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
+import { CurrentRoute } from '../../../../core/router/currentRoute';
 import { getTemplate } from './range.template';
 
 export default class Range extends Component {
@@ -47,15 +48,58 @@ export default class Range extends Component {
           }
         }
 
+        let path = `${PageNames.main}/?`;
+        let category = 'category=';
+        let brand = 'brand=';
+        let stock = 'stock=';
+        let price = 'price=';
+        let search = 'search=';
+        let sort = 'sort=';
+
+        if (this.store.getCheckedCategories().length) {
+          category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
+          path = `${path}${category}`;
+        }
+
+        if (this.store.getCheckedBrands().length) {
+          brand = `${brand}${this.store.getCheckedBrands().join(SEPARATOR)}`;
+          path = `${path}&${brand}`;
+        }
+
+        if (this.store.getSearchText()) {
+          search = `${search}${this.store.getSearchText()}`;
+          path = `${path}&${search}`;
+        }
+
+        if (this.store.getProductsSortBy()) {
+          sort = `${sort}${this.store.getProductsSortBy()}`;
+          path = `${path}&${sort}`;
+        }
+
         if (this.data.group === Groups.Price) {
           this.store.setMinMaxPrices([miniVal, maxiVal]);
+          if (isFinite(this.store.getMinMaxStock()[0])) {
+            stock = `${stock}${this.store.getMinMaxStock().join(SEPARATOR)}`;
+            path = `${path}&${stock}`;
+          }
+
+          price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
+          path = `${path}&${price}`;
         }
+
         if (this.data.group === Groups.Stock) {
           this.store.setMinMaxStock([miniVal, maxiVal]);
+          if (isFinite(this.store.getMinMaxPrices()[0])) {
+            price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
+            path = `${path}&${price}`;
+          }
+          stock = `${stock}${this.store.getMinMaxStock().join(SEPARATOR)}`;
+          path = `${path}&${stock}`;
         }
+
         this.store.setFilterBy(FilterBy.range);
-        this.store.filterProducts();
-        this.emit(Actions.APPLY_PRODUCT_FILTER);
+
+        CurrentRoute.navigate(path);
       }
     }
   }

@@ -1,7 +1,8 @@
-import { Actions } from '../../../../constants/actions';
-import { FilterDataI, ComponentOptionsFilter, Groups, FilterBy } from '../../../../constants/types';
+import { SEPARATOR } from '../../../../constants/data';
+import { FilterDataI, ComponentOptionsFilter, Groups, PageNames, FilterBy } from '../../../../constants/types';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
+import { CurrentRoute } from '../../../../core/router/currentRoute';
 import { getTemplate } from './checkBox.template';
 
 export default class CheckBox extends Component {
@@ -59,17 +60,58 @@ export default class CheckBox extends Component {
         }) as string[];
       }
 
-      if (this.data.group === Groups.Category) {
-        this.store.setCheckedCategories(allCheckedIds);
-      }
-      if (this.data.group === Groups.Brand) {
-        this.store.setCheckedBrands(allCheckedIds);
-      }
       this.store.setMinMaxPrices([-Infinity, Infinity]);
       this.store.setMinMaxStock([-Infinity, Infinity]);
       this.store.setFilterBy(FilterBy.checkbox);
-      this.store.filterProducts();
-      this.emit(Actions.APPLY_PRODUCT_FILTER);
+
+      let path = `${PageNames.main}/?`;
+      let category = 'category=';
+      let brand = 'brand=';
+      let stock = 'stock=';
+      let price = 'price=';
+      let search = 'search=';
+      let sort = 'sort=';
+
+      if (isFinite(this.store.getMinMaxPrices()[0])) {
+        price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
+        path = `${path}${price}`;
+      }
+
+      if (isFinite(this.store.getMinMaxStock()[0])) {
+        stock = `${stock}${this.store.getMinMaxStock().join(SEPARATOR)}`;
+        path = `${path}&${stock}`;
+      }
+
+      if (this.store.getSearchText()) {
+        search = `${search}${this.store.getSearchText()}`;
+        path = `${path}&${search}`;
+      }
+
+      if (this.store.getProductsSortBy()) {
+        sort = `${sort}${this.store.getProductsSortBy()}`;
+        path = `${path}&${sort}`;
+      }
+
+      if (this.data.group === Groups.Category) {
+        this.store.setCheckedCategories(allCheckedIds);
+        if (this.store.getCheckedBrands().length) {
+          brand = `${brand}${this.store.getCheckedBrands().join(SEPARATOR)}`;
+          path = `${path}&${brand}`;
+        }
+        category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
+        path = `${path}&${category !== 'category=' ? category : ''}`;
+      }
+      if (this.data.group === Groups.Brand) {
+        this.store.setCheckedBrands(allCheckedIds);
+        if (this.store.getCheckedCategories().length) {
+          category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
+          path = `${path}&${category}`;
+        }
+        brand = `${brand}${this.store.getCheckedBrands().join(SEPARATOR)}`;
+        path = `${path}&${brand !== 'brand=' ? brand : ''}`;
+      }
+
+      CurrentRoute.navigate(path);
     }
   }
 

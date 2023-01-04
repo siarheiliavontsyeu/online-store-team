@@ -3,8 +3,8 @@ import { Page } from '../core/router/page';
 import Store from '../core/store/store.core';
 
 export class NotFound extends Page {
-  constructor(public store: Store, public params?: unknown) {
-    super(store, params);
+  constructor(public store: Store) {
+    super(store,);
   }
   render(): DomNode {
     return createNode({ tag: 'div', classes: ['container', 'notfound-page'] }).html(

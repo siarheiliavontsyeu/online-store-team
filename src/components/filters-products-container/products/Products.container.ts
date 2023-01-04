@@ -4,7 +4,6 @@ import { getTemplate } from './products.template';
 import ProductsContainer from './products-container/index';
 import { ComponentOptions } from '../../../constants/types';
 import ProductsControl from './products-control/index';
-import { Actions } from '../../../constants/actions';
 
 type ComponentsClasses = typeof ProductsContainer | typeof ProductsControl;
 type ComponentsInstances = ProductsContainer | ProductsControl;
@@ -30,12 +29,6 @@ export default class Products extends Component {
   init() {
     super.init();
     this.renderComponents();
-    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
-      this.update();
-    });
-    this.subscribe(Actions.APPLY_PRODUCTS_SORT, () => {
-      this.update();
-    });
   }
 
   renderComponents() {

@@ -4,7 +4,6 @@ import { getTemplate } from './filters.template';
 import { FilterDataI, ComponentOptions, Groups } from '../../../constants/types';
 import CheckBox from './checkBox/index';
 import Range from './range/index';
-import { Actions } from '../../../constants/actions';
 import FilterControl from './filter-control/index';
 
 type ComponentsClasses = typeof FilterControl | typeof CheckBox | typeof Range;
@@ -46,9 +45,6 @@ export default class Filters extends Component {
     this.$checkBoxAppendPoint = this.$root.find('.filters__checkbox');
     this.$rangeAppendPoint = this.$root.find('.filters__range');
     this.renderComponents();
-    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
-      this.update();
-    });
   }
 
   renderComponents() {
