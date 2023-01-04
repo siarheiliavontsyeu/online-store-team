@@ -59,19 +59,24 @@ export default class Store {
   }
 
   updateProductsStateFromUrl() {
-    const urlQuery = this.getUrlQuery()?.split('&');
-    const queries: { [key: string]: string[] } = {};
-    urlQuery.forEach((el) => {
-      const [type = '', query = ''] = el.split('=');
-      queries[type] = query.split(SEPARATOR);
-    });
-    this.state.checkedBrands = queries.brand ? queries.brand : [];
-    this.state.checkedCategories = queries.category ? queries.category : [];
-    this.state.prices = queries.price && queries.price.length ? queries.price.map((el) => parseInt(el)) : [];
-    this.state.stocks = queries.stock && queries.stock.length ? queries.stock.map((el) => parseInt(el)) : [];
-    this.state.searchText = queries.search ? queries.search[0] : '';
-    this.state.productsSortBy = queries.sort ? (queries.sort[0] as ProductsSortBy) : 'price-DESC';
-    this.filterProducts();
+    if (this.getUrlQuery()) {
+      const urlQuery = this.getUrlQuery()?.split('&');
+      console.log(urlQuery);
+      const queries: { [key: string]: string[] } = {};
+      urlQuery.forEach((el) => {
+        const [type = '', query = ''] = el.split('=');
+        queries[type] = query.split(SEPARATOR);
+      });
+      console.log(queries);
+      this.state.checkedBrands = queries.brand ? queries.brand : [];
+      this.state.checkedCategories = queries.category ? queries.category : [];
+      this.state.prices = queries.price && queries.price.length ? queries.price.map((el) => parseInt(el)) : [];
+      this.state.stocks = queries.stock && queries.stock.length ? queries.stock.map((el) => parseInt(el)) : [];
+      this.state.searchText = queries.search && queries.search.length ? queries.search[0] : '';
+      this.state.productsSortBy =
+        queries.sort && queries.sort.length ? (queries.sort[0] as ProductsSortBy) : 'price-DESC';
+      this.filterProducts();
+    }
   }
 
   getUrlParams() {

@@ -1,10 +1,11 @@
 import Component from '../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../core/components/node.core';
 import './Header.css';
-import { ComponentOptions, FilterBy } from '../../constants/types';
+import { ComponentOptions, FilterBy, PageNames } from '../../constants/types';
 import { Actions } from '../../constants/actions';
 import { getTemplate } from './header.template';
 import { CurrentRoute } from '../../core/router/currentRoute';
+import { SEPARATOR } from '../../constants/data';
 
 export default class Header extends Component {
   static tagName = 'header';
@@ -36,15 +37,50 @@ export default class Header extends Component {
     e.preventDefault();
     if (this.$productsSearch && this.$productsSearchBtn) {
       const searchText = (this.$productsSearch.text() as string).trim();
+
+      let path = `${PageNames.main}/?`;
+      let category = 'category=';
+      let brand = 'brand=';
+      let stock = 'stock=';
+      let price = 'price=';
+      let search = 'search=';
+
+      if (this.store.getCheckedCategories().length) {
+        category = `${category}${this.store.getCheckedCategories().join(SEPARATOR)}`;
+        path = `${path}${category}`;
+      }
+
+      if (this.store.getCheckedBrands().length) {
+        brand = `${brand}${this.store.getCheckedBrands().join(SEPARATOR)}`;
+        path = `${path}&${brand}`;
+      }
+
+      if (this.store.getSearchText()) {
+        search = `${search}${this.store.getSearchText()}`;
+        path = `${path}&${search}`;
+      }
+
+      if (isFinite(this.store.getMinMaxPrices()[0])) {
+        price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
+        path = `${path}${price}`;
+      }
+
+      if (isFinite(this.store.getMinMaxStock()[0])) {
+        stock = `${stock}${this.store.getMinMaxStock().join(SEPARATOR)}`;
+        path = `${path}&${stock}`;
+      }
+
       this.store.setSearchText(searchText);
       this.store.setFilterBy(FilterBy.text);
-      this.store.filterProducts();
-      this.emit(Actions.APPLY_PRODUCT_FILTER);
+
+      search = `${search}${this.store.getSearchText()}`;
+      path = `${path}&${search}`;
+
+      CurrentRoute.navigate(path);
     }
   }
 
   onClick(e: Event) {
-    CurrentRoute.navigate('111');
     const $target = wrapperNode(e.target as HTMLElement);
     if (this.$productsSearch && this.$productsSearchBtn) {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');

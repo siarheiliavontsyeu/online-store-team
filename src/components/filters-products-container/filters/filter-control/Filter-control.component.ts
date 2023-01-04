@@ -1,7 +1,8 @@
 import { Actions } from '../../../../constants/actions';
-import { ComponentOptions, FilterBy } from '../../../../constants/types';
+import { ComponentOptions, PageNames, FilterBy } from '../../../../constants/types';
 import Component from '../../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../../core/components/node.core';
+import { CurrentRoute } from '../../../../core/router/currentRoute';
 import { getTemplate } from './filter-control.template';
 
 export default class FilterControl extends Component {
@@ -32,14 +33,14 @@ export default class FilterControl extends Component {
       const isBtnReset = $target.attr('id') === this.$btnReset.attr('id');
       const isBtnCopy = $target.attr('id') === this.$btnCopy.attr('id');
       if (isBtnReset) {
+        const path = `${PageNames.main}`;
         this.store.setCheckedCategories([]);
         this.store.setCheckedBrands([]);
         this.store.setMinMaxStock(this.store.state.initialStocks);
         this.store.setMinMaxPrices(this.store.state.initialPrices);
         this.store.setSearchText('');
         this.store.setFilterBy(FilterBy.null);
-        this.store.filterProducts();
-        this.emit(Actions.APPLY_PRODUCT_FILTER);
+        CurrentRoute.navigate(path);
       }
       if (isBtnCopy) {
         navigator.clipboard
