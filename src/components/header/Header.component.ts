@@ -2,7 +2,6 @@ import Component from '../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../core/components/node.core';
 import './Header.css';
 import { ComponentOptions, FilterBy, PageNames } from '../../constants/types';
-import { Actions } from '../../constants/actions';
 import { getTemplate } from './header.template';
 import { CurrentRoute } from '../../core/router/currentRoute';
 import { SEPARATOR } from '../../constants/data';
@@ -28,9 +27,6 @@ export default class Header extends Component {
     this.$productsSearch = this.$root.find('#products-search');
     this.$productsSearch && this.$productsSearch.text(this.store.getSearchText());
     this.$productsSearchBtn = this.$root.find('#products-search-btn');
-    this.subscribe(Actions.APPLY_PRODUCT_FILTER, () => {
-      this.update();
-    });
   }
 
   handleSearch(e: Event) {
@@ -55,11 +51,6 @@ export default class Header extends Component {
         path = `${path}&${brand}`;
       }
 
-      if (this.store.getSearchText()) {
-        search = `${search}${this.store.getSearchText()}`;
-        path = `${path}&${search}`;
-      }
-
       if (isFinite(this.store.getMinMaxPrices()[0])) {
         price = `${price}${this.store.getMinMaxPrices().join(SEPARATOR)}`;
         path = `${path}${price}`;
@@ -74,7 +65,7 @@ export default class Header extends Component {
       this.store.setFilterBy(FilterBy.text);
 
       search = `${search}${this.store.getSearchText()}`;
-      path = `${path}&${search}`;
+      path = `${path}&${search !== 'search=' ? search : ''}`;
 
       CurrentRoute.navigate(path);
     }

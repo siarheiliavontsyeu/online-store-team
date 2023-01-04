@@ -47,6 +47,7 @@ export default class Range extends Component {
             [miniVal, maxiVal] = [maxiVal, miniVal];
           }
         }
+
         let path = `${PageNames.main}/?`;
         let category = 'category=';
         let brand = 'brand=';
