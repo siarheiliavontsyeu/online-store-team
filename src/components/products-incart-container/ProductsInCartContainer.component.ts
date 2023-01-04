@@ -1,9 +1,9 @@
 import { ComponentOptions } from '../../constants/types';
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
-import ProductsInCart from './products-incart/ProductsInCart.component';
+import ProductsInCart from './products-incart/index';
 import { getTemplate } from './productsInCartContainer.template';
-import Summary from './summary/Summary.component';
+import Summary from './summary/index';
 
 type ComponentsClasses = typeof ProductsInCart | typeof Summary;
 type ComponentsInstances = ProductsInCart | Summary;
