@@ -18,7 +18,7 @@ export const getTemplate = (totalSum: number, totaAmount: number, pageName: Page
       class="btn btn-secondary my-2 my-sm-0" 
       type="submit">Search</button>
     </form>
-    <div class="shopping-cart w-100">
+    <div class="shopping-cart w-50 justify-content-between">
       <div class="total-sum">$ ${totalSum}</div>
       <div class="shopping-cart-icon">
         <img src="../../assets/icons/icons8-shopping-cart-48.png" class="logo-image">
