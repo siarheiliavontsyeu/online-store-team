@@ -132,3 +132,8 @@ export interface Pages {
 }
 
 export type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof NotFound;
+
+export interface SummaryI {
+  products: number;
+  total: number;
+}

@@ -24,7 +24,7 @@ export default class Summary extends Component {
   }
 
   render() {
-    return getTemplate();
+    return getTemplate(this.store.getSummary());
   }
 
   destroy() {
