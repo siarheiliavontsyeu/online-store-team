@@ -38,11 +38,19 @@ export class Router {
 
     this.$container.clear();
 
+    this.store.setUrlParams(CurrentRoute.param || '');
+    this.store.setUrlQuery(CurrentRoute.query || '');
+
     let AppPage: PagesClasses;
     if (['', PageNames.main].includes(CurrentRoute.pageName)) {
       AppPage = this.routes.main;
+      this.store.updateProductsStateFromUrl();
     } else if (CurrentRoute.pageName === PageNames.product) {
-      AppPage = this.routes.product;
+      if (Number(CurrentRoute.param) && Number(CurrentRoute.param) <= 100) {
+        AppPage = this.routes.product;
+      } else {
+        AppPage = this.routes.notFound;
+      }
     } else if (CurrentRoute.pageName === PageNames.cart) {
       AppPage = this.routes.cart;
     } else if (CurrentRoute.pageName === PageNames.notFound) {
@@ -50,10 +58,6 @@ export class Router {
     } else {
       AppPage = this.routes.notFound;
     }
-    this.store.setUrlParams(CurrentRoute.param || '');
-    this.store.setUrlQuery(CurrentRoute.query || '');
-
-    this.store.updateProductsStateFromUrl();
 
     this.page = new AppPage(this.store);
     this.$container.append(this.page?.render() as DomNode);
