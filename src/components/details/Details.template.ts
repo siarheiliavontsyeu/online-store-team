@@ -11,7 +11,7 @@ export const renderProductDetails = (card: ProductI) => {
     <div class="link-navigation text-warning">Store -> ${card.category} -> ${card.brand} -> ${card.title}</div>
     <div class="card" >
     <div class="product-wrapper">
-      <h4 class="card-header bg-primary">${card.title}</h4>
+      <h4 class="product-title-details card-header bg-primary">${card.title}</h4>
       <div class="product-data">
         <div class="product-photos">
           <div class="slides">
