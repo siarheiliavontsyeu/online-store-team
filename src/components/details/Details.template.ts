@@ -5,20 +5,13 @@ const getPhotos = (photos: Array<String>) => {
   return template.join('');
 };
 
-// const getProductInfo = (card: ProductI) => {
-//   const template: string[] = [];
-//   for (var key in card){
-//     template.push(`<div class="product-info__${key}">${key}: ${card.key}</div>`)
-//   }
-//   return template.join('');
-// };
-
-
 export const renderProductDetails = (card: ProductI) => {
   
-    return `<div class="product-details card " >
+    return `<div class="container" >
+    <div class="link-navigation text-warning">Store -> ${card.category} -> ${card.brand} -> ${card.title}</div>
+    <div class="card" >
     <div class="product-wrapper">
-      <h4 class="product-title card-header bg-primary">${card.title}</h4>
+      <h4 class="card-header bg-primary">${card.title}</h4>
       <div class="product-data">
         <div class="product-photos">
           <div class="slides">
@@ -28,20 +21,21 @@ export const renderProductDetails = (card: ProductI) => {
             <img src="${card.thumbnail}" alt="main-photo">
           </div>
         </div>
-        <div class="product-info">
-          <div class="product-info__description">Description: ${card.description}</div>
-          <div class="product-info__category">Category: ${card.category}</div>
-          <div class="product-info__brand">Brand: ${card.brand}</div>
-          <div class="product-info__discount">Discount: ${card.discountPercentage}</div>
-          <div class="product-info__rating">Rating: ${card.rating}</div>
-          <div class="product-info__stock">Stock: ${card.stock}</div>
+        <div class="product-inf">
+          <div class="product-detail-item"><h6 class="bg-info">Description:</h6> <p>${card.description}</p></div>
+          <div class="product-detail-item"><h6 class="bg-info">Category:</h6> <p>${card.category}</p></div>
+          <div class="product-detail-item"><h6 class="bg-info">Brand:</h6> <p>${card.brand}</p></div>
+          <div class="product-detail-item"><h6 class="bg-info">Discount:</h6> <p>${card.discountPercentage}</p></div>
+          <div class="product-detail-item"><h6 class="bg-info">Rating:</h6> <p>${card.rating}</p></div>
+          <div class="product-detail-item"><h6 class="bg-info">Stock:</h6> <p>${card.stock}</p></div>
         </div>
         <div class="add-to-card">
           <div class="product-price">${card.price} $</div>
-          <button class="btn btn-success">Add to cart</button>
-          <button class="btn btn-success">Buy now</button>
+          <button class="btn btn-warning">Add to cart</button>
+          <button class="btn btn-outline-warning">Buy now</button>
         </div>
       </div>
+    </div>
     </div>
   </div>
   `

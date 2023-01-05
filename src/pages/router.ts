@@ -32,7 +32,6 @@ export class Router {
   }
 
   changePageHandler() {
-    console.log(CurrentRoute.path, 'hello')
     if (this.page) {
       this.page.destroy();
     }
@@ -43,7 +42,11 @@ export class Router {
     if (['', PageNames.main].includes(CurrentRoute.pageName)) {
       AppPage = this.routes.main;
     } else if (CurrentRoute.pageName === PageNames.product) {
-      AppPage = this.routes.product;
+      if (Number(CurrentRoute.param) && Number(CurrentRoute.param) <= 100) {
+        AppPage = this.routes.product;
+      } else {
+        AppPage = this.routes.notFound;
+      }
     } else if (CurrentRoute.pageName === PageNames.cart) {
       AppPage = this.routes.cart;
     } else if (CurrentRoute.pageName === PageNames.notFound) {
