@@ -317,6 +317,14 @@ export default class Store {
     this.sortingProducts(filteredProducts);
   }
 
+  getCart() {
+    return this.state.cart;
+  }
+
+  getProductById(id: number) {
+    return this.state.products.find((el) => el.id === id);
+  }
+
   addToCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
     if (itemIdx !== -1) {
