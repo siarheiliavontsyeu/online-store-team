@@ -33,9 +33,6 @@ export default class ProductsInCart extends Component {
       observer: this.observer,
       store: this.store,
     };
-    this.store.addToCart(1);
-    this.store.addToCart(5);
-    this.store.addToCart(11);
 
     this.store.getCart().forEach((product, idx) => {
       const tagName = (Product.tagName as keyof HTMLElementTagNameMap) ?? 'div';
@@ -51,7 +48,7 @@ export default class ProductsInCart extends Component {
   }
 
   render() {
-    return getTemplate();
+    return getTemplate(this.store.getCart());
   }
 
   destroy() {

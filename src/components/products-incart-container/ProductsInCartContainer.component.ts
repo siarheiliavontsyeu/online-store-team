@@ -26,7 +26,12 @@ export default class ProductsInCartContainer extends Component {
 
   init() {
     super.init();
-    this.renderComponents();
+    if (this.store.getCart().length > 0) {
+      this.renderComponents();
+    } else {
+      const $el = createNode({ tag: 'h2', classes: ['text-info'], innerText: 'Cart is Empty' });
+      this.$root.append($el);
+    }
   }
 
   renderComponents() {

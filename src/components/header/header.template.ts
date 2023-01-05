@@ -1,6 +1,6 @@
-import { PageNames } from '../../constants/types';
+import { PageNames, SummaryI } from '../../constants/types';
 
-export const getTemplate = (totalSum: number, totaAmount: number, pageName: PageNames) => {
+export const getTemplate = (summary: SummaryI, pageName: PageNames) => {
   return `<header class="header bg-dark navbar">
     <div class="container">
     <a href="#" class="logo navbar-brand d-flex">
@@ -19,10 +19,11 @@ export const getTemplate = (totalSum: number, totaAmount: number, pageName: Page
       type="submit">Search</button>
     </form>
     <div class="shopping-cart w-50 justify-content-between">
-      <div class="total-sum">$ ${totalSum}</div>
+      <div class="total-sum text-warning">Cart total: 
+        <i class="fas fa-euro-sign"></i>${summary.total}</div>
       <div class="shopping-cart-icon">
         <img src="../../assets/icons/icons8-shopping-cart-48.png" class="logo-image">
-        <div class="total-amount bg-primary">${totaAmount}</div>
+        <div class="total-amount bg-primary">${summary.products}</div>
       </div>
     </div>
     </div>

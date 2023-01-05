@@ -81,7 +81,7 @@ export default class Header extends Component {
     const $target = wrapperNode(e.target as HTMLElement);
     if (this.$productsSearch && this.$productsSearchBtn) {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');
-      const isShoppingCart = $target.hasClass('shopping-cart-icon') || $target.hasClass('logo-image');
+      const isShoppingCart = $target.hasClass('logo-image') || $target.hasClass('total-amount');
       if (isProductsSearchBtn) {
         this.handleSearch(e);
       }
@@ -102,7 +102,7 @@ export default class Header extends Component {
   }
 
   render() {
-    return getTemplate(0, 0, CurrentRoute.pageName as PageNames);
+    return getTemplate(this.store.getSummary(), CurrentRoute.pageName as PageNames);
   }
 
   destroy() {

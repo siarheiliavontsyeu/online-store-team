@@ -1,4 +1,4 @@
-import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI, SummaryI } from '../../constants/types';
 import { SEPARATOR } from '../../constants/data';
 
 export default class Store {
@@ -351,7 +351,7 @@ export default class Store {
   }
 
   getSummary() {
-    const summary = { products: 0, total: 0 };
+    const summary: SummaryI = { products: 0, total: 0 };
     Object.values(this.state.initialProducts).forEach((product) => {
       const prod = this.state.cart.find((el) => el.id === product.id);
       if (prod) {
