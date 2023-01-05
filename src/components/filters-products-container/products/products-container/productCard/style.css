@@ -20,12 +20,14 @@
 }
 
 .product-info {
-    width: 70%;
+    width: 60%;
     top: 0;
-    font-size: 0.675rem;
+    padding-left: 2%;
+    font-size: 0.6rem;
     background-color: rgb(120, 123, 122);
-    opacity: 65%;
+    opacity: 90%;
     border-radius: 0.5rem;
+    border: 1px solid orange;
 }
 
 .product-title {
