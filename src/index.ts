@@ -12,9 +12,10 @@ async function app() {
     const productsResponse = await api.getProducts();
     const products = productsResponse?.products || [];
     store.sortingProducts(products, true);
-    // store.addToCart(1);
-    // store.addToCart(5);
-    // store.addToCart(11);
+    store.addToCart(1);
+    store.addToCart(5);
+    store.addToCart(11);
+    store.addToCart(15);
     new Router('body', store);
   } catch (e) {
     console.error((e as Error).message);

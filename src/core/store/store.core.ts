@@ -78,6 +78,19 @@ export default class Store {
     this.filterProducts();
   }
 
+  getLimitPageFromUrl() {
+    if (this.getUrlQuery()) {
+      const urlQuery = this.getUrlQuery()?.split('&');
+      const queries: { [key: string]: string } = {};
+      urlQuery.forEach((el) => {
+        const [type = '', query = ''] = el.split('=');
+        queries[type] = query;
+      });
+      return queries;
+    }
+    return {};
+  }
+
   getUrlParams() {
     return this.state.urlParams;
   }
@@ -322,7 +335,7 @@ export default class Store {
   }
 
   getProductById(id: number) {
-    return this.state.products.find((el) => el.id === id);
+    return this.state.initialProducts.find((el) => el.id === id);
   }
 
   addToCart(id: number) {

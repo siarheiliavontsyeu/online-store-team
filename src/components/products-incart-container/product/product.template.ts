@@ -5,7 +5,7 @@ export const getTemplate = (idx: number, product: ProductI, count: number, sum: 
   <div class="card">
     <div class="card-body">
       <h4 class="card-title">
-        <span class="badge rounded-pill bg-dark">${idx + 1}</span>
+        <span class="badge rounded-pill bg-dark">${idx}</span>
         ${product.title}
       </h4>
       <h6 class="card-subtitle mb-2 text-muted"><em>${product.description}</em></h6>
