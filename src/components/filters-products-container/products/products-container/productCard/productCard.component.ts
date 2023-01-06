@@ -9,20 +9,23 @@ export default class productCard extends Component {
 
   private cardData: ProductI;
   private $btnAddtoCart: DomNode | false;
+  private $productCard: DomNode | false;
 
   constructor($root: DomNode, options: ComponentOptions, cardData: ProductI) {
     super($root, {
       ...options,
       name: 'productCard',
-      listeners: [],
+      listeners: ['click'],
     });
     this.cardData = cardData;
     this.$btnAddtoCart = false;
+    this.$productCard = false;
   }
 
   init() {
     super.init();
-    this.$btnAddtoCart = this.$root.find('#add-to-cart-btn');
+    this.$productCard = this.$root.find(`#product-card-${this.cardData.id}`);
+    this.$btnAddtoCart = this.$root.find(`#add-to-cart-btn-${this.cardData.id}`);
   }
 
   render() {
@@ -30,15 +33,20 @@ export default class productCard extends Component {
   }
 
   onClick(e: Event) {
-    console.log("Hi!")
-    const $target = wrapperNode(e.target as HTMLElement);
-    if (this.$btnAddtoCart){
-      console.log("Hi!")
-      const isBtnAddtoCart = $target.attr('id') === this.$btnAddtoCart.attr('id');
-      if(isBtnAddtoCart) {
-        console.log("Hi!")
+    this.store.getProductsForView()
+    if(this.$btnAddtoCart && this.$productCard) {
+      if(this.cardData.isInCart) {
+        this.store.dropFromCart(this.cardData.id);
+        this.$productCard.replaceClass('in-cart', 'not-in-cart')
+        this.$btnAddtoCart.html('Add to cart');
+      } else {
+        this.store.addToCart(this.cardData.id)
+        this.$btnAddtoCart.html('<i class="fas fa-check-double"></i> Drop')
+        this.$productCard.replaceClass('not-in-cart', 'in-cart')
       }
     }
+
+    console.log(this.cardData.isInCart, this.store.state.cart)
   }
 
   destroy() {
