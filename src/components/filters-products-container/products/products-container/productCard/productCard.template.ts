@@ -15,7 +15,7 @@ export const renderProductCard = (card: ProductI) => {
       </div>
     </div>
     <div class="buttons-wrapper">
-    <button type="button" class="btn btn-product btn-warning">Add to cart</button>
+    <button id="add-to-cart-btn" type="button" class="btn btn-product btn-warning">Add to cart</button>
     <a href="#product/${card.id}" class="btn btn-product btn-info">Details</a>
     </div>
   </div>
