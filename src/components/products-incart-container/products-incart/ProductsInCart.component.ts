@@ -1,3 +1,4 @@
+import { Actions } from '../../../constants/actions';
 import { CartI, ComponentOptions, PageNames } from '../../../constants/types';
 import Component from '../../../core/components/component.core';
 import { createNode, DomNode, wrapperNode } from '../../../core/components/node.core';
@@ -40,6 +41,20 @@ export default class ProductsInCart extends Component {
     this.$changeLimit = this.$root.find('#limit');
     this.$changePage = this.$root.find('#page');
     this.renderComponents();
+
+    this.subscribe(Actions.PRODUCT_DROP_IN_LAST_CART_PAGE, () => {
+      if (this.$changeLimit) {
+        let path = `${PageNames.cart}/?`;
+        let limit = 'limit=';
+        let page = 'page=';
+        const pageNumber = this.page > 0 ? this.page - 1 : 1;
+
+        limit = `${limit}${this.$changeLimit.text() as string}`;
+        page = `${page}${pageNumber}`;
+        path = `${path}${limit}&${page}`;
+        CurrentRoute.navigate(path);
+      }
+    });
   }
 
   onClick(e: Event) {
@@ -47,22 +62,23 @@ export default class ProductsInCart extends Component {
     if (this.$changeLimit && this.$changePage) {
       const isChangeLimit = $target.attr('id') === this.$changeLimit.attr('id');
       const isChangePage = $target.attr('id') === this.$changePage.attr('id');
+      if (isChangeLimit || isChangePage) {
+        let path = `${PageNames.cart}/?`;
+        let limit = 'limit=';
+        let page = 'page=';
 
-      let path = `${PageNames.cart}/?`;
-      let limit = 'limit=';
-      let page = 'page=';
-
-      if (isChangeLimit) {
-        limit = `${limit}${this.$changeLimit.text() as string}`;
-        page = `${page}${String(Math.ceil(this.cart.length / this.limit))}`;
-        path = `${path}&${limit}&${page}`;
+        if (isChangeLimit) {
+          limit = `${limit}${this.$changeLimit.text() as string}`;
+          page = `${page}${String(Math.ceil(this.cart.length / this.limit))}`;
+          path = `${path}${limit}&${page}`;
+        }
+        if (isChangePage) {
+          limit = `${limit}${this.$changeLimit.text() as string}`;
+          page = `${page}${this.$changePage.text() as string}`;
+          path = `${path}${limit}&${page}`;
+        }
+        CurrentRoute.navigate(path);
       }
-      if (isChangePage) {
-        limit = `${limit}${this.$changeLimit.text() as string}`;
-        page = `${page}${this.$changePage.text() as string}`;
-        path = `${path}&${limit}&${page}`;
-      }
-      CurrentRoute.navigate(path);
     }
   }
 

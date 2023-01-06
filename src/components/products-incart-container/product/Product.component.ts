@@ -2,6 +2,7 @@ import { Actions } from '../../../constants/actions';
 import { CartI, ComponentOptions, ProductI } from '../../../constants/types';
 import Component from '../../../core/components/component.core';
 import { DomNode, wrapperNode } from '../../../core/components/node.core';
+import { paginateArr } from '../../../utils/helpers.utils';
 import { getTemplate } from './product.template';
 
 export default class Product extends Component {
@@ -41,7 +42,14 @@ export default class Product extends Component {
       if (isBtnCountDec && this.product) {
         if (Number(countValue) > 0) {
           this.store.dropFromCart(this.product.id);
-          this.emit(Actions.PRODUCT_DROP_FROM_CART);
+          const cart = this.store.getCart();
+          const { limit = '3', page = '1' } = this.store.getLimitPageFromUrl();
+          const isPageHaveProducts = paginateArr(cart, Number(limit), Number(page)).length > 0;
+          if (Number(countValue) === 1 && !isPageHaveProducts) {
+            this.emit(Actions.PRODUCT_DROP_IN_LAST_CART_PAGE);
+          } else {
+            this.emit(Actions.PRODUCT_DROP_FROM_CART);
+          }
         }
       }
 
