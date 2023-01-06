@@ -8,8 +8,6 @@ export default class productCard extends Component {
   static className = 'product-item';
 
   private cardData: ProductI;
-  // private $btnAddtoCart: DomNode | false;
-  // private $productCard: DomNode | false;
   private $btnAddtoCart: DomNode | false;
   private $productCard: DomNode | false;
 
@@ -20,16 +18,12 @@ export default class productCard extends Component {
       listeners: ['click'],
     });
     this.cardData = cardData;
-    // this.$btnAddtoCart = false;
-    // this.$productCard = false;
     this.$btnAddtoCart = false;
     this.$productCard = false;
   }
 
   init() {
     super.init();
-    // this.$productCard = this.$root.find(`#product-card-${this.cardData.id}`);
-    // this.$btnAddtoCart = this.$root.find(`#add-to-cart-btn-${this.cardData.id}`);
     this.$productCard = this.$root.find(`#product-card-${this.cardData.id}`);
     this.$btnAddtoCart = this.$root.find(`#add-to-cart-btn-${this.cardData.id}`);
   }
@@ -38,22 +32,6 @@ export default class productCard extends Component {
     return renderProductCard(this.cardData);
   }
 
-  // onClick(e: Event) {
-  //   this.store.getProductsForView()
-  //   if(this.$btnAddtoCart && this.$productCard) {
-  //     if(this.cardData.isInCart) {
-  //       this.store.dropFromCart(this.cardData.id);
-  //       this.$productCard.replaceClass('in-cart', 'not-in-cart')
-  //       this.$btnAddtoCart.html('Add to cart');
-  //     } else {
-  //       this.store.addToCart(this.cardData.id)
-  //       this.$btnAddtoCart.html('<i class="fas fa-check-double"></i> Drop')
-  //       this.$productCard.replaceClass('not-in-cart', 'in-cart')
-  //     }
-  //   }
-
-  //   console.log(this.cardData.isInCart, this.store.state.cart)
-  // }
   onClick(e: Event) {
     this.store.getProductsForView()
     if(this.$btnAddtoCart && this.$productCard) {
