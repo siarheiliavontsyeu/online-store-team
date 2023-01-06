@@ -340,21 +340,27 @@ export default class Store {
 
   addToCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
+    const product = this.getProductById(id);
     if (itemIdx !== -1) {
-      const left = this.state.cart.slice(0, itemIdx);
-      const right = this.state.cart.slice(itemIdx + 1);
-      this.state.cart[itemIdx].count += 1;
-      this.state.cart = [...left, this.state.cart[itemIdx], ...right];
+      if (this.state.cart[itemIdx].stock > 0) {
+        const left = this.state.cart.slice(0, itemIdx);
+        const right = this.state.cart.slice(itemIdx + 1);
+        this.state.cart[itemIdx].count += 1;
+        this.state.cart[itemIdx].stock -= 1;
+        this.state.cart = [...left, this.state.cart[itemIdx], ...right];
+      }
     } else {
-      this.state.cart.push({ id, count: 1 });
+      this.state.cart.push({ id, count: 1, stock: (product?.stock as number) - 1 });
     }
   }
 
   dropFromCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
+    // const product = this.getProductById(id);
     if (itemIdx !== -1) {
       if (this.state.cart[itemIdx].count > 1) {
         this.state.cart[itemIdx].count -= 1;
+        this.state.cart[itemIdx].stock += 1;
       } else {
         const left = this.state.cart.slice(0, itemIdx);
         const right = this.state.cart.slice(itemIdx + 1);

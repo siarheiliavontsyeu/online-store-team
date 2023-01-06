@@ -38,7 +38,7 @@ export default class Component extends Listener {
 
   update() {
     this.destroy();
-    this.render();
+    this.$root.html(this.render() as string);
     this.init();
   }
 

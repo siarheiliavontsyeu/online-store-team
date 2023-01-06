@@ -1,3 +1,4 @@
+import { Actions } from '../../constants/actions';
 import { ComponentOptions } from '../../constants/types';
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
@@ -32,6 +33,12 @@ export default class ProductsInCartContainer extends Component {
       const $el = createNode({ tag: 'h2', classes: ['text-info'], innerText: 'Cart is Empty' });
       this.$root.append($el);
     }
+    this.subscribe(Actions.PRODUCT_ADD_TO_CART, () => {
+      this.update();
+    });
+    this.subscribe(Actions.PRODUCT_DROP_FROM_CART, () => {
+      this.update();
+    });
   }
 
   renderComponents() {
