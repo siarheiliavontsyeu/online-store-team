@@ -31,8 +31,8 @@ export const renderProductDetails = (card: ProductI) => {
         </div>
         <div class="add-to-card">
           <div class="product-price">${card.price} $</div>
-          <button class="btn btn-warning">Add to cart</button>
-          <button class="btn btn-outline-warning">Buy now</button>
+          <button id="add-to-cart-btn-${card.id}" type="button" class="btn btn-details btn-warning">Add to cart</button>
+          <button class="btn btn-details btn-outline-warning">Buy now</button>
         </div>
       </div>
     </div>
