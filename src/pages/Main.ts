@@ -14,10 +14,10 @@ export class Main extends Page {
   }
 
   render(): DomNode {
-    // if (CurrentRoute.path === '') {
-    //   CurrentRoute.navigate(PageNames.main);
-    // }
-    console.log(this.store.state);
+    if (CurrentRoute.path === '') {
+      CurrentRoute.navigate(PageNames.main);
+    }
+
     this.mainPageContainer = new MainPageContainer(this.store);
     return this.mainPageContainer.render();
   }

@@ -79,6 +79,7 @@ export type ProductsSortBy =
 export interface CartI {
   id: number;
   count: number;
+  stock: number;
 }
 
 export interface FilterProductsI {

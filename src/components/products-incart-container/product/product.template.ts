@@ -1,6 +1,6 @@
 import { ProductI } from '../../../constants/types';
 
-export const getTemplate = (idx: number, product: ProductI, count: number, sum: number): string => {
+export const getTemplate = (idx: number, product: ProductI, count: number, stock: number, sum: number): string => {
   return `
   <div class="card">
     <div class="card-body">
@@ -18,13 +18,13 @@ export const getTemplate = (idx: number, product: ProductI, count: number, sum: 
             <span class="text-warning">Discount:  ${product.discountPercentage}<i class="fas fa-percent"></i></span>
           </div>
           <div class="cart-product__values d-flex flex-column align-items-center">
-           <span class="text-warning mb-2">Stock:  ${product.stock}</span>
+           <span class="text-warning mb-2">Stock:  ${stock}</span>
            <div class="text-warning mb-2">
-             <button type="button" class="btn btn-outline-light mx-2">
+             <button id="count-dec" type="button" class="btn btn-outline-light mx-2">
              <i class="fas fa-minus-circle"></i>
              </button> 
-             <span class="cart-product__count">${count} </span> 
-             <button type="button" class="btn btn-outline-light mx-3">
+             <span id="count-value" class="cart-product__count">${count}</span> 
+             <button id="count-inc" type="button" class="btn btn-outline-light mx-3">
              <i class="fas fa-plus-circle"></i>
              </button> </div>
            <div>
