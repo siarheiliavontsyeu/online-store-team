@@ -1,7 +1,7 @@
 import { ProductI } from '../../../../../constants/types';
 
 export const renderProductCard = (card: ProductI) => {
-  return `<div class="product-card card " >
+  return `<div id="product-card-${card.id}" class="product-card not-in-cart card " >
   
     <div class="product-wrapper" style="background: url(${card.images[0]}) 0% 0% / cover">
     <h4 class="product-title card-header bg-primary">${card.title}</h4>
@@ -15,7 +15,7 @@ export const renderProductCard = (card: ProductI) => {
       </div>
     </div>
     <div class="buttons-wrapper">
-    <button id="add-to-cart-btn" type="button" class="btn btn-product btn-warning">Add to cart</button>
+    <button id="add-to-cart-btn-${card.id}" type="button" class="btn btn-product btn-warning">Add to cart</button>
     <a href="#product/${card.id}" class="btn btn-product btn-info">Details</a>
     </div>
   </div>
