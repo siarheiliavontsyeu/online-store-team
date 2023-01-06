@@ -138,3 +138,7 @@ export interface SummaryI {
   products: number;
   total: number;
 }
+
+export enum StorageE {
+  SHOP_CART = '*__SHOP_CART__*',
+}

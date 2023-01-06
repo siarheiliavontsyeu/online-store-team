@@ -1,5 +1,16 @@
-import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI, SummaryI } from '../../constants/types';
+import {
+  CartI,
+  FilterBy,
+  Order,
+  ProductI,
+  ProductsSortBy,
+  SortingOptions,
+  StateI,
+  StorageE,
+  SummaryI,
+} from '../../constants/types';
 import { SEPARATOR } from '../../constants/data';
+import { storage } from '../../utils/helpers.utils';
 
 export default class Store {
   public state: StateI;
@@ -40,6 +51,8 @@ export default class Store {
     this.state.brands = this.getBrandsWithCount(products);
     this.state.prices = this.getMinMaxPrices(products);
     this.state.stocks = this.getMinMaxStock(products);
+    const cart = storage<CartI[]>(StorageE.SHOP_CART);
+    this.state.cart = cart ? (cart as CartI[]) : [];
   }
 
   updateProductsState(products: ProductI[]) {
@@ -352,11 +365,11 @@ export default class Store {
     } else {
       this.state.cart.push({ id, count: 1, stock: (product?.stock as number) - 1 });
     }
+    storage(StorageE.SHOP_CART, this.state.cart);
   }
 
   dropFromCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
-    // const product = this.getProductById(id);
     if (itemIdx !== -1) {
       if (this.state.cart[itemIdx].count > 1) {
         this.state.cart[itemIdx].count -= 1;
@@ -367,6 +380,7 @@ export default class Store {
         this.state.cart = [...left, ...right];
       }
     }
+    storage(StorageE.SHOP_CART, this.state.cart);
   }
 
   getSummary() {
