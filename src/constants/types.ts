@@ -79,6 +79,7 @@ export type ProductsSortBy =
 export interface CartI {
   id: number;
   count: number;
+  stock: number;
 }
 
 export interface FilterProductsI {
@@ -132,3 +133,12 @@ export interface Pages {
 }
 
 export type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof NotFound;
+
+export interface SummaryI {
+  products: number;
+  total: number;
+}
+
+export enum StorageE {
+  SHOP_CART = '*__SHOP_CART__*',
+}

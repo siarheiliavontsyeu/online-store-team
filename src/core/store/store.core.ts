@@ -1,5 +1,16 @@
-import { FilterBy, Order, ProductI, ProductsSortBy, SortingOptions, StateI } from '../../constants/types';
+import {
+  CartI,
+  FilterBy,
+  Order,
+  ProductI,
+  ProductsSortBy,
+  SortingOptions,
+  StateI,
+  StorageE,
+  SummaryI,
+} from '../../constants/types';
 import { SEPARATOR } from '../../constants/data';
+import { storage } from '../../utils/helpers.utils';
 
 export default class Store {
   public state: StateI;
@@ -40,6 +51,8 @@ export default class Store {
     this.state.brands = this.getBrandsWithCount(products);
     this.state.prices = this.getMinMaxPrices(products);
     this.state.stocks = this.getMinMaxStock(products);
+    const cart = storage<CartI[]>(StorageE.SHOP_CART);
+    this.state.cart = cart ? (cart as CartI[]) : [];
   }
 
   updateProductsState(products: ProductI[]) {
@@ -76,6 +89,19 @@ export default class Store {
         queries.sort && queries.sort.length ? (queries.sort[0] as ProductsSortBy) : 'price-DESC';
     }
     this.filterProducts();
+  }
+
+  getLimitPageFromUrl() {
+    if (this.getUrlQuery()) {
+      const urlQuery = this.getUrlQuery()?.split('&');
+      const queries: { [key: string]: string } = {};
+      urlQuery.forEach((el) => {
+        const [type = '', query = ''] = el.split('=');
+        queries[type] = query;
+      });
+      return queries;
+    }
+    return {};
   }
 
   getUrlParams() {
@@ -317,16 +343,29 @@ export default class Store {
     this.sortingProducts(filteredProducts);
   }
 
+  getCart() {
+    return this.state.cart;
+  }
+
+  getProductById(id: number) {
+    return this.state.initialProducts.find((el) => el.id === id);
+  }
+
   addToCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
+    const product = this.getProductById(id);
     if (itemIdx !== -1) {
-      const left = this.state.cart.slice(0, itemIdx);
-      const right = this.state.cart.slice(itemIdx + 1);
-      this.state.cart[itemIdx].count += 1;
-      this.state.cart = [...left, this.state.cart[itemIdx], ...right];
+      if (this.state.cart[itemIdx].stock > 0) {
+        const left = this.state.cart.slice(0, itemIdx);
+        const right = this.state.cart.slice(itemIdx + 1);
+        this.state.cart[itemIdx].count += 1;
+        this.state.cart[itemIdx].stock -= 1;
+        this.state.cart = [...left, this.state.cart[itemIdx], ...right];
+      }
     } else {
-      this.state.cart.push({ id, count: 1 });
+      this.state.cart.push({ id, count: 1, stock: (product?.stock as number) - 1 });
     }
+    storage(StorageE.SHOP_CART, this.state.cart);
   }
 
   dropFromCart(id: number) {
@@ -334,16 +373,18 @@ export default class Store {
     if (itemIdx !== -1) {
       if (this.state.cart[itemIdx].count > 1) {
         this.state.cart[itemIdx].count -= 1;
+        this.state.cart[itemIdx].stock += 1;
       } else {
         const left = this.state.cart.slice(0, itemIdx);
         const right = this.state.cart.slice(itemIdx + 1);
         this.state.cart = [...left, ...right];
       }
     }
+    storage(StorageE.SHOP_CART, this.state.cart);
   }
 
   getSummary() {
-    const summary = { products: 0, total: 0 };
+    const summary: SummaryI = { products: 0, total: 0 };
     Object.values(this.state.initialProducts).forEach((product) => {
       const prod = this.state.cart.find((el) => el.id === product.id);
       if (prod) {

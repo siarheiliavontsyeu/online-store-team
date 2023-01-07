@@ -5,6 +5,7 @@ import { ComponentOptions, FilterBy, PageNames } from '../../constants/types';
 import { getTemplate } from './header.template';
 import { CurrentRoute } from '../../core/router/currentRoute';
 import { SEPARATOR } from '../../constants/data';
+import { Actions } from '../../constants/actions';
 
 export default class Header extends Component {
   static tagName = 'header';
@@ -27,6 +28,12 @@ export default class Header extends Component {
     this.$productsSearch = this.$root.find('#products-search');
     this.$productsSearch && this.$productsSearch.text(this.store.getSearchText());
     this.$productsSearchBtn = this.$root.find('#products-search-btn');
+    this.subscribe(Actions.PRODUCT_ADD_TO_CART, () => {
+      this.update();
+    });
+    this.subscribe(Actions.PRODUCT_DROP_FROM_CART, () => {
+      this.update();
+    });
   }
 
   handleSearch(e: Event) {
@@ -81,8 +88,12 @@ export default class Header extends Component {
     const $target = wrapperNode(e.target as HTMLElement);
     if (this.$productsSearch && this.$productsSearchBtn) {
       const isProductsSearchBtn = $target.attr('id') === this.$productsSearchBtn.attr('id');
+      const isShoppingCart = $target.hasClass('logo-image') || $target.hasClass('total-amount');
       if (isProductsSearchBtn) {
         this.handleSearch(e);
+      }
+      if (isShoppingCart) {
+        CurrentRoute.navigate(PageNames.cart);
       }
     }
   }
@@ -98,10 +109,12 @@ export default class Header extends Component {
   }
 
   render() {
-    return getTemplate(0, 0);
+    const summary = this.store.getSummary();
+    return getTemplate(summary, CurrentRoute.pageName as PageNames);
   }
 
   destroy() {
     super.destroy();
+    this.$root.clear();
   }
 }
