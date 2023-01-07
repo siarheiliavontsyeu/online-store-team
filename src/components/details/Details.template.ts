@@ -1,7 +1,7 @@
 import { ProductI } from '../../constants/types';
 
 const getPhotos = (photos: Array<String>) => {
-  const template = photos.map((photo) => (`<img src="${photo}" class="photo-item">`));
+  const template = photos.map((photo, index) => (`<img id = "photo-item-${index}" src="${photo}" class="photo-item">`));
   return template.join('');
 };
 
@@ -17,8 +17,8 @@ export const renderProductDetails = (card: ProductI) => {
           <div class="slides">
           ${getPhotos(card.images)}
           </div>
-          <div class="main-photo">
-            <img src="${card.thumbnail}" alt="main-photo">
+          <div class="main-photo-wrapper">
+            <img src="${card.thumbnail}" class="main-photo" alt="main-photo">
           </div>
         </div>
         <div class="product-inf">
