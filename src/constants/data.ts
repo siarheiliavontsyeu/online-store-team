@@ -19,4 +19,4 @@ export const SORT_BY_VALUES: ProductsSortBy[] = [
   'discount-DESC',
 ];
 
-export const SEPARATOR = '%E2%86%95';
+export const SEPARATOR = '↕';
