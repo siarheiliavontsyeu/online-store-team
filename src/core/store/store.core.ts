@@ -351,6 +351,17 @@ export default class Store {
     return this.state.initialProducts.find((el) => el.id === id);
   }
 
+  getProductByIdForView(id: number) {
+    const productInCart = this.state.cart.find((el) => el.id === id);
+    const product = this.state.initialProducts.find((el) => el.id === id)!;
+    if (productInCart) {
+      product.isInCart = true;
+    } else {
+      product.isInCart = false;
+    }
+    return product;
+  }
+
   addToCart(id: number) {
     const itemIdx = this.state.cart.findIndex((el) => el.id === id);
     const product = this.getProductById(id);

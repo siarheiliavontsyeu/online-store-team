@@ -18,7 +18,7 @@ export default class ProductsContainer extends Component {
     super($root, {
       ...options,
       name: 'Container',
-      listeners: ['click'],
+      listeners: [],
     });
     this.componentsClass = [];
     this.componentsInstance = [];
@@ -35,7 +35,7 @@ export default class ProductsContainer extends Component {
       observer: this.observer,
       store: this.store,
     };
-    this.store.state.products.forEach((product) => {
+    this.store.getProductsForView().forEach((product) => {
       const tagName = (ProductCard.tagName as keyof HTMLElementTagNameMap) ?? 'div';
       const classes = ProductCard.className.split(' ');
       const $el = createNode({ tag: tagName, classes });
@@ -45,12 +45,6 @@ export default class ProductsContainer extends Component {
       this.componentsInstance.push(component);
     });
     this.componentsInstance.forEach((component) => component.init());
-  }
-
-  onClick(e: Event) {
-    // e.preventDefault();
-    this.emit('Product-container:test');
-    // console.log(this.store);
   }
 
   render() {

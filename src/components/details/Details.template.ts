@@ -1,13 +1,15 @@
 import { ProductI } from '../../constants/types';
 
-const getPhotos = (photos: Array<String>) => {
-  const template = photos.map((photo) => (`<img src="${photo}" class="photo-item">`));
+const getPhotos = (photos: Array<string>) => {
+  const template = photos.map((photo, index) => `<img id = "photo-item-${index}" src="${photo}" class="photo-item">`);
   return template.join('');
 };
 
 export const renderProductDetails = (card: ProductI) => {
-  
-    return `<div class="container" >
+  const buttonAdd = `<button id="add-to-cart-btn-${card.id}" type="button" class="btn btn-product btn-warning"><i class="fas fa-cart-plus"></i> Add</button>`;
+  const buttonDrop = `<button id="drop-from-cart-btn-${card.id}" type="button" class="btn btn-product btn-danger"><i class="fas fa-trash-alt"></i> Drop</button>`;
+
+  return `<div class="container" >
     <div class="link-navigation text-warning">Store -> ${card.category} -> ${card.brand} -> ${card.title}</div>
     <div class="card" >
     <div class="product-wrapper">
@@ -17,8 +19,8 @@ export const renderProductDetails = (card: ProductI) => {
           <div class="slides">
           ${getPhotos(card.images)}
           </div>
-          <div class="main-photo">
-            <img src="${card.thumbnail}" alt="main-photo">
+          <div class="main-photo-wrapper">
+            <img src="${card.thumbnail}" class="main-photo" alt="main-photo">
           </div>
         </div>
         <div class="product-inf">
@@ -31,12 +33,12 @@ export const renderProductDetails = (card: ProductI) => {
         </div>
         <div class="add-to-card">
           <div class="product-price">${card.price} $</div>
-          <button class="btn btn-warning">Add to cart</button>
-          <button class="btn btn-outline-warning">Buy now</button>
+          ${card.isInCart ? buttonDrop : buttonAdd}
+          <button class="btn btn-details btn-outline-warning"><i class="fas fa-money-check"></i> Buy now</button>
         </div>
       </div>
     </div>
     </div>
   </div>
-  `
-  };
+  `;
+};

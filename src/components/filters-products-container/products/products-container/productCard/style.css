@@ -1,12 +1,17 @@
 .product-item {
-    height: 180px;
+    min-height: 300px;
     margin-top: 2%;
     cursor: pointer;
 
 }
 
-.product-item:hover {
-    box-shadow: 0 0 10px rgb(255, 255, 255);
+.card-img-top {
+    height: 150px;
+    object-fit: contain;
+}
+
+.product-wrapper {
+    height: 100%;
 }
 
 .product-card {
@@ -15,8 +20,20 @@
     overflow: hidden;
 }
 
+.not-in-cart:hover {
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.in-cart {
+    box-shadow: 0 0 10px 5px rgb(89, 197, 89);
+}
+
 .product-wrapper {
     height: 100%;
+}
+
+.card-body {
+    margin-bottom: 2%;
 }
 
 .product-info {
@@ -39,13 +56,12 @@
 .buttons-wrapper {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    width: 80%;
+    width: 100%;
     position: absolute;
-    bottom: 2%;
-    margin: 0 10%;
+    bottom: 0;
 }
 
 .btn-product {
+    width: 100%;
     padding: 1.5%;
 }

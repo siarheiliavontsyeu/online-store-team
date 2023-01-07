@@ -4,6 +4,7 @@ import { getTemplate } from './products.template';
 import ProductsContainer from './products-container/index';
 import { ComponentOptions } from '../../../constants/types';
 import ProductsControl from './products-control/index';
+import { Actions } from '../../../constants/actions';
 
 type ComponentsClasses = typeof ProductsContainer | typeof ProductsControl;
 type ComponentsInstances = ProductsContainer | ProductsControl;
@@ -29,6 +30,12 @@ export default class Products extends Component {
   init() {
     super.init();
     this.renderComponents();
+    this.subscribe(Actions.PRODUCT_ADD_TO_CART, () => {
+      this.update();
+    });
+    this.subscribe(Actions.PRODUCT_DROP_FROM_CART, () => {
+      this.update();
+    });
   }
 
   renderComponents() {

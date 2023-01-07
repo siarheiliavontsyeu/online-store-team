@@ -43,14 +43,14 @@
     display: none;
 }
 
-.main-photo {
+.main-photo-wrapper {
     width: 65%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.main-photo img {
+.main-photo {
     max-height: 50vh;
     width: auto;
     max-width: 100%;
@@ -76,6 +76,7 @@
 
 .add-to-card {
     width: 20%;
+    padding: 3%;
     display: flex;
     gap: 3%;
     flex-direction: column;
@@ -86,4 +87,8 @@
 
 .product-price {
     font-size: 1.5rem;
+}
+
+.btn-details {
+    width: 100%;
 }
