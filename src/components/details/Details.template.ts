@@ -34,7 +34,7 @@ export const renderProductDetails = (card: ProductI) => {
         <div class="add-to-card">
           <div class="product-price">${card.price} $</div>
           ${card.isInCart ? buttonDrop : buttonAdd}
-          <button class="btn btn-details btn-outline-warning">Buy now</button>
+          <button class="btn btn-details btn-outline-warning"><i class="fas fa-money-check"></i> Buy now</button>
         </div>
       </div>
     </div>

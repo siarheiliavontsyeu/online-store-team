@@ -54,15 +54,20 @@ export default class ProductDetails extends Component {
     const $target = wrapperNode(e.target as HTMLElement);
 
     if (this.$btnAddToCart && this.cardProduct) {
-      const isBtnAddToCart = $target.attr('id') === this.$btnAddToCart.attr('id') || $target.hasClass('fas');
+      const isBtnAddToCart = $target.attr('id') === this.$btnAddToCart.attr('id') || $target.hasClass('fa-cart-plus');
+
       if (isBtnAddToCart && !this.cardProduct.isInCart) {
+        console.log(isBtnAddToCart);
         this.store.addToCart(this.cardProduct.id);
         this.emit(Actions.PRODUCT_ADD_TO_CART);
       }
     }
     if (this.$btnDropFromCart && this.cardProduct) {
-      const isBtnDropFromCart = $target.attr('id') === this.$btnDropFromCart.attr('id') || $target.hasClass('fas');
+      const isBtnDropFromCart =
+        $target.attr('id') === this.$btnDropFromCart.attr('id') || $target.hasClass('fa-trash-alt');
+      console.log(isBtnDropFromCart);
       if (isBtnDropFromCart && this.cardProduct.isInCart) {
+        console.log(123);
         this.store.dropFromCart(this.cardProduct.id);
         this.emit(Actions.PRODUCT_DROP_FROM_CART);
       }
