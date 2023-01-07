@@ -1,8 +1,6 @@
 .product-item {
-    height: 180px;
+    min-height: 300px;
     margin-top: 2%;
-    cursor: pointer;
-
 }
 
 .product-item:hover {
@@ -13,6 +11,11 @@
     height: 100%;
     position: relative;
     overflow: hidden;
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: contain;
 }
 
 .product-wrapper {
@@ -38,12 +41,7 @@
 
 .buttons-wrapper {
     display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 80%;
-    position: absolute;
-    bottom: 2%;
-    margin: 0 10%;
+    justify-content: space-around;
 }
 
 .btn-product {
