@@ -1,11 +1,14 @@
 import { ProductI } from '../../../../../constants/types';
 
-const getRatingStars = (rating: number) => rating < 4.5 
-? '<i class="fas fa-star-half-alt"></i>' 
-: '<i class="fas fa-star"></i>';
+const getRatingStars = (rating: number) =>
+  rating < 4.5 ? '<i class="fas fa-star-half-alt"></i>' : '<i class="fas fa-star"></i>';
 
 export const renderProductCard = (card: ProductI) => {
-  return `<div id="product-card-${card.id}" class="product-card not-in-cart card " >
+  const cartClass = card.isInCart ? 'in-cart' : 'not-in-cart';
+  const buttonAdd = `<button id="add-to-cart-btn-${card.id}" type="button" class="btn btn-product btn-warning"><i class="fas fa-cart-plus"></i> Add</button>`;
+  const buttonDrop = `<button id="drop-from-cart-btn-${card.id}" type="button" class="btn btn-product btn-danger"><i class="fas fa-trash-alt"></i> Drop</button>`;
+
+  return `<div id="product-card-${card.id}" class="product-card ${cartClass} card">
   
   <h5 class="card-header">${card.brand}</h5>
   <img src=${card.images[0]} class="card-img-top" alt=${card.title}>
@@ -35,11 +38,10 @@ export const renderProductCard = (card: ProductI) => {
     </div>
   </div>
     <div class="buttons-wrapper">
-    <button id="add-to-cart-btn-${card.id}" type="button" class="btn btn-product btn-warning">Add to cart</button>
-    <a href="#product/${card.id}" class="btn btn-product btn-info">Details</a>
+    ${card.isInCart ? buttonDrop : buttonAdd}
+    <a href="#product/${card.id}" class="btn btn-product btn-info"><i class="fas fa-info"></i> Details</a>
     </div>
   
   </div>
-`
+`;
 };
-
