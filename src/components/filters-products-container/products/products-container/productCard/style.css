@@ -1,8 +1,17 @@
 .product-item {
-    height: 180px;
+    min-height: 300px;
     margin-top: 2%;
     cursor: pointer;
 
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: contain;
+}
+
+.product-wrapper {
+    height: 100%;
 }
 
 .product-card {
@@ -21,6 +30,10 @@
 
 .product-wrapper {
     height: 100%;
+}
+
+.card-body {
+    margin-bottom: 2%;
 }
 
 .product-info {
