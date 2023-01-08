@@ -59,6 +59,13 @@ export interface StateI {
   filterBy: FilterBy;
   urlQuery: string;
   urlParams: string;
+  promoCodes: PromoCodesI[];
+  initialPromoCodes: PromoCodesI[];
+}
+
+export interface PromoCodesI {
+  text: string;
+  discount: number;
 }
 
 export enum FilterBy {
@@ -137,6 +144,7 @@ export type PagesClasses = typeof Main | typeof Product | typeof Cart | typeof N
 export interface SummaryI {
   products: number;
   total: number;
+  totalWithPromoCodes: number;
 }
 
 export enum StorageE {
