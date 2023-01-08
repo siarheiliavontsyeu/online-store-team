@@ -11,7 +11,7 @@ type ComponentsInstances = ProductsContainer | ProductsControl;
 
 export default class Products extends Component {
   static tagName = 'div';
-  static className = 'products';
+  static className = 'products w-100';
 
   componentsClass: ComponentsClasses[];
   componentsInstance: ComponentsInstances[];

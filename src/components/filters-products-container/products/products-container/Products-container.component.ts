@@ -27,7 +27,16 @@ export default class ProductsContainer extends Component {
 
   init() {
     super.init();
-    this.renderComponents();
+    if (this.store.getProductsForView().length > 0) {
+      this.renderComponents();
+    } else {
+      const $el = createNode({
+        tag: 'h2',
+        classes: ['text-info'],
+        innerText: 'Not found ☹',
+      });
+      this.$root.append($el);
+    }
   }
 
   renderComponents() {
