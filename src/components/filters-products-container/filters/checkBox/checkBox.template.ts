@@ -29,6 +29,7 @@ const getCheckboxFilter = ({ group, initData = {}, currentData, checked = [] }: 
       const currentValue = (currentData as { [key: string]: number })[key] ?? 0;
       return li(key, currentValue, maxValue);
     })
+    .sort()
     .join('');
 
   return `

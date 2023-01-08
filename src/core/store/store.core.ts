@@ -73,7 +73,7 @@ export default class Store {
 
   updateProductsStateFromUrl() {
     if (this.getUrlQuery()) {
-      const urlQuery = this.getUrlQuery()?.split('&');
+      const urlQuery = decodeURIComponent(this.getUrlQuery())?.split('&');
       const queries: { [key: string]: string[] } = {};
       urlQuery.forEach((el) => {
         const [type = '', query = ''] = el.split('=');
@@ -398,7 +398,7 @@ export default class Store {
     const summary: SummaryI = { products: 0, total: 0 };
     Object.values(this.state.initialProducts).forEach((product) => {
       const prod = this.state.cart.find((el) => el.id === product.id);
-      if (prod) {
+      if (prod && summary) {
         summary.products += prod.count;
         summary.total += product.price * prod.count;
       }
