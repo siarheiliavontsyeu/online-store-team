@@ -38,8 +38,8 @@ export default class Store {
       urlQuery: '',
       urlParams: '',
       initialPromoCodes: [
-        { text: 'ALI', discount: 40 },
-        { text: 'SIA', discount: 30 },
+        { text: 'ALI', discount: 15 },
+        { text: 'SIA', discount: 5 },
       ],
       promoCodes: [],
     };
@@ -68,13 +68,18 @@ export default class Store {
     this.state.stocks = this.getFilterBy() === FilterBy.range ? this.getMinMaxStock() : this.getMinMaxStock(products);
   }
 
-  getPromoCodes() {
+  getInitialPromoCodes() {
     return this.state.initialPromoCodes;
   }
 
+  getPromoCodes() {
+    return this.state.promoCodes;
+  }
+
   pickPromoCode(value: string) {
-    const code = this.state.initialPromoCodes.find((el) => el.text === value);
-    if (code) {
+    const code = this.state.initialPromoCodes.find((el) => el.text === value.toUpperCase());
+    const codeInPromoCodes = this.state.promoCodes.some((promo) => promo.text === value.toUpperCase());
+    if (code && !codeInPromoCodes) {
       this.state.promoCodes = [...this.state.promoCodes, code];
       return code;
     }
