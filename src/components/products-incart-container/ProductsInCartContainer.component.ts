@@ -39,6 +39,12 @@ export default class ProductsInCartContainer extends Component {
     this.subscribe(Actions.PRODUCT_DROP_FROM_CART, () => {
       this.update();
     });
+    this.subscribe(Actions.PROMO_CODE_ADD, () => {
+      this.update();
+    });
+    this.subscribe(Actions.PROMO_CODE_DROP, () => {
+      this.update();
+    });
   }
 
   renderComponents() {

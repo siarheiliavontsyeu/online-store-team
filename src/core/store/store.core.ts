@@ -37,6 +37,11 @@ export default class Store {
       filterBy: FilterBy.null,
       urlQuery: '',
       urlParams: '',
+      initialPromoCodes: [
+        { text: 'ALI', discount: 15 },
+        { text: 'SIA', discount: 5 },
+      ],
+      promoCodes: [],
     };
   }
 
@@ -61,6 +66,28 @@ export default class Store {
     this.state.brands = this.getBrandsWithCount(products);
     this.state.prices = this.getFilterBy() === FilterBy.range ? this.getMinMaxPrices() : this.getMinMaxPrices(products);
     this.state.stocks = this.getFilterBy() === FilterBy.range ? this.getMinMaxStock() : this.getMinMaxStock(products);
+  }
+
+  getInitialPromoCodes() {
+    return this.state.initialPromoCodes;
+  }
+
+  getPromoCodes() {
+    return this.state.promoCodes;
+  }
+
+  pickPromoCode(value: string) {
+    const code = this.state.initialPromoCodes.find((el) => el.text === value.toUpperCase());
+    const codeInPromoCodes = this.state.promoCodes.some((promo) => promo.text === value.toUpperCase());
+    if (code && !codeInPromoCodes) {
+      this.state.promoCodes = [...this.state.promoCodes, code];
+      return code;
+    }
+    return false;
+  }
+
+  dropPromoCode(value: string) {
+    this.state.promoCodes = this.state.promoCodes.filter((el) => el.text !== value);
   }
 
   getFilterBy() {
@@ -395,7 +422,7 @@ export default class Store {
   }
 
   getSummary() {
-    const summary: SummaryI = { products: 0, total: 0 };
+    const summary: SummaryI = { products: 0, total: 0, totalWithPromoCodes: 0 };
     Object.values(this.state.initialProducts).forEach((product) => {
       const prod = this.state.cart.find((el) => el.id === product.id);
       if (prod && summary) {
@@ -403,6 +430,11 @@ export default class Store {
         summary.total += product.price * prod.count;
       }
     });
+    let sum = summary.total;
+    for (const code of this.state.promoCodes) {
+      sum = sum - (summary.total * code.discount) / 100;
+    }
+    summary.totalWithPromoCodes = Number(sum.toFixed(2));
     return summary;
   }
 }
