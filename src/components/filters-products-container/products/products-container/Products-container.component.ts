@@ -48,7 +48,12 @@ export default class ProductsContainer extends Component {
       const tagName = (ProductCard.tagName as keyof HTMLElementTagNameMap) ?? 'div';
       const classes = ProductCard.className.split(' ');
       const $el = createNode({ tag: tagName, classes });
-      const component = new ProductCard($el, { ...componentOptions, name: '', listeners: [] }, product);
+      const component = new ProductCard(
+        $el,
+        { ...componentOptions, name: '', listeners: [] },
+        product,
+        this.store.getProductsViewBy()
+      );
       $el.html(component.render());
       this.$root.append($el);
       this.componentsInstance.push(component);
