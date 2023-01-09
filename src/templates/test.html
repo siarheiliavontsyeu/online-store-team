@@ -29,7 +29,7 @@
     </div>
   </header>
   <main>
-    <div class="product-details card " >
+    <div class="product-details card ">
       <div class="product-wrapper">
         <h4 class="product-title card-header bg-primary">${card.title}</h4>
         <div class="product-data">
@@ -58,27 +58,61 @@
     </div>
   </main>
   <footer class="footer">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <ul class="nav col-md-4 justify-content-start list-unstyled d-flex">
-        <li class="ms-3">
-          <a class="github text-warning" href="https://github.com/astap4" target="_blank">
-            <i class="fab fa-lg fa-github"></i>
-            <span>astap4</span>
-          </a>
-        </li>
-        <li class="ms-3">
-          <a class="github text-warning" href="https://github.com/siarheiliavontsyeu" target="_blank">
-            <i class="fab fa-lg fa-github"></i>
-            <span>siarheiliavontsyeu</span>
-          </a>
-        </li>
-      </ul>
-      <div class="col-md-4 d-flex align-items-center justify-content-end">
-        <a class="rsschool" href="https://rs.school/js/" target="_blank">
-          <img class="rsschool__img" src="https://rs.school/images/rs_school_js.svg" alt="school logo" />
-        </a>
-        <span class="mb-3 mb-md-0 text-muted px-2">© 2022</span>
+    <div class="container">
+      <div class="link-navigation text-warning">Store -> ${card.category} -> ${card.brand} -> ${card.title}</div>
+      <div class="card">
+        <div class="product-wrapper">
+          <h4 class="product-title-details card-header bg-primary">${card.title}</h4>
+          <div class="product-data">
+            <div class="product-photos">
+              <div class="slides">
+                ${getPhotos(card.images)}
+              </div>
+              <div class="main-photo-wrapper">
+                <div class='main-photo' style='background: url(${card.thumbnail}) 0px 0px / contain no-repeat'></div>
+                <p class="text-muted mb-0">Rating: </span></p>
+                <div class="ms-auto text-warning">
+                  <i class="fa fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  ${getRatingStars(card.rating)}
+                </div>
+              </div>
+            </div>
+            <div class="product-inf">
+              <div class="product-detail-item">
+                <h6 class="bg-info">Description:</h6>
+                <p>${card.description}</p>
+              </div>
+              <div class="product-detail-item">
+                <h6 class="bg-info">Category:</h6>
+                <p>${card.category}</p>
+              </div>
+              <div class="product-detail-item">
+                <h6 class="bg-info">Brand:</h6>
+                <p>${card.brand}</p>
+              </div>
+              <div class="product-detail-item">
+                <h6 class="bg-info">Rating:</h6>
+                <p>${card.rating}</p>
+              </div>
+              <div class="product-detail-item">
+                <h6 class="bg-info">Stock:</h6>
+                <p>${card.stock}</p>
+              </div>
+            </div>
+            <div class="add-to-card">
+              <p class="product-price text-danger"><s>${card.price + card.discountPercentage} $</s></p>
+              <div class="product-price">${card.price} $</div>
+              ${card.isInCart ? buttonDrop : buttonAdd}
+              <button class="btn btn-details btn-outline-warning"><i class="fas fa-money-check"></i> Buy now</button>
+            </div>
+          </div>
+
+        </div>
       </div>
+    </div>
     </div>
   </footer>
 </body>

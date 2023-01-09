@@ -6,15 +6,12 @@ import { CurrentRoute } from '../../core/router/currentRoute';
 import { Actions } from '../../constants/actions';
 export default class ProductDetails extends Component {
   static tagName = 'div';
-  static className = 'product-details d-flex';
+  static className = 'product-details';
 
   private $btnAddToCart: DomNode | false;
   private $btnDropFromCart: DomNode | false;
-  private $currentPhoto: DomNode | false;
   private $mainPhoto: DomNode | false;
-
   private productId: number;
-  private photoId: number | undefined;
   private cardProduct: ProductI | undefined | null;
 
   constructor($root: DomNode, options: ComponentOptions) {
@@ -35,8 +32,7 @@ export default class ProductDetails extends Component {
     super.init();
     this.$btnAddToCart = this.$root.find(`#add-to-cart-btn-${this.productId}`);
     this.$btnDropFromCart = this.$root.find(`#drop-from-cart-btn-${this.productId}`);
-    this.$currentPhoto = this.$root.find(`photo-item-${this.photoId}`);
-    this.$mainPhoto = this.$root.find(`main-photo`);
+    this.$mainPhoto = this.$root.find('.main-photo');
     this.subscribe(Actions.PRODUCT_ADD_TO_CART, () => {
       this.update();
     });
@@ -65,18 +61,16 @@ export default class ProductDetails extends Component {
     if (this.$btnDropFromCart && this.cardProduct) {
       const isBtnDropFromCart =
         $target.attr('id') === this.$btnDropFromCart.attr('id') || $target.hasClass('fa-trash-alt');
-      console.log(isBtnDropFromCart);
       if (isBtnDropFromCart && this.cardProduct.isInCart) {
         console.log(123);
         this.store.dropFromCart(this.cardProduct.id);
         this.emit(Actions.PRODUCT_DROP_FROM_CART);
       }
     }
-    if (this.$currentPhoto) {
-      console.log(this.$currentPhoto);
-      const iscurrentPhoto = $target.attr('id') === this.$currentPhoto.attr('id');
-      if (iscurrentPhoto) {
-        console.log('Hello!');
+    const $currentPhoto = Number($target.attr('id'))
+    if ($currentPhoto) {
+      if(this.$mainPhoto){
+        this.$mainPhoto.inlineCss({['background']:`url(${this.cardProduct?.images[$currentPhoto-1]}) 0px 0px / 90% no-repeat`})
       }
     }
   }

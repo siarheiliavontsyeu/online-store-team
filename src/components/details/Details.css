@@ -5,8 +5,10 @@
 
 .product-data {
     display: flex;
+    align-items: center;
     width: 100%;
-    padding: 0.5%;
+    height: 50vh;
+    padding: 1%;
 }
 
 .link-navigation {
@@ -46,20 +48,18 @@
 .main-photo-wrapper {
     width: 65%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
 .main-photo {
-    max-height: 50vh;
-    width: auto;
-    max-width: 100%;
-    border: 1px solid rgb(57, 124, 232);
-    border-radius: 0.5rem;
+    width: 80%;
+    min-height: 220px;
 }
 
 .product-inf {
-    font-size: 0.86rem;
+    font-size: 1rem;
     width: 40%;
     text-align: center;
     margin: 2% auto;
@@ -87,6 +87,7 @@
 
 .product-price {
     font-size: 1.5rem;
+    margin-bottom: 10%;
 }
 
 .btn-details {
