@@ -1,4 +1,4 @@
-import { capitalize, getMethodName, paginateArr, storage } from './helpers.utils';
+import { capitalize, getMethodName, paginateArr } from './helpers.utils';
 
 describe('capitalize', () => {
   it('capitalizes the first letter of a string', () => {
