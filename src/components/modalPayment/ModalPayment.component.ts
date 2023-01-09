@@ -5,7 +5,7 @@ import { ComponentOptions } from '../../constants/types';
 
 export default class ModalPayment extends Component {
   static tagName = 'div';
-  static className = 'modal d-flex';
+  static className = 'modal hidden';
 
   constructor($root: DomNode, options: ComponentOptions) {
     super($root, {
