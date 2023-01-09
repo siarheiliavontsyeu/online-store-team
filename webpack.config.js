@@ -24,7 +24,7 @@ const PATHS = {
 
 const entry = {
   index: [`${PATHS.src}/index.ts`],
-  test: [`${PATHS.src}/templates/test.ts`],
+  template: [`${PATHS.src}/templates/template.ts`],
 };
 
 const pages = [
@@ -34,9 +34,9 @@ const pages = [
     template: `${PATHS.src}/index.html`,
   },
   {
-    chunks: ['test'],
-    page: 'test.html',
-    template: `${PATHS.src}/templates/test.html`,
+    chunks: ['template'],
+    page: 'template.html',
+    template: `${PATHS.src}/templates/template.html`,
   },
 ];
 
