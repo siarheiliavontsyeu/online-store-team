@@ -6,8 +6,8 @@ import Header from '../header/Header.component';
 import ModalPayment from '../modalPayment/index';
 import ProductsInCartContainer from '../products-incart-container/index';
 
-type ComponentsClasses = typeof Header | typeof ProductsInCartContainer | typeof ModalPayment | typeof Footer;
-type ComponentsInstances = Header | ProductsInCartContainer | ModalPayment | Footer;
+type ComponentsClasses = typeof Header | typeof ProductsInCartContainer  | typeof Footer;
+type ComponentsInstances = Header | ProductsInCartContainer  | Footer;
 
 export class CartPageContainer {
   componentsClass: ComponentsClasses[];
@@ -15,7 +15,7 @@ export class CartPageContainer {
   observer: Observer;
 
   constructor(public store: Store) {
-    this.componentsClass = [Header, ProductsInCartContainer, ModalPayment, Footer];
+    this.componentsClass = [Header, ProductsInCartContainer, Footer];
     this.componentsInstance = [];
     this.observer = new Observer();
     this.store = store;
