@@ -157,6 +157,7 @@ export default class ProductsControl extends Component {
     return getTemplate({
       productsFoundCount: this.store.getProductsFoundCount(),
       sortBy: this.store.getProductsSortBy(),
+      viewBy: this.store.getProductsViewBy(),
     });
   }
 

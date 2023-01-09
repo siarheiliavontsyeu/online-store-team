@@ -15,8 +15,17 @@ const getViewDropDownMenuItems = () => {
   return items.join('');
 };
 
-export const getTemplate = ({ productsFoundCount, sortBy }: { productsFoundCount: number; sortBy: ProductsSortBy }) => {
-  const title = `Sort by ${sortBy}`;
+export const getTemplate = ({
+  productsFoundCount,
+  sortBy,
+  viewBy,
+}: {
+  productsFoundCount: number;
+  sortBy: ProductsSortBy;
+  viewBy: ViewOptions;
+}) => {
+  const titleSort = `Sort by ${sortBy}`;
+  const titleView = `View as ${viewBy}`;
   return `
   <div class="card bg-dark">
     <div class="card-body">
@@ -27,7 +36,7 @@ export const getTemplate = ({ productsFoundCount, sortBy }: { productsFoundCount
            href="#" 
            role="button"
            aria-haspopup="true" 
-           aria-expanded="false">${title}</a>
+           aria-expanded="false">${titleSort}</a>
         <div class="dropdown-menu" data-for-id="products-sort" 
         style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 30px);" >
          ${getSortDropDownMenuItems()}
@@ -43,7 +52,7 @@ export const getTemplate = ({ productsFoundCount, sortBy }: { productsFoundCount
            href="#" 
            role="button"
            aria-haspopup="true" 
-           aria-expanded="false">View options</a>
+           aria-expanded="false">${titleView}</a>
         <div class="dropdown-menu" data-for-id="products-view"
         style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 30px);" >
         ${getViewDropDownMenuItems()}
