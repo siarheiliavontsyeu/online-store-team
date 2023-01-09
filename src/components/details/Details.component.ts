@@ -9,9 +9,10 @@ export default class ProductDetails extends Component {
 
   private $btnAddToCart: DomNode | false;
   private $btnDropFromCart: DomNode | false;
-  private $btnBuy: DomNode | false = false;
+  private $btnBuyNow: DomNode | false;
 
   private $mainPhoto: DomNode | false;
+  private $modalWindow: DomNode | false;
   private productId: number;
   private cardProduct: ProductI | undefined | null;
 
@@ -23,8 +24,10 @@ export default class ProductDetails extends Component {
     });
     this.$btnAddToCart = false;
     this.$btnDropFromCart = false;
+    this.$btnBuyNow = false;
     this.$currentPhoto = false;
     this.$mainPhoto = false;
+    this.$modalWindow = false;
     this.productId = Number(this.store.getUrlParams());
     this.cardProduct = this.store.getProductByIdForView(this.productId);
   }
@@ -34,7 +37,8 @@ export default class ProductDetails extends Component {
     this.$btnAddToCart = this.$root.find(`#add-to-cart-btn-${this.productId}`);
     this.$btnDropFromCart = this.$root.find(`#drop-from-cart-btn-${this.productId}`);
     this.$mainPhoto = this.$root.find('.main-photo');
-    this.$btnBuy = this.$root.find('.btn-buy');
+    this.$btnBuyNow = this.$root.find('#buy-now')
+    // this.$modalWindow = (document.querySelector('.modal') as HTMLElement)?wrapperNode(document.querySelector('.modal') as HTMLElement):false;
     this.subscribe(Actions.PRODUCT_ADD_TO_CART, () => {
       this.update();
     });
@@ -76,11 +80,15 @@ export default class ProductDetails extends Component {
       }
     }
 
-    if (this.$btnBuy) {
-      const isBtnBuy = $target.attr('id') === this.$btnBuy.attr('id');
-      if(isBtnBuy){
-        console.log('Hello')
-      }
+    if (this.$btnBuyNow && this.cardProduct) {
+      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id');
+        if(isBtnBuyNow && !this.cardProduct.isInCart){
+          if (this.$modalWindow) {
+            this.$modalWindow.removeClass('hidden')
+          }
+          this.store.addToCart(this.cardProduct.id);
+          this.emit(Actions.PRODUCT_ADD_TO_CART);
+        }
     }
 
   }
