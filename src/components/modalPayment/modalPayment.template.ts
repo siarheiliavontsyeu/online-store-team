@@ -1,5 +1,5 @@
 export const getModalTemplate = () => {
-      return `
+  return `
       <div class="wrapper-modal">
       <div class="container">
         <div class="modal-content">
@@ -44,10 +44,10 @@ export const getModalTemplate = () => {
           </div>
           <div class="modal-body"></div>
           <div class="modal-bottom modal-footer">
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button id="btn-submit-buy" type="button" class="btn btn-primary">Submit</button>
           </div>
         </div>
       </div>
     </div>
       `;
-    };
+};

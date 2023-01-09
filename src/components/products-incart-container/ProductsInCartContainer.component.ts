@@ -2,12 +2,13 @@ import { Actions } from '../../constants/actions';
 import { ComponentOptions } from '../../constants/types';
 import Component from '../../core/components/component.core';
 import { createNode, DomNode } from '../../core/components/node.core';
+import ModalPayment from '../modalPayment/index';
 import ProductsInCart from './products-incart/index';
 import { getTemplate } from './productsInCartContainer.template';
 import Summary from './summary/index';
 
-type ComponentsClasses = typeof ProductsInCart | typeof Summary;
-type ComponentsInstances = ProductsInCart | Summary;
+type ComponentsClasses = typeof ProductsInCart | typeof Summary | typeof ModalPayment;
+type ComponentsInstances = ProductsInCart | Summary | ModalPayment;
 
 export default class ProductsInCartContainer extends Component {
   static tagName = 'div';
@@ -21,7 +22,7 @@ export default class ProductsInCartContainer extends Component {
       name: 'ProductsInCartContainer',
       listeners: [],
     });
-    this.componentsClass = [ProductsInCart, Summary];
+    this.componentsClass = [ProductsInCart, Summary, ModalPayment];
     this.componentsInstance = [];
   }
 
