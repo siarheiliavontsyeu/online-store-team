@@ -70,7 +70,7 @@ export default class ProductDetails extends Component {
     const $currentPhoto = Number($target.attr('id'))
     if ($currentPhoto) {
       if(this.$mainPhoto){
-        this.$mainPhoto.inlineCss({['background']:`url(${this.cardProduct?.images[$currentPhoto-1]}) 0px 0px / 80% no-repeat`})
+        this.$mainPhoto.inlineCss({['background']:`url(${this.cardProduct?.images[$currentPhoto-1]}) 0px 0px / 90% no-repeat`})
       }
     }
   }
