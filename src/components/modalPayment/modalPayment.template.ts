@@ -5,7 +5,7 @@ export const getModalTemplate = () => {
         <div class="modal-content">
           <div class="modal-top modal-header">
             <h5 class="modal-title">Personal details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <button id="btn-close-modal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true"></span>
             </button>
           </div>

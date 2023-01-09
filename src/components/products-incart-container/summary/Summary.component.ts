@@ -9,6 +9,7 @@ export default class Summary extends Component {
   static className = 'cart-summary';
   private $inputPromoAdd: DomNode | false;
   private $btnBuyNow: DomNode | false;
+  private $btnCloseModal: DomNode | false;
   private $modalWindow: DomNode | false;
 
   constructor($root: DomNode, options: ComponentOptions) {
@@ -19,14 +20,22 @@ export default class Summary extends Component {
     });
     this.$inputPromoAdd = false;
     this.$btnBuyNow = false;
+    this.$btnCloseModal = false;
     this.$modalWindow = false;
   }
-
+  find(selector: string) {
+    const element = document.querySelector(selector) as HTMLElement;
+    if (element) {
+      return wrapperNode(element);
+    }
+    return false;
+  }
   init() {
     super.init();
     this.$inputPromoAdd = this.$root.find('#add-promo');
     this.$btnBuyNow = this.$root.find('#buy-now');
-    this.$modalWindow = this.$root.find('.modal');
+    this.$btnCloseModal = (document.querySelector('#btn-close-modal') as HTMLElement)?wrapperNode(document.querySelector('.modal') as HTMLElement):false;
+    this.$modalWindow = (document.querySelector('.modal') as HTMLElement)?wrapperNode(document.querySelector('.modal') as HTMLElement):false;
   }
 
   onClick(e: Event) {
@@ -42,7 +51,16 @@ export default class Summary extends Component {
     if (this.$btnBuyNow) {
       const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id');
       if(isBtnBuyNow){
-          console.log(this.$modalWindow)
+        if (this.$modalWindow) {
+          this.$modalWindow.removeClass('hidden')
+        }
+      }
+    }
+    if (this.$btnCloseModal) {
+      const isBtnCloseModal = $target.attr('id') === this.$btnCloseModal.attr('id');
+      console.log(isBtnCloseModal)
+      if (isBtnCloseModal) {
+        console.log("Hi!")
       }
     }
   }
