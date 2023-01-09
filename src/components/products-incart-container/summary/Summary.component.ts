@@ -8,6 +8,8 @@ export default class Summary extends Component {
   static tagName = 'div';
   static className = 'cart-summary';
   private $inputPromoAdd: DomNode | false;
+  private $btnBuyNow: DomNode | false;
+  private $modalWindow: DomNode | false;
 
   constructor($root: DomNode, options: ComponentOptions) {
     super($root, {
@@ -16,11 +18,15 @@ export default class Summary extends Component {
       listeners: ['click', 'input'],
     });
     this.$inputPromoAdd = false;
+    this.$btnBuyNow = false;
+    this.$modalWindow = false;
   }
 
   init() {
     super.init();
     this.$inputPromoAdd = this.$root.find('#add-promo');
+    this.$btnBuyNow = this.$root.find('#buy-now');
+    this.$modalWindow = this.$root.find('.modal');
   }
 
   onClick(e: Event) {
@@ -30,6 +36,13 @@ export default class Summary extends Component {
       if (promoCode) {
         this.store.dropPromoCode(promoCode);
         this.emit(Actions.PROMO_CODE_DROP);
+      }
+    }
+    
+    if (this.$btnBuyNow) {
+      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id');
+      if(isBtnBuyNow){
+          console.log(this.$modalWindow)
       }
     }
   }
