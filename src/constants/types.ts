@@ -55,6 +55,7 @@ export interface StateI {
   categoriesScrollPosition: number;
   brandsScrollPosition: number;
   productsSortBy: ProductsSortBy;
+  productsViewBy: ViewOptions;
   searchText: string;
   filterBy: FilterBy;
   urlQuery: string;
@@ -150,3 +151,5 @@ export interface SummaryI {
 export enum StorageE {
   SHOP_CART = '*__SHOP_CART__*',
 }
+
+export type ViewOptions = 'Big-cards' | 'Small-cards';

@@ -8,6 +8,7 @@ import {
   StateI,
   StorageE,
   SummaryI,
+  ViewOptions,
 } from '../../constants/types';
 import { SEPARATOR } from '../../constants/data';
 import { storage } from '../../utils/helpers.utils';
@@ -33,6 +34,7 @@ export default class Store {
       categoriesScrollPosition: 0,
       brandsScrollPosition: 0,
       productsSortBy: 'price-DESC',
+      productsViewBy: 'Big-cards',
       searchText: '',
       filterBy: FilterBy.null,
       urlQuery: '',
@@ -114,6 +116,7 @@ export default class Store {
       this.state.searchText = queries.search && queries.search.length ? queries.search[0] : '';
       this.state.productsSortBy =
         queries.sort && queries.sort.length ? (queries.sort[0] as ProductsSortBy) : 'price-DESC';
+      this.state.productsViewBy = queries.view && queries.view.length ? (queries.view[0] as ViewOptions) : 'Big-cards';
     }
     this.filterProducts();
   }
@@ -195,6 +198,14 @@ export default class Store {
 
   setProductsSortBy(value: ProductsSortBy) {
     return (this.state.productsSortBy = value);
+  }
+
+  getProductsViewBy() {
+    return this.state.productsViewBy;
+  }
+
+  setProductsViewBy(value: ViewOptions) {
+    return (this.state.productsViewBy = value);
   }
 
   setCheckedCategories(value: string[]) {

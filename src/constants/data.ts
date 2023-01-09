@@ -1,4 +1,4 @@
-import { ProductsSortBy } from './types';
+import { ProductsSortBy, ViewOptions } from './types';
 
 export const GITHUB = [
   { name: 'astap4', link: 'https://github.com/astap4' },
@@ -20,3 +20,5 @@ export const SORT_BY_VALUES: ProductsSortBy[] = [
 ];
 
 export const SEPARATOR = '↕';
+
+export const VIEW_OPTIONS: ViewOptions[] = ['Big-cards', 'Small-cards'];
