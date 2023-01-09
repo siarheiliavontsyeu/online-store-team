@@ -51,11 +51,8 @@
 }
 
 .main-photo {
-    max-height: 50vh;
-    width: auto;
-    max-width: 100%;
-    border: 1px solid rgb(57, 124, 232);
-    border-radius: 0.5rem;
+    width: 100%;
+    min-height: 90%;
 }
 
 .product-inf {
