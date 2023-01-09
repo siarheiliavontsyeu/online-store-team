@@ -89,7 +89,7 @@ export default class Store {
   }
 
   dropPromoCode(value: string) {
-    this.state.promoCodes = this.state.promoCodes.filter((el) => el.text !== value);
+    this.state.promoCodes = this.state.promoCodes.filter((el) => el.text !== value.toUpperCase());
   }
 
   getFilterBy() {
