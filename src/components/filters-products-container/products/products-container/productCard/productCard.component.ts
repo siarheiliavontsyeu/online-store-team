@@ -1,5 +1,5 @@
 import Component from '../../../../../core/components/component.core';
-import { ComponentOptions, ProductI } from '../../../../../constants/types';
+import { ComponentOptions, ProductI, ViewOptions } from '../../../../../constants/types';
 import { DomNode, wrapperNode } from '../../../../../core/components/node.core';
 import { renderProductCard } from './productCard.template';
 import { Actions } from '../../../../../constants/actions';
@@ -12,13 +12,14 @@ export default class productCard extends Component {
   private $btnAddToCart: DomNode | false;
   private $btnDropFromCart: DomNode | false;
 
-  constructor($root: DomNode, options: ComponentOptions, cardData: ProductI) {
+  constructor($root: DomNode, options: ComponentOptions, cardData: ProductI, viewBy: ViewOptions) {
     super($root, {
       ...options,
       name: 'productCard',
       listeners: ['click'],
     });
     this.cardData = cardData;
+    this.viewBy = viewBy;
     this.$btnAddToCart = false;
     this.$btnDropFromCart = false;
   }
@@ -30,7 +31,7 @@ export default class productCard extends Component {
   }
 
   render() {
-    return renderProductCard(this.cardData);
+    return renderProductCard(this.cardData, this.viewBy as ViewOptions);
   }
 
   onClick(e: Event) {

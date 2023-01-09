@@ -27,7 +27,16 @@ export default class ProductsContainer extends Component {
 
   init() {
     super.init();
-    this.renderComponents();
+    if (this.store.getProductsForView().length > 0) {
+      this.renderComponents();
+    } else {
+      const $el = createNode({
+        tag: 'h2',
+        classes: ['text-info'],
+        innerText: 'Not found ☹',
+      });
+      this.$root.append($el);
+    }
   }
 
   renderComponents() {
@@ -39,7 +48,12 @@ export default class ProductsContainer extends Component {
       const tagName = (ProductCard.tagName as keyof HTMLElementTagNameMap) ?? 'div';
       const classes = ProductCard.className.split(' ');
       const $el = createNode({ tag: tagName, classes });
-      const component = new ProductCard($el, { ...componentOptions, name: '', listeners: [] }, product);
+      const component = new ProductCard(
+        $el,
+        { ...componentOptions, name: '', listeners: [] },
+        product,
+        this.store.getProductsViewBy()
+      );
       $el.html(component.render());
       this.$root.append($el);
       this.componentsInstance.push(component);

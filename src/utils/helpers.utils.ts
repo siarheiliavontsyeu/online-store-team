@@ -1,5 +1,8 @@
 export const capitalize = (str: string) => {
-  return `${str[0].toUpperCase()}${str.slice(1)}`;
+  if (str.length > 0) {
+    return `${str[0].toUpperCase()}${str.slice(1)}`;
+  }
+  return '';
 };
 
 export const getMethodName = (event: keyof GlobalEventHandlersEventMap) => {
@@ -7,7 +10,10 @@ export const getMethodName = (event: keyof GlobalEventHandlersEventMap) => {
 };
 
 export const paginateArr = <T>(arr: T[], limit: number, page: number) => {
-  return arr.slice((page - 1) * limit, page * limit);
+  if (page > 0 && limit > 0) {
+    return arr.slice((page - 1) * limit, page * limit);
+  }
+  return [];
 };
 
 export const storage = <T>(key: string, data?: T) => {
