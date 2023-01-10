@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Store test</title>
+</head>
+
+<body>
+  <header class="header bg-dark navbar">
+    <div class="container">
+      <a href="#" class="logo navbar-brand">
+        <img src="../assets/icons/icons8-shopping-mall-50.png" class="logo-image" />
+        <h1 class="name">Online store</h1>
+      </a>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Search..." />
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <div class="shopping-card">
+        <div class="total-sum">$ ${totalSum}</div>
+        <div class="total-amount">${totaAmount}</div>
+        <div class="shopping-card-icon">
+          <img src="../assets/icons/icons8-shopping-cart-48.png" class="logo-image" />
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="wrapper-modal">
+      <div class="container">
+        <div class="modal-content">
+          <div class="modal-top modal-header">
+            <h5 class="modal-title">Personal details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="personal-details">
+              <form class="modal-form" name="modal-form">
+                <div class="personal-name form-item">
+                  <input type="text" class="form-control" placeholder="Enter your name" required="">
+                </div>
+                <div class="personal-number form-item">
+                  <input type="text" class="form-control" placeholder="Enter your phone number" required="">
+                </div>
+                <div class="adress form-item">
+                  <input type="text" class="form-control" placeholder="Enter your delivery adress" required="">
+                </div>
+                <div class="email form-item">
+                  <input type="text" class="form-control" placeholder="Enter your e-mail" required="">
+                </div>
+              </form>
+            </div>
+            <div class="card-details">
+              <div class="credit-card-data">
+                <div class="credit-card-number">
+                  <input type="text" class="form-control" placeholder="Card number" required="">
+                </div>
+                <div class="credit-card-other-data">
+                  <div class="valid-data">
+                    <span>Valid:</span><input type="text" class="form-control" placeholder="Valid to" required="">
+                  </div>
+                  <div class="cvv-data">
+                    <span>CVV:</span><input type="text" class="form-control" placeholder="CVV" required="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-bottom modal-footer">
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+  </footer>
+</body>
+
+</html>
