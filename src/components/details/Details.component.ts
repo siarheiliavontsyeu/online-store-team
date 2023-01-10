@@ -80,7 +80,7 @@ export default class ProductDetails extends Component {
     }
 
     if (this.$btnBuyNow && this.cardProduct) {
-      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id');
+      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id') || $target.hasClass('fa-money-check');
       if (isBtnBuyNow) {
         e.preventDefault();
         if (!this.cardProduct.isInCart) {

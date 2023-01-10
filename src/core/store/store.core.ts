@@ -205,7 +205,7 @@ export default class Store {
   }
 
   setProductsViewBy(value: ViewOptions) {
-    return (this.state.productsViewBy = value);
+    this.state.productsViewBy = value;
   }
 
   setCheckedCategories(value: string[]) {
@@ -430,6 +430,10 @@ export default class Store {
       }
     }
     storage(StorageE.SHOP_CART, this.state.cart);
+  }
+
+  clearCart() {
+    this.state.cart = [];
   }
 
   getSummary() {

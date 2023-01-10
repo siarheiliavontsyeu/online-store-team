@@ -29,7 +29,7 @@ export const validCardDate = (s: string): boolean => {
 };
 
 export const validAddress = (s: string): boolean => {
-  const regexp = /^\b\w{5,}\b \b\w{5,}\b \b\w{5,}\b( \b\w{5,}\b)+$/;
+  const regexp = /^\b\w{5,}\b \b\w{5,}\b( \b\w{5,}\b)+$/;
   return regexp.test(s);
 };
 
