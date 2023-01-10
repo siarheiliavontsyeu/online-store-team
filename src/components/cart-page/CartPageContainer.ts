@@ -3,10 +3,11 @@ import Observer from '../../core/components/observer.core';
 import Store from '../../core/store/store.core';
 import Footer from '../footer/index';
 import Header from '../header/Header.component';
+import ModalPayment from '../modalPayment/index';
 import ProductsInCartContainer from '../products-incart-container/index';
 
-type ComponentsClasses = typeof Header | typeof ProductsInCartContainer | typeof Footer;
-type ComponentsInstances = Header | ProductsInCartContainer | Footer;
+type ComponentsClasses = typeof Header | typeof ProductsInCartContainer  | typeof Footer;
+type ComponentsInstances = Header | ProductsInCartContainer  | Footer;
 
 export class CartPageContainer {
   componentsClass: ComponentsClasses[];
