@@ -49,6 +49,9 @@ export const getModalTemplate = () => {
             </div>
           </div>
           </div>
+          <div class="alert alert-success hidden">
+            <strong>Well done! Order is processed!</strong>
+          </div>
           <button id="btn-submit-buy" type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -57,4 +60,3 @@ export const getModalTemplate = () => {
 </div>
       `;
 };
-

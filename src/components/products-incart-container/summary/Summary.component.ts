@@ -10,7 +10,6 @@ export default class Summary extends Component {
   private $inputPromoAdd: DomNode | false;
   private $btnBuyNow: DomNode | false;
 
-
   constructor($root: DomNode, options: ComponentOptions) {
     super($root, {
       ...options,
@@ -45,7 +44,7 @@ export default class Summary extends Component {
     }
 
     if (this.$btnBuyNow) {
-      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id');
+      const isBtnBuyNow = $target.attr('id') === this.$btnBuyNow.attr('id') || $target.hasClass('fa-money-check');
       if (isBtnBuyNow) {
         this.emit(Actions.PRODUCT_PAGE_OPEN_MODAL);
       }
